@@ -6,7 +6,7 @@ branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 gem "solidus", github: "solidusio/solidus", branch: branch
 
 if ENV.fetch('DB') == 'postgres'
-  gem 'pg', '~> 0.21'
+  gem 'pg'
 end
 
 group :development, :test do

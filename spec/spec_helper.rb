@@ -1,6 +1,9 @@
 require "bundler/setup"
 require "super_good/solidus_taxjar"
 
+# Load the dummy app:
+require File.expand_path('../dummy/config/environment.rb',  __FILE__)
+
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect

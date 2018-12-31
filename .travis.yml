@@ -5,5 +5,6 @@ cache: bundler
 rvm:
   - 2.3.7
 env:
-  - SOLIDUS_VERSION=2.4.1
+  matrix:
+    - SOLIDUS_BRANCH=v2.4 DB=postgres
 before_install: gem install bundler -v 1.17.1

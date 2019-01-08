@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "solidus_core", [">= 2.3.0", "< 3.0.0"]
+  spec.add_dependency "solidus_core", ">= 2.4.0"
   spec.add_dependency "solidus_support"
   spec.add_dependency "taxjar-ruby"
 

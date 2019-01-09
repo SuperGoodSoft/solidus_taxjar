@@ -1,8 +1,13 @@
-require "bundler/setup"
-require "super_good/solidus_taxjar"
+ENV['RAILS_ENV'] ||= 'test'
 
-# Load the dummy app:
-require File.expand_path('../dummy/config/environment.rb',  __FILE__)
+require "bundler/setup"
+
+begin
+  require File.expand_path('../dummy/config/environment', __FILE__)
+rescue LoadError
+  puts 'Could not load dummy application. Please ensure you have run `bundle exec rake test_app`'
+  exit
+end
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

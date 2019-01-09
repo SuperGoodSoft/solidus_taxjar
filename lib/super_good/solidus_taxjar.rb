@@ -8,3 +8,4 @@ module SuperGood
 end
 
 require "super_good/solidus_taxjar/version"
+require "super_good/solidus_taxjar/tax_calculator"

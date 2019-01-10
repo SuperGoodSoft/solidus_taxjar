@@ -12,7 +12,7 @@ module SuperGood
         @taxjar_client = taxjar_client
       end
 
-      def order_tax_for(order)
+      def tax_for(order)
         taxjar_client.tax_for_order order_params(order)
       end
 

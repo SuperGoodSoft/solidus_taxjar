@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe SuperGood::SolidusTaxJar::API do
-  describe "#order_tax_for" do
-    subject { api.order_tax_for order }
+  describe "#tax_for" do
+    subject { api.tax_for order }
 
     let(:api) do
       described_class.new(taxjar_client: dummy_client)

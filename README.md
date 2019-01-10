@@ -1,6 +1,6 @@
 # `SuperGood::SolidusTaxJar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
 
-SuperGood::SolidusTaxJar is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.
+`SuperGood::SolidusTaxJar` is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.
 
 This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spree_taxjar), like [solidus_taxjar](https://github.com/boomerdigital/solidus_taxjar). Instead, `SuperGood::SolidusTaxJar` uses the new configurable tax system [introduced by @adammathys](https://github.com/solidusio/solidus/pull/1892) in Solidus 2.4.
 

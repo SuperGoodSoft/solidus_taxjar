@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require "bundler/setup"
+require "database_cleaner"
 
 begin
   require File.expand_path('../dummy/config/environment', __FILE__)
@@ -21,4 +22,17 @@ RSpec.configure do |config|
 
   config.order = "random"
   Kernel.srand config.seed
+
+  config.before :suite do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before :each do
+    DatabaseCleaner.start
+  end
+
+  # After each spec clean the database.
+  config.after :each do
+    DatabaseCleaner.clean
+  end
 end

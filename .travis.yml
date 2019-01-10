@@ -6,7 +6,7 @@ rvm:
   - 2.3.7
 env:
   matrix:
-    - SOLIDUS_BRANCH=v2.4 DB=postgres
+    - SOLIDUS_BRANCH=v2.4 DB=postgres RAILS_VERSION="~> 5.1.0"
 before_install:
   - gem update --system
   - gem install bundler

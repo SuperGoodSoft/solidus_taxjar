@@ -21,14 +21,14 @@ module SuperGood
       attr_reader :taxjar_client
 
       def order_params(order)
-        ship_address = order.ship_address
+        tax_address = order.tax_address
 
         {
-          to_country: ship_address.country.iso,
-          to_zip: ship_address.zipcode,
-          to_city: ship_address.city,
-          to_state: ship_address&.state&.abbr || ship_address.state_name,
-          to_street: ship_address.address1,
+          to_country: tax_address.country.iso,
+          to_zip: tax_address.zipcode,
+          to_city: tax_address.city,
+          to_state: tax_address&.state&.abbr || tax_address.state_name,
+          to_street: tax_address.address1,
 
           amount: order.item_total,
           shipping: order.shipment_total,

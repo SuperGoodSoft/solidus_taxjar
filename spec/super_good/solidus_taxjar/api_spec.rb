@@ -16,8 +16,18 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
       Spree::Order.create!(
         item_total: 28.00,
         shipment_total: 3.01,
+        store: store,
         ship_address: ship_address,
         line_items: [line_item]
+      )
+    end
+
+    let(:store) do
+      Spree::Store.create!(
+        name: "Default Store",
+        url: "https://store.example.com",
+        code: "store",
+        mail_from_address: "contact@example.com"
       )
     end
 
@@ -74,7 +84,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
       Spree::Product.create!(
         name: "Product Name",
         shipping_category: shipping_category,
-        tax_category: Spree::TaxCategory.first,
+        tax_category: tax_category,
         master: master_variant,
         variants: [master_variant]
       )
@@ -82,6 +92,14 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
 
     let(:shipping_category) do
       Spree::ShippingCategory.create!(name: "Default Category")
+    end
+
+    let(:tax_category) do
+      Spree::TaxCategory.create!(
+        name: "Default",
+        is_default: true,
+        tax_code: "A_GEN_TAX"
+      )
     end
 
     let(:master_variant) do
@@ -92,7 +110,6 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     end
 
     before do
-
       allow(dummy_client).to receive(:tax_for_order).with(
         to_country: "US",
         to_zip: "90210",

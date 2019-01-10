@@ -8,7 +8,7 @@ module SuperGood
         )
       end
 
-      def initialize(taxjar_client: Client.default_taxjar_client)
+      def initialize(taxjar_client: self.class.default_taxjar_client)
         @taxjar_client = taxjar_client
       end
 

@@ -14,7 +14,40 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       ::Spree::Order.new(
         id: 10,
         store: store,
-        ship_address: address
+        ship_address: address,
+        shipments: [
+          boring_shipment,
+          shipment_with_adjustment,
+          shipment_with_existing_tax
+        ]
+      )
+    end
+
+    let(:boring_shipment) do
+      ::Spree::Shipment.new(id: 1, cost: 7)
+    end
+
+    let(:shipment_with_adjustment) do
+      ::Spree::Shipment.new(
+        id: 2,
+        cost: 20,
+        adjustments: [
+          ::Spree::Adjustment.new(amount: -7)
+        ]
+      )
+    end
+
+    let(:shipment_with_existing_tax) do
+      ::Spree::Shipment.new(
+        id: 3,
+        cost: 10,
+        additional_tax_total: 3,
+        adjustments: [
+          ::Spree::Adjustment.new(
+            amount: 3,
+            source_type: "Spree::TaxRate"
+          )
+        ]
       )
     end
 
@@ -43,7 +76,11 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
       before do
         allow(dummy_api).to receive(:tax_for).with(order).and_return(
-          instance_double(::Taxjar::Tax, breakdown: breakdown)
+          instance_double(
+            ::Taxjar::Tax,
+            breakdown: breakdown,
+            shipping: 10.0
+          )
         )
       end
 
@@ -66,7 +103,6 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
         it "returns the taxes" do
           expect(subject.order_id).to eq order.id
-          expect(subject.shipment_taxes).to be_empty
           expect(subject.line_item_taxes.length).to eq 1
 
           item_tax = subject.line_item_taxes.first
@@ -76,6 +112,29 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
             expect(item_tax.tax_rate).to eq tax_rate
             expect(item_tax.amount).to eq 6.66
             expect(item_tax.included_in_price).to eq false
+          end
+
+          shipment_taxes = subject.shipment_taxes
+          expect(shipment_taxes.length).to eq 3
+
+          aggregate_failures do
+            expect(shipment_taxes[0].item_id).to eq 1
+            expect(shipment_taxes[0].label).to eq "Sales Tax"
+            expect(shipment_taxes[0].tax_rate).to eq tax_rate
+            expect(shipment_taxes[0].amount).to eq 2.33
+            expect(shipment_taxes[0].included_in_price).to eq false
+
+            expect(shipment_taxes[1].item_id).to eq 2
+            expect(shipment_taxes[1].label).to eq "Sales Tax"
+            expect(shipment_taxes[1].tax_rate).to eq tax_rate
+            expect(shipment_taxes[1].amount).to eq 4.33
+            expect(shipment_taxes[1].included_in_price).to eq false
+
+            expect(shipment_taxes[2].item_id).to eq 3
+            expect(shipment_taxes[2].label).to eq "Sales Tax"
+            expect(shipment_taxes[2].tax_rate).to eq tax_rate
+            expect(shipment_taxes[2].amount).to eq 3.34
+            expect(shipment_taxes[2].included_in_price).to eq false
           end
         end
       end

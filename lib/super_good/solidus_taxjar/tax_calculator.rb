@@ -17,7 +17,7 @@ module SuperGood
         Spree::Tax::OrderTax.new(
           order_id: order.id,
           line_item_taxes: line_item_taxes,
-          shipment_taxes: []
+          shipment_taxes: shipment_taxes
         )
       end
 
@@ -35,6 +35,46 @@ module SuperGood
             included_in_price: false
           )
         end
+      end
+
+      def shipment_taxes
+        @shipment_taxes ||=
+          begin
+            # Distribute shipping tax across shipments:
+            # TaxJar does not provide a breakdown, so we have to proportionally
+            # distribute the tax across the shipments, accounting for rounding
+            # errors.
+            total_shipping_tax = taxjar_tax.shipping
+
+            tax_items = []
+            remaining_tax = total_shipping_tax
+            shipments = order.shipments.to_a
+            total_shipping_cost = shipments.sum(&:total_before_tax)
+
+            shipments[0...-1].each do |shipment|
+              percentage_of_tax = shipment.total_before_tax / total_shipping_cost
+              shipping_tax = (percentage_of_tax * total_shipping_tax).round(2)
+              remaining_tax -= shipping_tax
+
+              tax_items << ::Spree::Tax::ItemTax.new(
+                item_id: shipment.id,
+                label: "Sales Tax",
+                tax_rate: tax_rate,
+                amount: shipping_tax,
+                included_in_price: false
+              )
+            end
+
+            tax_items << ::Spree::Tax::ItemTax.new(
+              item_id: shipments.last.id,
+              label: "Sales Tax",
+              tax_rate: tax_rate,
+              amount: remaining_tax,
+              included_in_price: false
+            )
+
+            tax_items
+          end
       end
 
       def taxjar_breakdown

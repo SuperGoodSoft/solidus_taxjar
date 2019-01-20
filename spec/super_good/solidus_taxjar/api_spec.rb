@@ -27,7 +27,8 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
         name: "Default Store",
         url: "https://store.example.com",
         code: "store",
-        mail_from_address: "contact@example.com"
+        mail_from_address: "contact@example.com",
+        cart_tax_country_iso: "US"
       )
     end
 

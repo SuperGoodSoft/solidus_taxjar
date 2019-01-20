@@ -79,12 +79,12 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
           instance_double(
             ::Taxjar::Tax,
             breakdown: breakdown,
-            shipping: 10.0
+            shipping: shipping_tax
           )
         )
       end
 
-      context "and there is a breakdown" do
+      context "and there is tax" do
         let!(:tax_rate) do
           ::Spree::TaxRate.create!(
             name: "Sales Tax",
@@ -92,6 +92,8 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
             calculator: ::Spree::Calculator.new
           )
         end
+
+        let(:shipping_tax) { 10 }
 
         let(:breakdown) do
           instance_double ::Taxjar::Breakdown, line_items: [taxjar_line_item]
@@ -141,6 +143,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
       context "and there is not a breakdown" do
         let(:breakdown) { nil }
+        let(:shipping_tax) { 0 }
 
         it "returns no taxes" do
           expect(subject.order_id).to eq order.id

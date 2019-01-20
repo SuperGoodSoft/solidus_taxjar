@@ -12,7 +12,6 @@ module SuperGood
 
       def calculate
         return no_tax if order.tax_address.empty?
-        return no_tax unless taxjar_breakdown
 
         Spree::Tax::OrderTax.new(
           order_id: order.id,
@@ -26,26 +25,29 @@ module SuperGood
       attr_reader :order, :api
 
       def line_item_taxes
-        taxjar_breakdown.line_items.map do |line_item|
-          Spree::Tax::ItemTax.new(
-            item_id: line_item.id.to_i,
-            label: "Sales Tax",
-            tax_rate: tax_rate,
-            amount: line_item.tax_collectable,
-            included_in_price: false
-          )
-        end
+        @line_item_taxes ||=
+          if taxjar_breakdown
+            taxjar_breakdown.line_items.map do |line_item|
+              Spree::Tax::ItemTax.new(
+                item_id: line_item.id.to_i,
+                label: "Sales Tax",
+                tax_rate: tax_rate,
+                amount: line_item.tax_collectable,
+                included_in_price: false
+              )
+            end
+          else
+            []
+          end
       end
 
       def shipment_taxes
         @shipment_taxes ||=
-          begin
+          if (total_shipping_tax = taxjar_tax.shipping) != 0
             # Distribute shipping tax across shipments:
-            # TaxJar does not provide a breakdown, so we have to proportionally
-            # distribute the tax across the shipments, accounting for rounding
-            # errors.
-            total_shipping_tax = taxjar_tax.shipping
-
+            # TaxJar does not provide a breakdown of shipping taxes, so we have
+            # to proportionally distribute the tax across the shipments,
+            # accounting for rounding errors.
             tax_items = []
             remaining_tax = total_shipping_tax
             shipments = order.shipments.to_a
@@ -74,6 +76,8 @@ module SuperGood
             )
 
             tax_items
+          else
+            []
           end
       end
 

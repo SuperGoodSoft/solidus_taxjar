@@ -78,8 +78,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
         allow(dummy_api).to receive(:tax_for).with(order).and_return(
           instance_double(
             ::Taxjar::Tax,
-            breakdown: breakdown,
-            shipping: shipping_tax
+            breakdown: breakdown
           )
         )
       end
@@ -93,18 +92,22 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
           )
         end
 
-        let(:shipping_tax) { 10 }
-
         let(:breakdown) do
-          instance_double ::Taxjar::Breakdown, line_items: [taxjar_line_item]
+          instance_double ::Taxjar::Breakdown,
+            line_items: [taxjar_line_item],
+            shipping?: !!shipping_tax_breakdown,
+            shipping: shipping_tax_breakdown
         end
 
         let(:taxjar_line_item) do
           instance_double ::Taxjar::BreakdownLineItem, id: "33", tax_collectable: 6.66
         end
 
+        let(:shipping_tax_breakdown) { nil }
+
         it "returns the taxes" do
           expect(subject.order_id).to eq order.id
+          expect(subject.shipment_taxes).to be_empty
           expect(subject.line_item_taxes.length).to eq 1
 
           item_tax = subject.line_item_taxes.first
@@ -115,35 +118,42 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
             expect(item_tax.amount).to eq 6.66
             expect(item_tax.included_in_price).to eq false
           end
+        end
 
-          shipment_taxes = subject.shipment_taxes
-          expect(shipment_taxes.length).to eq 3
+        context "when there are shipping taxes" do
+          let(:shipping_tax_breakdown) do
+            instance_double ::Taxjar::Shipping, tax_collectable: 10.00
+          end
 
-          aggregate_failures do
-            expect(shipment_taxes[0].item_id).to eq 1
-            expect(shipment_taxes[0].label).to eq "Sales Tax"
-            expect(shipment_taxes[0].tax_rate).to eq tax_rate
-            expect(shipment_taxes[0].amount).to eq 2.33
-            expect(shipment_taxes[0].included_in_price).to eq false
+          it "returns the shipping taxes" do
+            shipment_taxes = subject.shipment_taxes
+            expect(shipment_taxes.length).to eq 3
 
-            expect(shipment_taxes[1].item_id).to eq 2
-            expect(shipment_taxes[1].label).to eq "Sales Tax"
-            expect(shipment_taxes[1].tax_rate).to eq tax_rate
-            expect(shipment_taxes[1].amount).to eq 4.33
-            expect(shipment_taxes[1].included_in_price).to eq false
+            aggregate_failures do
+              expect(shipment_taxes[0].item_id).to eq 1
+              expect(shipment_taxes[0].label).to eq "Sales Tax"
+              expect(shipment_taxes[0].tax_rate).to eq tax_rate
+              expect(shipment_taxes[0].amount).to eq 2.33
+              expect(shipment_taxes[0].included_in_price).to eq false
 
-            expect(shipment_taxes[2].item_id).to eq 3
-            expect(shipment_taxes[2].label).to eq "Sales Tax"
-            expect(shipment_taxes[2].tax_rate).to eq tax_rate
-            expect(shipment_taxes[2].amount).to eq 3.34
-            expect(shipment_taxes[2].included_in_price).to eq false
+              expect(shipment_taxes[1].item_id).to eq 2
+              expect(shipment_taxes[1].label).to eq "Sales Tax"
+              expect(shipment_taxes[1].tax_rate).to eq tax_rate
+              expect(shipment_taxes[1].amount).to eq 4.33
+              expect(shipment_taxes[1].included_in_price).to eq false
+
+              expect(shipment_taxes[2].item_id).to eq 3
+              expect(shipment_taxes[2].label).to eq "Sales Tax"
+              expect(shipment_taxes[2].tax_rate).to eq tax_rate
+              expect(shipment_taxes[2].amount).to eq 3.34
+              expect(shipment_taxes[2].included_in_price).to eq false
+            end
           end
         end
       end
 
       context "and there is not a breakdown" do
         let(:breakdown) { nil }
-        let(:shipping_tax) { 0 }
 
         it "returns no taxes" do
           expect(subject.order_id).to eq order.id

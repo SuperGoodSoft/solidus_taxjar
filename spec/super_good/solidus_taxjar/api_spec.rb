@@ -118,7 +118,6 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
         to_state: "CA",
         to_street: "475 N Beverly Dr",
 
-        amount: 28.00,
         shipping: 3.01,
 
         line_items: [{

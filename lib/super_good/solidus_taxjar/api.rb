@@ -30,7 +30,6 @@ module SuperGood
           to_state: tax_address&.state&.abbr || tax_address.state_name,
           to_street: tax_address.address1,
 
-          amount: order.item_total,
           shipping: order.shipment_total,
 
           line_items: order.line_items.map do |line_item|

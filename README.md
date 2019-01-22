@@ -6,15 +6,39 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1. Add this line to your application's Gemfile:
 
-```ruby
-gem 'super_good-solidus_taxjar'
-```
+   ```ruby
+   gem 'super_good-solidus_taxjar'
+   ```
 
-And then execute:
+   And then execute:
 
-    $ bundle
+       $ bundle
+
+2. Next, configure Solidus to use this gem:
+
+   ```ruby
+   # Put this in config/initializers/solidus.rb
+
+   Spree.config do |config|
+     config.tax_calculator_class = SuperGood::SolidusTaxJar::TaxCalculator
+   end
+   ```
+
+3. Also, configure your error handling:
+
+   ```ruby
+   # Put this in config/initializers/taxjar.rb
+
+   SuperGood::SolidusTaxJar::TaxCalculator.exception_handler = ->(e) {
+     # Report exceptions in here. For example, if you were using the Sentry's
+     # raven-ruby gem to report errors, you might do this:
+     Raven.capture_exception(exception)
+   }
+   ```
+
+4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
 
 ## Development
 

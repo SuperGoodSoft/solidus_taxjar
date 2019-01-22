@@ -1,6 +1,11 @@
 module SuperGood
   module SolidusTaxJar
     class TaxCalculator
+      class_attribute :exception_handler
+      self.exception_handler = ->(e) {
+        Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
+      }
+
       def self.default_api
         ::SuperGood::SolidusTaxJar::API.new
       end
@@ -22,6 +27,9 @@ module SuperGood
             shipment_taxes: shipment_taxes
           )
         end
+      rescue StandardError => e
+        exception_handler.(e)
+        no_tax
       end
 
       private

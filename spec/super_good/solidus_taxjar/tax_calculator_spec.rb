@@ -71,6 +71,34 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       end
     end
 
+    context "when the API encounters an error" do
+      let(:address) do
+        ::Spree::Address.new(
+          first_name: "Ronnie James",
+          country: ::Spree::Country.new(iso: "US")
+        )
+      end
+
+      before do
+        allow(dummy_api).to receive(:tax_for).with(order).and_raise("A bad thing happened.")
+      end
+
+      it "calls the configured error handler" do
+        expect(described_class.exception_handler).to receive(:call) do |e|
+          expect(e).to be_a StandardError
+          expect(e.message).to eq "A bad thing happened."
+        end
+
+        subject
+      end
+
+      it "returns no taxes" do
+        expect(subject.order_id).to eq order.id
+        expect(subject.shipment_taxes).to be_empty
+        expect(subject.line_item_taxes).to be_empty
+      end
+    end
+
     context "when the order has a non-empty tax address" do
       let(:address) do
         ::Spree::Address.new(

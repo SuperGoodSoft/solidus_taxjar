@@ -70,7 +70,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
         variant: variant,
         price: 10,
         quantity: 3,
-        adjustment_total: -2
+        promo_total: -2
       )
     end
 

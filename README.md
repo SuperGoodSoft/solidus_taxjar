@@ -1,3 +1,5 @@
+## *Warning:* This extension is under active development and not yet at a v1.0 release.
+
 # `SuperGood::SolidusTaxJar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
 
 `SuperGood::SolidusTaxJar` is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.

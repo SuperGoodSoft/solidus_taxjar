@@ -34,7 +34,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    SuperGood::SolidusTaxJar::TaxCalculator.exception_handler = ->(e) {
      # Report exceptions in here. For example, if you were using the Sentry's
      # raven-ruby gem to report errors, you might do this:
-     Raven.capture_exception(exception)
+     Raven.capture_exception(e)
    }
    ```
 

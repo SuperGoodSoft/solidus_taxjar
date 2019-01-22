@@ -72,7 +72,12 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
     end
 
     context "when the order has a non-empty tax address" do
-      let(:address) { ::Spree::Address.new(first_name: "Ronnie James") }
+      let(:address) do
+        ::Spree::Address.new(
+          first_name: "Ronnie James",
+          country: ::Spree::Country.new(iso: "US")
+        )
+      end
 
       before do
         allow(dummy_api).to receive(:tax_for).with(order).and_return(

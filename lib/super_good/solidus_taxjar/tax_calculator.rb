@@ -12,13 +12,16 @@ module SuperGood
 
       def calculate
         return no_tax if order.tax_address.empty?
-        return no_tax unless taxjar_breakdown
 
-        Spree::Tax::OrderTax.new(
-          order_id: order.id,
-          line_item_taxes: line_item_taxes,
-          shipment_taxes: shipment_taxes
-        )
+        cache do
+          next no_tax unless taxjar_breakdown
+
+          Spree::Tax::OrderTax.new(
+            order_id: order.id,
+            line_item_taxes: line_item_taxes,
+            shipment_taxes: shipment_taxes
+          )
+        end
       end
 
       private
@@ -98,6 +101,38 @@ module SuperGood
 
       def tax_rate
         Spree::TaxRate.find_by(name: "Sales Tax")
+      end
+
+      def cache
+        if !Rails.env.test?
+          Rails.cache.fetch(cache_key, expires_in: 10.minutes) { yield }
+        else
+          yield
+        end
+      end
+
+      def cache_key
+        tax_address = order.tax_address
+
+        {
+          to_country: tax_address.country.iso,
+          to_zip: tax_address.zipcode,
+          to_city: tax_address.city,
+          to_state: tax_address&.state&.abbr || tax_address.state_name,
+          to_street: tax_address.address1,
+
+          shipping: order.shipment_total,
+
+          line_items: order.line_items.map do |line_item|
+            {
+              id: line_item.id,
+              quantity: line_item.quantity,
+              unit_price: line_item.price,
+              discount: -line_item.adjustment_total,
+              product_tax_code: line_item.tax_category&.tax_code
+            }
+          end.hash
+        }
       end
     end
   end

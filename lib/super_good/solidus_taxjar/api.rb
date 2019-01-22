@@ -4,7 +4,7 @@ module SuperGood
       def self.default_taxjar_client
         ::Taxjar::Client.new(
           api_key: ENV.fetch("TAXJAR_API_KEY"),
-          api_url: 'https://api.sandbox.taxjar.com'
+          api_url: ENV.fetch("TAXJAR_API_URL") { 'https://api.taxjar.com' } # Sandbox URL: https://api.sandbox.taxjar.com
         )
       end
 

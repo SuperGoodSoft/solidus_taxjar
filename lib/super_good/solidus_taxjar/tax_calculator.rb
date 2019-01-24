@@ -16,7 +16,7 @@ module SuperGood
       end
 
       def calculate
-        return no_tax if order.tax_address.empty?
+        return no_tax if order.tax_address.empty? || order.line_items.none?
 
         cache do
           next no_tax unless taxjar_breakdown

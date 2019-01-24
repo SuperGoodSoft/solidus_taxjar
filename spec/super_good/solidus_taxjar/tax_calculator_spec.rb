@@ -15,6 +15,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
         id: 10,
         store: store,
         ship_address: address,
+        line_items: line_items,
         shipments: [
           boring_shipment,
           shipment_with_adjustment,
@@ -22,6 +23,8 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
         ]
       )
     end
+
+    let(:line_items) { [::Spree::LineItem.new] }
 
     let(:boring_shipment) do
       ::Spree::Shipment.new(id: 1, cost: 7)
@@ -63,6 +66,23 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
     context "when the order has an empty tax address" do
       let(:address) { nil }
+
+      it "returns no taxes" do
+        expect(subject.order_id).to eq order.id
+        expect(subject.shipment_taxes).to be_empty
+        expect(subject.line_item_taxes).to be_empty
+      end
+    end
+
+    context "when the order has no line items" do
+      let(:address) do
+        ::Spree::Address.new(
+          first_name: "Ronnie James",
+          country: ::Spree::Country.new(iso: "US")
+        )
+      end
+
+      let(:line_items) { [] }
 
       it "returns no taxes" do
         expect(subject.order_id).to eq order.id

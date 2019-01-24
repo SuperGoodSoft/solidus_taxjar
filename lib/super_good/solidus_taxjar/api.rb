@@ -16,6 +16,16 @@ module SuperGood
         taxjar_client.tax_for_order order_params(order)
       end
 
+      def tax_rates_for(address)
+        taxjar_client.rates_for_location(
+          address.zipcode,
+          street: address.address1,
+          city: address.city,
+          state: address&.state&.abbr || address.state_name,
+          country: address.country.iso
+        )
+      end
+
       private
 
       attr_reader :taxjar_client

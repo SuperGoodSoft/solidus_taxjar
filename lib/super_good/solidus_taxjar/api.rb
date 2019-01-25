@@ -26,10 +26,6 @@ module SuperGood
         )
       end
 
-      private
-
-      attr_reader :taxjar_client
-
       def order_params(order)
         tax_address = order.tax_address
 
@@ -47,11 +43,19 @@ module SuperGood
               id: line_item.id,
               quantity: line_item.quantity,
               unit_price: line_item.price,
-              discount: -line_item.promo_total,
+              discount: discount(line_item),
               product_tax_code: line_item.tax_category&.tax_code
             }
           end
         }
+      end
+
+      private
+
+      attr_reader :taxjar_client
+
+      def discount(line_item)
+        ::SuperGood::SolidusTaxJar.discount_calculator.new(line_item).discount
       end
     end
   end

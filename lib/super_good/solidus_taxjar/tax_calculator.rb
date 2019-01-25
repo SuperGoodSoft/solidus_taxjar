@@ -120,27 +120,13 @@ module SuperGood
       end
 
       def cache_key
-        tax_address = order.tax_address
-
-        {
-          to_country: tax_address.country.iso,
-          to_zip: tax_address.zipcode,
-          to_city: tax_address.city,
-          to_state: tax_address&.state&.abbr || tax_address.state_name,
-          to_street: tax_address.address1,
-
-          shipping: order.shipment_total,
-
-          line_items: order.line_items.map do |line_item|
-            {
-              id: line_item.id,
-              quantity: line_item.quantity,
-              unit_price: line_item.price,
-              discount: -line_item.promo_total,
-              product_tax_code: line_item.tax_category&.tax_code
-            }
-          end.hash
-        }
+        api.order_params(order).transform_values do |value|
+          case value
+          when Array, Hash then value.hash
+          else
+            value
+          end
+        end
       end
     end
   end

@@ -136,7 +136,7 @@ module SuperGood
               id: line_item.id,
               quantity: line_item.quantity,
               unit_price: line_item.price,
-              discount: -line_item.adjustment_total,
+              discount: -line_item.promo_total,
               product_tax_code: line_item.tax_category&.tax_code
             }
           end.hash

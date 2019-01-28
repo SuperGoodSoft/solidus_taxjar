@@ -11,8 +11,10 @@ module SuperGood
   module SolidusTaxJar
     class << self
       attr_accessor :discount_calculator
+      attr_accessor :test_mode
     end
 
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
+    self.test_mode = false
   end
 end

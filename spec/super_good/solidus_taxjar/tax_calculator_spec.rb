@@ -203,6 +203,17 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
             end
           end
         end
+
+        context "when test_mode is set" do
+          before { SuperGood::SolidusTaxJar.test_mode = true }
+          after { SuperGood::SolidusTaxJar.test_mode = false }
+
+          it "returns no taxes" do
+            expect(subject.order_id).to eq order.id
+            expect(subject.shipment_taxes).to be_empty
+            expect(subject.line_item_taxes).to be_empty
+          end
+        end
       end
 
       context "and there is not a breakdown" do

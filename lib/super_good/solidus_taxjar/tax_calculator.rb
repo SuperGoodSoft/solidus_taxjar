@@ -16,6 +16,7 @@ module SuperGood
       end
 
       def calculate
+        return no_tax if SuperGood::SolidusTaxJar.test_mode
         return no_tax if order.tax_address.empty? || order.line_items.none?
 
         cache do

@@ -121,7 +121,7 @@ module SuperGood
       end
 
       def cache_key
-        api.order_params(order).transform_values do |value|
+        APIParams.order_params(order).transform_values do |value|
           case value
           when Array, Hash then value.hash
           else

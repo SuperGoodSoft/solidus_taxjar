@@ -13,7 +13,7 @@ module SuperGood
       end
 
       def tax_for(order)
-        taxjar_client.tax_for_order order_params(order)
+        taxjar_client.tax_for_order APIParams.order_params(order)
       end
 
       def tax_rates_for(address)
@@ -26,37 +26,9 @@ module SuperGood
         )
       end
 
-      def order_params(order)
-        tax_address = order.tax_address
-
-        {
-          to_country: tax_address.country.iso,
-          to_zip: tax_address.zipcode,
-          to_city: tax_address.city,
-          to_state: tax_address&.state&.abbr || tax_address.state_name,
-          to_street: tax_address.address1,
-
-          shipping: order.shipment_total,
-
-          line_items: order.line_items.map do |line_item|
-            {
-              id: line_item.id,
-              quantity: line_item.quantity,
-              unit_price: line_item.price,
-              discount: discount(line_item),
-              product_tax_code: line_item.tax_category&.tax_code
-            }
-          end
-        }
-      end
-
       private
 
       attr_reader :taxjar_client
-
-      def discount(line_item)
-        ::SuperGood::SolidusTaxJar.discount_calculator.new(line_item).discount
-      end
     end
   end
 end

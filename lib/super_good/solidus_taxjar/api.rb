@@ -17,13 +17,7 @@ module SuperGood
       end
 
       def tax_rates_for(address)
-        taxjar_client.rates_for_location(
-          address.zipcode,
-          street: address.address1,
-          city: address.city,
-          state: address&.state&.abbr || address.state_name,
-          country: address.country.iso
-        )
+        taxjar_client.rates_for_location(*APIParams.address_params(address))
       end
 
       private

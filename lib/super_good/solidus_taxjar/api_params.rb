@@ -4,14 +4,26 @@ module SuperGood
       class << self
         def order_params(order)
           {}
-            .merge(address_params(order.tax_address))
+            .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: order.shipment_total)
         end
 
+        def address_params(address)
+          [
+            address.zipcode,
+            {
+              street: address.address1,
+              city: address.city,
+              state: address&.state&.abbr || address.state_name,
+              country: address.country.iso
+            }
+          ]
+        end
+
         private
 
-        def address_params(address)
+        def order_address_params(address)
           {
             to_country: address.country.iso,
             to_zip: address.zipcode,

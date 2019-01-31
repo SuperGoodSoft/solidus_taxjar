@@ -32,6 +32,10 @@ module SuperGood
         taxjar_client.delete_order order.number
       end
 
+      def create_refund_for(reimbursement)
+        taxjar_client.create_refund APIParams.refund_params(reimbursement)
+      end
+
       private
 
       attr_reader :taxjar_client

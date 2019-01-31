@@ -104,6 +104,18 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     )
   end
 
+  let(:reimbursement) do
+    Spree::Reimbursement.new(
+      order: order,
+      total: 333.33,
+      number: "RI123123123",
+      return_items: [
+        Spree::ReturnItem.new(additional_tax_total: 0.33),
+        Spree::ReturnItem.new(additional_tax_total: 33.0)
+      ]
+    )
+  end
+
   describe "#order_params" do
     subject { described_class.order_params(order) }
 
@@ -159,6 +171,26 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
        to_zip: "90210",
        transaction_date: "2018-03-06T12:10:33Z",
        transaction_id: "R111222333",
+      })
+    end
+  end
+
+  describe "#refund_params" do
+    subject { described_class.refund_params(reimbursement) }
+
+    it "returns params for creating/updatingin a refund" do
+      expect(subject).to eq({
+        amount: BigDecimal("300.00"),
+        sales_tax: BigDecimal("33.33"),
+        shipping: 0,
+        to_city: "Los Angeles",
+        to_country: "US",
+        to_state: "CA",
+        to_street: "475 N Beverly Dr",
+        to_zip: "90210",
+        transaction_date: "2018-03-06T12:10:33Z",
+        transaction_id: "RI123123123",
+        transaction_reference_id: "R111222333",
       })
     end
   end

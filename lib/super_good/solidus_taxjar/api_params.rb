@@ -33,6 +33,21 @@ module SuperGood
             )
         end
 
+        def refund_params(reimbursement)
+          additional_taxes = reimbursement.return_items.sum(&:additional_tax_total)
+
+          {}
+            .merge(order_address_params(reimbursement.order.tax_address))
+            .merge(
+              transaction_id: reimbursement.number,
+              transaction_reference_id: reimbursement.order.number,
+              transaction_date: reimbursement.order.completed_at.to_formatted_s(:iso8601),
+              amount: reimbursement.total - additional_taxes,
+              shipping: 0,
+              sales_tax: additional_taxes
+            )
+        end
+
         private
 
         def order_address_params(address)

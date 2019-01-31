@@ -3,12 +3,17 @@ require 'spec_helper'
 RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   let(:order) do
     Spree::Order.create!(
-      item_total: 28.00,
-      shipment_total: 3.01,
+      number: "R111222333",
+      total: BigDecimal("123.45"),
+      shipment_total: BigDecimal("3.01"),
+      additional_tax_total: BigDecimal("9.87"),
+      item_total: BigDecimal("28.00"),
       store: store,
       ship_address: ship_address,
       line_items: [line_item]
-    )
+    ).tap do |order|
+      order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
+    end
   end
 
   let(:store) do
@@ -136,6 +141,25 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
           street: "475 N Beverly Dr"
         }
       ])
+    end
+  end
+
+  describe "#transaction_params" do
+    subject { described_class.transaction_params(order) }
+
+    it "returns params for creating/updating an order transaction" do
+      expect(subject).to eq({
+       amount: BigDecimal("113.58"),
+       sales_tax: BigDecimal("9.87"),
+       shipping: BigDecimal("3.01"),
+       to_city: "Los Angeles",
+       to_country: "US",
+       to_state: "CA",
+       to_street: "475 N Beverly Dr",
+       to_zip: "90210",
+       transaction_date: "2018-03-06T12:10:33Z",
+       transaction_id: "R111222333",
+      })
     end
   end
 end

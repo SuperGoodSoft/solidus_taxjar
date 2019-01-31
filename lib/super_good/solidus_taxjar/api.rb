@@ -20,6 +20,10 @@ module SuperGood
         taxjar_client.rates_for_location(*APIParams.address_params(address))
       end
 
+      def create_transaction_for(order)
+        taxjar_client.create_order APIParams.transaction_params(order)
+      end
+
       private
 
       attr_reader :taxjar_client

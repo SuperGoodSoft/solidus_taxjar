@@ -24,6 +24,10 @@ module SuperGood
         taxjar_client.create_order APIParams.transaction_params(order)
       end
 
+      def update_transaction_for(order)
+        taxjar_client.update_order APIParams.transaction_params(order)
+      end
+
       private
 
       attr_reader :taxjar_client

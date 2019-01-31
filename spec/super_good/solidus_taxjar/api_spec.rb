@@ -66,4 +66,26 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
 
     it { is_expected.to eq({ some_kind_of: "response" }) }
   end
+
+  describe "update_transaction_for" do
+    subject { api.update_transaction_for order }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:order) { Spree::Order.new }
+
+    before do
+      allow(SuperGood::SolidusTaxJar::APIParams)
+        .to receive(:transaction_params)
+        .with(order)
+        .and_return({ transaction: "params" })
+
+      allow(dummy_client)
+        .to receive(:update_order)
+        .with({ transaction: "params" })
+        .and_return({ some_kind_of: "response" })
+    end
+
+    it { is_expected.to eq({ some_kind_of: "response" }) }
+  end
 end

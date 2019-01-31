@@ -28,6 +28,10 @@ module SuperGood
         taxjar_client.update_order APIParams.transaction_params(order)
       end
 
+      def delete_transaction_for(order)
+        taxjar_client.delete_order order.number
+      end
+
       private
 
       attr_reader :taxjar_client

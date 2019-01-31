@@ -45,7 +45,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     it { is_expected.to eq({ some_kind_of: "response" }) }
   end
 
-  describe "create_transaction_for" do
+  describe "#create_transaction_for" do
     subject { api.create_transaction_for order }
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
@@ -67,7 +67,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     it { is_expected.to eq({ some_kind_of: "response" }) }
   end
 
-  describe "update_transaction_for" do
+  describe "#update_transaction_for" do
     subject { api.update_transaction_for order }
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
@@ -89,7 +89,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     it { is_expected.to eq({ some_kind_of: "response" }) }
   end
 
-  describe "update_transaction_for" do
+  describe "#update_transaction_for" do
     subject { api.delete_transaction_for order }
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }

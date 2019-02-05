@@ -15,6 +15,7 @@ module SuperGood
       attr_accessor :test_mode
       attr_accessor :exception_handler
       attr_accessor :taxable_address_check
+      attr_accessor :shipping_tax_label_maker
     end
 
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
@@ -23,5 +24,6 @@ module SuperGood
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
     }
     self.taxable_address_check = ->(address) { true }
+    self.shipping_tax_label_maker = ->(shipment, shipping_tax) { "Sales Tax" }
   end
 end

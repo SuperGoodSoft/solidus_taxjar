@@ -67,7 +67,7 @@ module SuperGood
 
               tax_items << ::Spree::Tax::ItemTax.new(
                 item_id: shipment.id,
-                label: "Sales Tax",
+                label: shipping_tax_label(shipment, shipping_tax),
                 tax_rate: tax_rate,
                 amount: shipping_tax,
                 included_in_price: false
@@ -76,7 +76,7 @@ module SuperGood
 
             tax_items << ::Spree::Tax::ItemTax.new(
               item_id: shipments.last.id,
-              label: "Sales Tax",
+              label: shipping_tax_label(shipments.last, remaining_tax),
               tax_rate: tax_rate,
               amount: remaining_tax,
               included_in_price: false
@@ -132,6 +132,13 @@ module SuperGood
 
       def taxable_address?(address)
         SuperGood::SolidusTaxJar.taxable_address_check.(address)
+      end
+
+      def shipping_tax_label(shipment, shipping_tax)
+        SuperGood::SolidusTaxJar.shipping_tax_label_maker.(
+          shipment,
+          shipping_tax
+        )
       end
     end
   end

@@ -36,5 +36,12 @@ RSpec.describe SuperGood::SolidusTaxJar do
 
       it { is_expected.to eq true }
     end
+
+    describe ".shipping_tax_label_maker" do
+      subject { described_class.shipping_tax_label_maker.(shipment, shipping_tax) }
+      let(:shipment) { Spree::Shipment.new }
+      let(:shipping_tax) { BigDecimal("3.25") }
+      it { is_expected.to eq "Sales Tax" }
+    end
   end
 end

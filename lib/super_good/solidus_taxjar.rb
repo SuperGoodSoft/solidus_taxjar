@@ -14,6 +14,7 @@ module SuperGood
       attr_accessor :discount_calculator
       attr_accessor :test_mode
       attr_accessor :exception_handler
+      attr_accessor :taxable_address_check
     end
 
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
@@ -21,5 +22,6 @@ module SuperGood
     self.exception_handler = ->(e) {
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
     }
+    self.taxable_address_check = ->(address) { true }
   end
 end

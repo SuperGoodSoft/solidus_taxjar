@@ -104,7 +104,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       end
 
       it "calls the configured error handler" do
-        expect(described_class.exception_handler).to receive(:call) do |e|
+        expect(SuperGood::SolidusTaxJar.exception_handler).to receive(:call) do |e|
           expect(e).to be_a StandardError
           expect(e.message).to eq "A bad thing happened."
         end

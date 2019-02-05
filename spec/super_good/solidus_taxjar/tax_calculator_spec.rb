@@ -164,12 +164,27 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
           expect(subject.line_item_taxes.length).to eq 1
 
           item_tax = subject.line_item_taxes.first
+
           aggregate_failures do
             expect(item_tax.item_id).to eq 33
             expect(item_tax.label).to eq "Sales Tax"
             expect(item_tax.tax_rate).to eq tax_rate
             expect(item_tax.amount).to eq 6.66
             expect(item_tax.included_in_price).to eq false
+          end
+        end
+
+        context "with custom line item tax labels" do
+          before do
+            allow(SuperGood::SolidusTaxJar.line_item_tax_label_maker)
+              .to receive(:call)
+              .with(taxjar_line_item)
+              .and_return("Space Tax")
+          end
+
+          it "applies those labels" do
+            expect(subject.line_item_taxes.length).to eq 1
+            expect(subject.line_item_taxes.first.label).to eq "Space Tax"
           end
         end
 
@@ -214,6 +229,24 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
               expect(shipment_taxes[2].tax_rate).to eq tax_rate
               expect(shipment_taxes[2].amount).to eq 3.34
               expect(shipment_taxes[2].included_in_price).to eq false
+            end
+          end
+
+          context "with custom shipping tax labels" do
+            before do
+              allow(SuperGood::SolidusTaxJar.shipping_tax_label_maker).to receive(:call)
+                .and_return("Magic Tax", "Spicy Tax", "Vegetable Tax")
+            end
+
+            it "applies those labels" do
+              shipment_taxes = subject.shipment_taxes
+              expect(shipment_taxes.length).to eq 3
+
+              aggregate_failures do
+                expect(shipment_taxes[0].label).to eq "Magic Tax"
+                expect(shipment_taxes[1].label).to eq "Spicy Tax"
+                expect(shipment_taxes[2].label).to eq "Vegetable Tax"
+              end
             end
           end
         end

@@ -38,7 +38,7 @@ module SuperGood
           taxjar_breakdown.line_items.map do |line_item|
             Spree::Tax::ItemTax.new(
               item_id: line_item.id.to_i,
-              label: "Sales Tax",
+              label: line_item_tax_label(line_item),
               tax_rate: tax_rate,
               amount: line_item.tax_collectable,
               included_in_price: false
@@ -139,6 +139,10 @@ module SuperGood
           shipment,
           shipping_tax
         )
+      end
+
+      def line_item_tax_label(taxjar_line_item)
+        SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item)
       end
     end
   end

@@ -24,7 +24,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       )
     end
 
-    let(:line_items) { [::Spree::LineItem.new] }
+    let(:line_items) { [::Spree::LineItem.new(id: 33)] }
 
     let(:boring_shipment) do
       ::Spree::Shipment.new(id: 1, cost: 7)
@@ -178,7 +178,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
           before do
             allow(SuperGood::SolidusTaxJar.line_item_tax_label_maker)
               .to receive(:call)
-              .with(taxjar_line_item)
+              .with(taxjar_line_item, line_items.first)
               .and_return("Space Tax")
           end
 

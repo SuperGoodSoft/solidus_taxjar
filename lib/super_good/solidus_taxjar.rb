@@ -26,6 +26,6 @@ module SuperGood
     }
     self.taxable_address_check = ->(address) { true }
     self.shipping_tax_label_maker = ->(shipment, shipping_tax) { "Sales Tax" }
-    self.line_item_tax_label_maker = ->(taxjar_line_item) { "Sales Tax" }
+    self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }
   end
 end

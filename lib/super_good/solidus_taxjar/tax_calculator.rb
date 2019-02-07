@@ -35,12 +35,18 @@ module SuperGood
 
       def line_item_taxes
         @line_item_taxes ||=
-          taxjar_breakdown.line_items.map do |line_item|
+          taxjar_breakdown.line_items.map do |taxjar_line_item|
+            spree_line_item_id = taxjar_line_item.id.to_i
+
+            # Searching in memory because this association is loaded and most
+            # orders aren't going to have a huge number of line items.
+            spree_line_item = order.line_items.find { |li| li.id == spree_line_item_id }
+
             Spree::Tax::ItemTax.new(
-              item_id: line_item.id.to_i,
-              label: line_item_tax_label(line_item),
+              item_id: spree_line_item_id,
+              label: line_item_tax_label(taxjar_line_item, spree_line_item),
               tax_rate: tax_rate,
-              amount: line_item.tax_collectable,
+              amount: taxjar_line_item.tax_collectable,
               included_in_price: false
             )
           end
@@ -141,8 +147,8 @@ module SuperGood
         )
       end
 
-      def line_item_tax_label(taxjar_line_item)
-        SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item)
+      def line_item_tax_label(taxjar_line_item, spree_line_item)
+        SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item, spree_line_item)
       end
     end
   end

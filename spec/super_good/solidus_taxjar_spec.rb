@@ -45,8 +45,9 @@ RSpec.describe SuperGood::SolidusTaxJar do
     end
 
     describe ".line_item_tax_label_maker" do
-      subject { described_class.line_item_tax_label_maker.(taxjar_line_item) }
+      subject { described_class.line_item_tax_label_maker.(taxjar_line_item, spree_line_item) }
       let(:taxjar_line_item) { instance_double Taxjar::BreakdownLineItem }
+      let(:spree_line_item) { Spree::LineItem.new }
       it { is_expected.to eq "Sales Tax" }
     end
   end

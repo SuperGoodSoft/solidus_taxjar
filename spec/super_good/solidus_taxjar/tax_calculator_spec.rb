@@ -78,6 +78,10 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       let(:address) do
         ::Spree::Address.new(
           first_name: "Ronnie James",
+          zipcode: "90210",
+          address1: "9900 Wilshire Blvd",
+          city: "Beverly Hills",
+          state_name: "California",
           country: ::Spree::Country.new(iso: "US")
         )
       end
@@ -95,6 +99,10 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       let(:address) do
         ::Spree::Address.new(
           first_name: "Ronnie James",
+          zipcode: "90210",
+          address1: "9900 Wilshire Blvd",
+          city: "Beverly Hills",
+          state_name: "California",
           country: ::Spree::Country.new(iso: "US")
         )
       end
@@ -123,6 +131,10 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       let(:address) do
         ::Spree::Address.new(
           first_name: "Ronnie James",
+          zipcode: "90210",
+          address1: "9900 Wilshire Blvd",
+          city: "Beverly Hills",
+          state_name: "California",
           country: ::Spree::Country.new(iso: "US")
         )
       end

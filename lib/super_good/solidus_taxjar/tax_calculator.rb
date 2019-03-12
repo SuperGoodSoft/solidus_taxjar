@@ -12,7 +12,7 @@ module SuperGood
 
       def calculate
         return no_tax if SuperGood::SolidusTaxJar.test_mode
-        return no_tax if order.tax_address.empty? || order.line_items.none?
+        return no_tax if incomplete_address?(order.tax_address) || order.line_items.none?
         return no_tax unless taxable_address? order.tax_address
 
         cache do
@@ -149,6 +149,16 @@ module SuperGood
 
       def line_item_tax_label(taxjar_line_item, spree_line_item)
         SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item, spree_line_item)
+      end
+
+      def incomplete_address?(tax_address)
+        [
+          tax_address.address1,
+          tax_address.city,
+          tax_address&.state&.abbr || tax_address.state_name,
+          tax_address.zipcode,
+          tax_address.country.iso
+        ].any?(&:blank?)
       end
     end
   end

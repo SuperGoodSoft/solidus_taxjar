@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.6.1
+
+- Stopped using the deprecated method `Spree::Address#empty?` in favour of simply checking that we have all of the fields on the address required for doing a TaxJar lookup.
+
 ## v0.6.0
 
 - Added `SuperGood::SolidusTaxJar.shipping_tax_label_maker` for customizing the labels on the tax adjustments on shipments.

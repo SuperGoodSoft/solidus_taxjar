@@ -152,6 +152,8 @@ module SuperGood
       end
 
       def incomplete_address?(tax_address)
+        return true if tax_address.is_a?(Spree::Tax::TaxLocation)
+
         [
           tax_address.address1,
           tax_address.city,

@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.6.2
+- Updated `incomplete_address?` method to verify if a `tax_address` is a `Spree::Tax::TaxLocation`. `Spree::Tax::TaxLocation` is considered an incomplete address.
+
 ## v0.6.1
 
 - Stopped using the deprecated method `Spree::Address#empty?` in favour of simply checking that we have all of the fields on the address required for doing a TaxJar lookup.

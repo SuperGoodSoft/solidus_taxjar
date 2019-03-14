@@ -74,6 +74,25 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       end
     end
 
+    context "when the order has an incomplete tax address" do
+      let(:address) do
+        ::Spree::Address.new(
+          first_name: "Ronnie James",
+          zipcode: nil,
+          address1: nil,
+          city: "Beverly Hills",
+          state_name: "California",
+          country: ::Spree::Country.new(iso: "US")
+        )
+      end
+
+      it "returns no taxes" do
+        expect(subject.order_id).to eq order.id
+        expect(subject.shipment_taxes).to be_empty
+        expect(subject.line_item_taxes).to be_empty
+      end
+    end
+
     context "when the order has no line items" do
       let(:address) do
         ::Spree::Address.new(

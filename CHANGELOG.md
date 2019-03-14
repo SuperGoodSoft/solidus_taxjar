@@ -1,9 +1,14 @@
 # Changelog
 
 ## v0.6.2
-- Updated `incomplete_address?` method to verify if a `tax_address` is a `Spree::Tax::TaxLocation`. `Spree::Tax::TaxLocation` is considered an incomplete address.
+
+- Fixed issued where orders without tax address would cause errors because `Spree::Order#tax_address` will return a `Spree::Tax::TaxLocation` when called on an order without a tax address. `Spree::Tax::TaxLocation` isn't enough like a real address and this was causing exceptions.
+
+  To fix this `SuperGood::SolidusTaxJar#incomplete_address?` was updated to treat `Spree::Tax::TaxLocation`s as "incomplete". (Thanks to @JuanCrg90!)
 
 ## v0.6.1
+
+**Warning**: v0.6.1 has a critical bug and should not be used.
 
 - Stopped using the deprecated method `Spree::Address#empty?` in favour of simply checking that we have all of the fields on the address required for doing a TaxJar lookup.
 

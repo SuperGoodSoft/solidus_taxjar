@@ -64,12 +64,14 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       variant: variant,
       price: 10,
       quantity: 3,
-      promo_total: -2
+      promo_total: -2,
+      additional_tax_total: 4
     )
   end
 
   let(:variant) do
     Spree::Variant.create!(
+      sku: "G00D-PR0DUCT",
       product: product,
       price: 10
     )
@@ -171,6 +173,15 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
        to_zip: "90210",
        transaction_date: "2018-03-06T12:10:33Z",
        transaction_id: "R111222333",
+       line_items: [{
+         id: line_item.id,
+         quantity: 3,
+         product_identifier: "G00D-PR0DUCT",
+         product_tax_code: "A_GEN_TAX",
+         unit_price: 10,
+         discount: 2,
+         sales_tax: 4
+       }]
       })
     end
   end

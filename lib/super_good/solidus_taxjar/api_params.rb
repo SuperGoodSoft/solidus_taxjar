@@ -24,6 +24,7 @@ module SuperGood
         def transaction_params(order)
           {}
             .merge(order_address_params(order.tax_address))
+            .merge(transaction_line_items_params(order.line_items))
             .merge(
               transaction_id: order.number,
               transaction_date: order.completed_at.to_formatted_s(:iso8601),
@@ -69,6 +70,22 @@ module SuperGood
                 unit_price: line_item.price,
                 discount: discount(line_item),
                 product_tax_code: line_item.tax_category&.tax_code
+              }
+            end
+          }
+        end
+
+        def transaction_line_items_params(line_items)
+          {
+            line_items: line_items.map do |line_item|
+              {
+                id: line_item.id,
+                quantity: line_item.quantity,
+                product_identifier: line_item.sku,
+                product_tax_code: line_item.tax_category&.tax_code,
+                unit_price: line_item.price,
+                discount: discount(line_item),
+                sales_tax: line_item.additional_tax_total
               }
             end
           }

@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.0
+
+- Switched to sending the full list of line items when creating/updating transactions in TaxJar.
+
 ## v0.6.2
 
 - Fixed issued where orders without tax address would cause errors because `Spree::Order#tax_address` will return a `Spree::Tax::TaxLocation` when called on an order without a tax address. `Spree::Tax::TaxLocation` isn't enough like a real address and this was causing exceptions.

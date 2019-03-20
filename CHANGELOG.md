@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.0
+
+- Increased response caching time to 3 hours.
+
 ## v0.7.0
 
 - Switched to sending the full list of line items when creating/updating transactions in TaxJar.

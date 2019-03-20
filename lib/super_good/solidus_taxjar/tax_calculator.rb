@@ -116,7 +116,7 @@ module SuperGood
 
       def cache
         if !Rails.env.test?
-          Rails.cache.fetch(cache_key, expires_in: 10.minutes) { yield }
+          Rails.cache.fetch(cache_key, expires_in: 3.hours) { yield }
         else
           yield
         end

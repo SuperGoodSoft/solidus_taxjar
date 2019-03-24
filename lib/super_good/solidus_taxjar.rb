@@ -11,6 +11,7 @@ require "super_good/solidus_taxjar/discount_calculator"
 module SuperGood
   module SolidusTaxJar
     class << self
+      attr_accessor :cache_key
       attr_accessor :discount_calculator
       attr_accessor :exception_handler
       attr_accessor :line_item_tax_label_maker
@@ -19,6 +20,15 @@ module SuperGood
       attr_accessor :test_mode
     end
 
+    self.cache_key = ->(order) {
+      APIParams.order_params(order).transform_values do |value|
+        case value
+        when Array, Hash then value.hash
+        else
+          value
+        end
+      end
+    }
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
     self.exception_handler = ->(e) {
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"

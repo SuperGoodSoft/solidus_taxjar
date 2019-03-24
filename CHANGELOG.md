@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Make response cache key configurable.
+
 ## v0.8.0
 
 - Increased response caching time to 3 hours.

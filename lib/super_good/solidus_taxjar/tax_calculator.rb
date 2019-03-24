@@ -123,13 +123,7 @@ module SuperGood
       end
 
       def cache_key
-        APIParams.order_params(order).transform_values do |value|
-          case value
-          when Array, Hash then value.hash
-          else
-            value
-          end
-        end
+        SuperGood::SolidusTaxJar.cache_key.(order)
       end
 
       def exception_handler

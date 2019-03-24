@@ -2,6 +2,8 @@
 
 ## master
 
+- Fixed unreliable default cache key implementation.
+
 ## v0.9.0
 
 - Made response cache key and cache duration configurable.

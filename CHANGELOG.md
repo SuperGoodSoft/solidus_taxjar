@@ -2,7 +2,7 @@
 
 ## master
 
-- Make response cache key configurable.
+- Made response cache key and cache duration configurable.
 
 ## v0.8.0
 

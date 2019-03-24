@@ -116,7 +116,10 @@ module SuperGood
 
       def cache
         if !Rails.env.test?
-          Rails.cache.fetch(cache_key, expires_in: 3.hours) { yield }
+          Rails.cache.fetch(
+            cache_key,
+            expires_in: SuperGood::SolidusTaxJar.cache_duration
+          ) { yield }
         else
           yield
         end

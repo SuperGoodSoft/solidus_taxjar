@@ -11,6 +11,7 @@ require "super_good/solidus_taxjar/discount_calculator"
 module SuperGood
   module SolidusTaxJar
     class << self
+      attr_accessor :cache_duration
       attr_accessor :cache_key
       attr_accessor :discount_calculator
       attr_accessor :exception_handler
@@ -20,6 +21,7 @@ module SuperGood
       attr_accessor :test_mode
     end
 
+    self.cache_duration = 3.hours
     self.cache_key = ->(order) {
       APIParams.order_params(order).transform_values do |value|
         case value

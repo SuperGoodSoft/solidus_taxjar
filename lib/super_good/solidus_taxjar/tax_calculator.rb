@@ -116,20 +116,17 @@ module SuperGood
 
       def cache
         if !Rails.env.test?
-          Rails.cache.fetch(cache_key, expires_in: 3.hours) { yield }
+          Rails.cache.fetch(
+            cache_key,
+            expires_in: SuperGood::SolidusTaxJar.cache_duration
+          ) { yield }
         else
           yield
         end
       end
 
       def cache_key
-        APIParams.order_params(order).transform_values do |value|
-          case value
-          when Array, Hash then value.hash
-          else
-            value
-          end
-        end
+        SuperGood::SolidusTaxJar.cache_key.(order)
       end
 
       def exception_handler

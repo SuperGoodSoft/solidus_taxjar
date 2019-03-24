@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.9.0
+
 - Made response cache key and cache duration configurable.
 
 ## v0.8.0

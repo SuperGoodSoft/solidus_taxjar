@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.10.0
+
 - Make shipping amounts configurable to make it easier to support order-level adjustments.
 
 ## v0.9.1

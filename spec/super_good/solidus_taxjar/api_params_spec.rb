@@ -4,7 +4,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   let(:order) do
     Spree::Order.create!(
       number: "R111222333",
-      total: BigDecimal("123.45"),
+      total: order_total,
       shipment_total: BigDecimal("3.01"),
       additional_tax_total: BigDecimal("9.87"),
       item_total: BigDecimal("28.00"),
@@ -15,6 +15,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
     end
   end
+  let(:order_total) { BigDecimal("123.45") }
 
   let(:store) do
     Spree::Store.create!(
@@ -209,6 +210,14 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
          sales_tax: 4
        }]
       })
+    end
+
+    context "when the order is adjusted to 0" do
+      let(:order_total) { BigDecimal("0") }
+
+      it "sends the order total as zero" do
+        expect(subject[:amount]).to be_zero
+      end
     end
 
     context "when the line item has 0 quantity" do

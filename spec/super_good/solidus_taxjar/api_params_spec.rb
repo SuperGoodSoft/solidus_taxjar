@@ -140,6 +140,32 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
         }]
       )
     end
+
+    context "when the line item has zero quantity" do
+      let(:line_item) do
+        Spree::LineItem.new(
+          variant: variant,
+          price: 10,
+          quantity: 0,
+          promo_total: -2,
+          additional_tax_total: 4
+        )
+      end
+
+      it "excludes the line item" do
+        expect(subject).to eq(
+          to_country: "US",
+          to_zip: "90210",
+          to_city: "Los Angeles",
+          to_state: "CA",
+          to_street: "475 N Beverly Dr",
+
+          shipping: 3.01,
+
+          line_items: []
+        )
+      end
+    end
   end
 
   describe "#address_params" do
@@ -183,6 +209,34 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
          sales_tax: 4
        }]
       })
+    end
+
+    context "when the line item has 0 quantity" do
+      let(:line_item) do
+        Spree::LineItem.new(
+          variant: variant,
+          price: 10,
+          quantity: 0,
+          promo_total: -2,
+          additional_tax_total: 4
+        )
+      end
+
+      it "excludes the line item" do
+        expect(subject).to eq({
+         amount: BigDecimal("113.58"),
+         sales_tax: BigDecimal("9.87"),
+         shipping: BigDecimal("3.01"),
+         to_city: "Los Angeles",
+         to_country: "US",
+         to_state: "CA",
+         to_street: "475 N Beverly Dr",
+         to_zip: "90210",
+         transaction_date: "2018-03-06T12:10:33Z",
+         transaction_id: "R111222333",
+         line_items: []
+        })
+      end
     end
   end
 

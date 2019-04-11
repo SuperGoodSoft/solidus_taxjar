@@ -63,7 +63,7 @@ module SuperGood
 
         def line_items_params(line_items)
           {
-            line_items: line_items.map do |line_item|
+            line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
                 quantity: line_item.quantity,
@@ -77,7 +77,7 @@ module SuperGood
 
         def transaction_line_items_params(line_items)
           {
-            line_items: line_items.map do |line_item|
+            line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
                 quantity: line_item.quantity,
@@ -89,6 +89,14 @@ module SuperGood
               }
             end
           }
+        end
+
+        def valid_line_items(line_items)
+          # The API appears to error when sent line items with no quantity...
+          # but why would you do that anyway.
+          line_items.reject do |line_item|
+            line_item.quantity.zero?
+          end
         end
 
         def discount(line_item)

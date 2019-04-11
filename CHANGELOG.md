@@ -2,6 +2,8 @@
 
 ## master
 
+- Avoid sending 0 quantity line items. TaxJar doesn't like them.
+
 ## v0.10.0
 
 - Make shipping amounts configurable to make it easier to support order-level adjustments.

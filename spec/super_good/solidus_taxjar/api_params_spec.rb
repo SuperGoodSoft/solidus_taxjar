@@ -189,7 +189,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   describe "#refund_params" do
     subject { described_class.refund_params(reimbursement) }
 
-    it "returns params for creating/updatingin a refund" do
+    it "returns params for creating/updating a refund" do
       expect(subject).to eq({
         amount: BigDecimal("300.00"),
         sales_tax: BigDecimal("33.33"),

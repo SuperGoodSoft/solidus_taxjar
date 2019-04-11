@@ -2,6 +2,8 @@
 
 ## master
 
+- Avoid sending negative amounts for order totals.
+
 ## v0.11.0
 
 - Avoid sending 0 quantity line items. TaxJar doesn't like them.

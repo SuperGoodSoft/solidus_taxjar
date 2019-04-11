@@ -28,7 +28,7 @@ module SuperGood
             .merge(
               transaction_id: order.number,
               transaction_date: order.completed_at.to_formatted_s(:iso8601),
-              amount: order.total - order.additional_tax_total,
+              amount: [order.total - order.additional_tax_total, 0].max,
               shipping: shipping(order),
               sales_tax: order.additional_tax_total
             )

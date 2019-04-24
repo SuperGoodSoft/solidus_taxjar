@@ -222,6 +222,18 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       it "sends the sales tax total as zero" do
         expect(subject[:sales_tax]).to be_zero
       end
+
+      it "sends the sales tax on the line items as zero" do
+        expect(subject[:line_items]).to contain_exactly({
+          discount: 2,
+          id: line_item.id,
+          product_identifier: "G00D-PR0DUCT",
+          product_tax_code: "A_GEN_TAX",
+          quantity: 3,
+          sales_tax: 0,
+          unit_price: 10
+        })
+      end
     end
 
     context "when the line item has 0 quantity" do

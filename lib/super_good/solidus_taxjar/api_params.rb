@@ -85,7 +85,7 @@ module SuperGood
                 product_tax_code: line_item.tax_category&.tax_code,
                 unit_price: line_item.price,
                 discount: discount(line_item),
-                sales_tax: line_item.additional_tax_total
+                sales_tax: line_item_sales_tax(line_item)
               }
             end
           }
@@ -111,6 +111,12 @@ module SuperGood
           return 0 if order.total.zero?
 
           order.additional_tax_total
+        end
+
+        def line_item_sales_tax(line_item)
+          return 0 if line_item.order.total.zero?
+
+          line_item.additional_tax_total
         end
       end
     end

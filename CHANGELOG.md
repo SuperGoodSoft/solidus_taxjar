@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.12.0
+
 - Report no tax collected on order and line items when order total zeroed out.
 
 ## v0.11.1

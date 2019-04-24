@@ -2,6 +2,8 @@
 
 ## master
 
+- Report no tax collected on order when order total zeroed out.
+
 ## v0.11.1
 
 - Avoid sending negative amounts for order totals.

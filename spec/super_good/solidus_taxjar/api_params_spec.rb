@@ -218,6 +218,10 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       it "sends the order total as zero" do
         expect(subject[:amount]).to be_zero
       end
+
+      it "sends the sales tax total as zero" do
+        expect(subject[:sales_tax]).to be_zero
+      end
     end
 
     context "when the line item has 0 quantity" do

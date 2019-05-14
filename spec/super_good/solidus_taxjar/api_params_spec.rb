@@ -192,26 +192,26 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
     it "returns params for creating/updating an order transaction" do
       expect(subject).to eq({
-       amount: BigDecimal("113.58"),
-       customer_id: "12345",
-       sales_tax: BigDecimal("9.87"),
-       shipping: BigDecimal("3.01"),
-       to_city: "Los Angeles",
-       to_country: "US",
-       to_state: "CA",
-       to_street: "475 N Beverly Dr",
-       to_zip: "90210",
-       transaction_date: "2018-03-06T12:10:33Z",
-       transaction_id: "R111222333",
-       line_items: [{
-         id: line_item.id,
-         quantity: 3,
-         product_identifier: "G00D-PR0DUCT",
-         product_tax_code: "A_GEN_TAX",
-         unit_price: 10,
-         discount: 2,
-         sales_tax: 4
-       }]
+        amount: BigDecimal("113.58"),
+        customer_id: "12345",
+        sales_tax: BigDecimal("9.87"),
+        shipping: BigDecimal("3.01"),
+        to_city: "Los Angeles",
+        to_country: "US",
+        to_state: "CA",
+        to_street: "475 N Beverly Dr",
+        to_zip: "90210",
+        transaction_date: "2018-03-06T12:10:33Z",
+        transaction_id: "R111222333",
+        line_items: [{
+          id: line_item.id,
+          quantity: 3,
+          product_identifier: "G00D-PR0DUCT",
+          product_tax_code: "A_GEN_TAX",
+          unit_price: 10,
+          discount: 2,
+          sales_tax: 4
+        }]
       })
     end
 
@@ -252,18 +252,18 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
       it "excludes the line item" do
         expect(subject).to eq({
-         amount: BigDecimal("113.58"),
-         customer_id: "12345",
-         sales_tax: BigDecimal("9.87"),
-         shipping: BigDecimal("3.01"),
-         to_city: "Los Angeles",
-         to_country: "US",
-         to_state: "CA",
-         to_street: "475 N Beverly Dr",
-         to_zip: "90210",
-         transaction_date: "2018-03-06T12:10:33Z",
-         transaction_id: "R111222333",
-         line_items: []
+          amount: BigDecimal("113.58"),
+          customer_id: "12345",
+          sales_tax: BigDecimal("9.87"),
+          shipping: BigDecimal("3.01"),
+          to_city: "Los Angeles",
+          to_country: "US",
+          to_state: "CA",
+          to_street: "475 N Beverly Dr",
+          to_zip: "90210",
+          transaction_date: "2018-03-06T12:10:33Z",
+          transaction_id: "R111222333",
+          line_items: []
         })
       end
     end

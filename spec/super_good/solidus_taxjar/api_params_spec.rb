@@ -125,47 +125,43 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     it "returns params for fetching the tax for the order" do
       expect(subject).to eq(
         customer_id: "12345",
-        to_country: "US",
-        to_zip: "90210",
+        line_items: [{
+          discount: 2.00,
+          id: order.line_items.first.id,
+          product_tax_code: "A_GEN_TAX",
+          quantity: 3,
+          unit_price: 10.00
+        }],
+        shipping: 3.01,
         to_city: "Los Angeles",
+        to_country: "US",
         to_state: "CA",
         to_street: "475 N Beverly Dr",
-
-        shipping: 3.01,
-
-        line_items: [{
-          id: order.line_items.first.id,
-          quantity: 3,
-          unit_price: 10.00,
-          discount: 2.00,
-          product_tax_code: "A_GEN_TAX"
-        }]
+        to_zip: "90210"
       )
     end
 
     context "when the line item has zero quantity" do
       let(:line_item) do
         Spree::LineItem.new(
-          variant: variant,
+          additional_tax_total: 4,
           price: 10,
-          quantity: 0,
           promo_total: -2,
-          additional_tax_total: 4
+          quantity: 0,
+          variant: variant
         )
       end
 
       it "excludes the line item" do
         expect(subject).to eq(
           customer_id: "12345",
-          to_country: "US",
-          to_zip: "90210",
+          line_items: [],
+          shipping: 3.01,
           to_city: "Los Angeles",
+          to_country: "US",
           to_state: "CA",
           to_street: "475 N Beverly Dr",
-
-          shipping: 3.01,
-
-          line_items: []
+          to_zip: "90210"
         )
       end
     end
@@ -194,6 +190,15 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       expect(subject).to eq({
         amount: BigDecimal("113.58"),
         customer_id: "12345",
+        line_items: [{
+          discount: 2,
+          id: line_item.id,
+          product_identifier: "G00D-PR0DUCT",
+          product_tax_code: "A_GEN_TAX",
+          quantity: 3,
+          sales_tax: 4,
+          unit_price: 10
+        }],
         sales_tax: BigDecimal("9.87"),
         shipping: BigDecimal("3.01"),
         to_city: "Los Angeles",
@@ -202,16 +207,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
         to_street: "475 N Beverly Dr",
         to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
-        transaction_id: "R111222333",
-        line_items: [{
-          id: line_item.id,
-          quantity: 3,
-          product_identifier: "G00D-PR0DUCT",
-          product_tax_code: "A_GEN_TAX",
-          unit_price: 10,
-          discount: 2,
-          sales_tax: 4
-        }]
+        transaction_id: "R111222333"
       })
     end
 
@@ -242,11 +238,11 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     context "when the line item has 0 quantity" do
       let(:line_item) do
         Spree::LineItem.new(
-          variant: variant,
+          additional_tax_total: 4,
           price: 10,
-          quantity: 0,
           promo_total: -2,
-          additional_tax_total: 4
+          quantity: 0,
+          variant: variant
         )
       end
 
@@ -254,6 +250,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
         expect(subject).to eq({
           amount: BigDecimal("113.58"),
           customer_id: "12345",
+          line_items: [],
           sales_tax: BigDecimal("9.87"),
           shipping: BigDecimal("3.01"),
           to_city: "Los Angeles",
@@ -263,7 +260,6 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
           to_zip: "90210",
           transaction_date: "2018-03-06T12:10:33Z",
           transaction_id: "R111222333",
-          line_items: []
         })
       end
     end
@@ -284,7 +280,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
         to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
         transaction_id: "RI123123123",
-        transaction_reference_id: "R111222333",
+        transaction_reference_id: "R111222333"
       })
     end
   end

@@ -2,6 +2,8 @@
 
 ## master
 
+- Report order.user_id as customer_id when calculating taxes and creating transactions. This enables the use of per customer exemptions.
+
 ## v0.12.0
 
 - Report no tax collected on order and line items when order total zeroed out.

@@ -4,6 +4,7 @@ module SuperGood
       class << self
         def order_params(order)
           {}
+            .merge(customer_params(order))
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: order.shipment_total)
@@ -23,6 +24,7 @@ module SuperGood
 
         def transaction_params(order)
           {}
+            .merge(customer_params(order))
             .merge(order_address_params(order.tax_address))
             .merge(transaction_line_items_params(order.line_items))
             .merge(
@@ -50,6 +52,12 @@ module SuperGood
         end
 
         private
+
+        def customer_params(order)
+          return {} unless order.user_id
+
+          { customer_id: order.user_id.to_s }
+        end
 
         def order_address_params(address)
           {

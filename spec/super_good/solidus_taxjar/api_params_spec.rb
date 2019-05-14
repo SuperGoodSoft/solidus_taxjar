@@ -10,7 +10,8 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       ship_address: ship_address,
       shipment_total: BigDecimal("3.01"),
       store: store,
-      total: order_total
+      total: order_total,
+      user_id: 12345
     ).tap do |order|
       order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
     end
@@ -123,6 +124,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
     it "returns params for fetching the tax for the order" do
       expect(subject).to eq(
+        customer_id: "12345",
         to_country: "US",
         to_zip: "90210",
         to_city: "Los Angeles",
@@ -154,6 +156,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
       it "excludes the line item" do
         expect(subject).to eq(
+          customer_id: "12345",
           to_country: "US",
           to_zip: "90210",
           to_city: "Los Angeles",
@@ -190,6 +193,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     it "returns params for creating/updating an order transaction" do
       expect(subject).to eq({
        amount: BigDecimal("113.58"),
+       customer_id: "12345",
        sales_tax: BigDecimal("9.87"),
        shipping: BigDecimal("3.01"),
        to_city: "Los Angeles",
@@ -249,6 +253,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       it "excludes the line item" do
         expect(subject).to eq({
          amount: BigDecimal("113.58"),
+         customer_id: "12345",
          sales_tax: BigDecimal("9.87"),
          shipping: BigDecimal("3.01"),
          to_city: "Los Angeles",

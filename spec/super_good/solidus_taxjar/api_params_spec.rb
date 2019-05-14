@@ -3,14 +3,15 @@ require 'spec_helper'
 RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   let(:order) do
     Spree::Order.create!(
-      number: "R111222333",
-      total: order_total,
-      shipment_total: BigDecimal("3.01"),
       additional_tax_total: BigDecimal("9.87"),
       item_total: BigDecimal("28.00"),
-      store: store,
+      line_items: [line_item],
+      number: "R111222333",
       ship_address: ship_address,
-      line_items: [line_item]
+      shipment_total: BigDecimal("3.01"),
+      store: store,
+      total: order_total,
+      user_id: 12345
     ).tap do |order|
       order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
     end
@@ -19,33 +20,32 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:store) do
     Spree::Store.create!(
-      name: "Default Store",
-      url: "https://store.example.com",
+      cart_tax_country_iso: "US",
       code: "store",
       mail_from_address: "contact@example.com",
-      cart_tax_country_iso: "US"
+      name: "Default Store",
+      url: "https://store.example.com"
     )
   end
 
   let(:ship_address) do
     Spree::Address.create!(
-      country: country_us,
-      state: state_california,
-      zipcode: "90210",
-      city: "Los Angeles",
       address1: "475 N Beverly Dr",
-
+      city: "Los Angeles",
+      country: country_us,
       first_name: "Chuck",
       last_name: "Schuldiner",
-      phone: "1-250-555-4444"
+      phone: "1-250-555-4444",
+      state: state_california,
+      zipcode: "90210"
     )
   end
 
   let(:country_us) do
     Spree::Country.create!(
-      iso_name: "UNITED STATES",
-      iso: "US",
       iso3: "USA",
+      iso: "US",
+      iso_name: "UNITED STATES",
       name: "United States",
       numcode: 840,
       states_required: true
@@ -54,36 +54,36 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:state_california) do
     Spree::State.create!(
+      abbr: "CA",
       country: country_us,
-      name: "California",
-      abbr: "CA"
+      name: "California"
     )
   end
 
   let(:line_item) do
     Spree::LineItem.new(
-      variant: variant,
+      additional_tax_total: 4,
       price: 10,
-      quantity: 3,
       promo_total: -2,
-      additional_tax_total: 4
+      quantity: 3,
+      variant: variant
     )
   end
 
   let(:variant) do
     Spree::Variant.create!(
-      sku: "G00D-PR0DUCT",
+      price: 10,
       product: product,
-      price: 10
+      sku: "G00D-PR0DUCT"
     )
   end
 
   let(:product) do
     Spree::Product.create!(
+      master: master_variant,
       name: "Product Name",
       shipping_category: shipping_category,
       tax_category: tax_category,
-      master: master_variant,
       variants: [master_variant]
     )
   end
@@ -94,8 +94,8 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:tax_category) do
     Spree::TaxCategory.create!(
-      name: "Default",
       is_default: true,
+      name: "Default",
       tax_code: "A_GEN_TAX"
     )
   end
@@ -109,13 +109,13 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:reimbursement) do
     Spree::Reimbursement.new(
-      order: order,
-      total: 333.33,
       number: "RI123123123",
+      order: order,
       return_items: [
         Spree::ReturnItem.new(additional_tax_total: 0.33),
         Spree::ReturnItem.new(additional_tax_total: 33.0)
-      ]
+      ],
+      total: 333.33
     )
   end
 
@@ -124,46 +124,44 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
     it "returns params for fetching the tax for the order" do
       expect(subject).to eq(
-        to_country: "US",
-        to_zip: "90210",
+        customer_id: "12345",
+        line_items: [{
+          discount: 2.00,
+          id: order.line_items.first.id,
+          product_tax_code: "A_GEN_TAX",
+          quantity: 3,
+          unit_price: 10.00
+        }],
+        shipping: 3.01,
         to_city: "Los Angeles",
+        to_country: "US",
         to_state: "CA",
         to_street: "475 N Beverly Dr",
-
-        shipping: 3.01,
-
-        line_items: [{
-          id: order.line_items.first.id,
-          quantity: 3,
-          unit_price: 10.00,
-          discount: 2.00,
-          product_tax_code: "A_GEN_TAX"
-        }]
+        to_zip: "90210"
       )
     end
 
     context "when the line item has zero quantity" do
       let(:line_item) do
         Spree::LineItem.new(
-          variant: variant,
+          additional_tax_total: 4,
           price: 10,
-          quantity: 0,
           promo_total: -2,
-          additional_tax_total: 4
+          quantity: 0,
+          variant: variant
         )
       end
 
       it "excludes the line item" do
         expect(subject).to eq(
-          to_country: "US",
-          to_zip: "90210",
+          customer_id: "12345",
+          line_items: [],
+          shipping: 3.01,
           to_city: "Los Angeles",
+          to_country: "US",
           to_state: "CA",
           to_street: "475 N Beverly Dr",
-
-          shipping: 3.01,
-
-          line_items: []
+          to_zip: "90210"
         )
       end
     end
@@ -190,25 +188,26 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
     it "returns params for creating/updating an order transaction" do
       expect(subject).to eq({
-       amount: BigDecimal("113.58"),
-       sales_tax: BigDecimal("9.87"),
-       shipping: BigDecimal("3.01"),
-       to_city: "Los Angeles",
-       to_country: "US",
-       to_state: "CA",
-       to_street: "475 N Beverly Dr",
-       to_zip: "90210",
-       transaction_date: "2018-03-06T12:10:33Z",
-       transaction_id: "R111222333",
-       line_items: [{
-         id: line_item.id,
-         quantity: 3,
-         product_identifier: "G00D-PR0DUCT",
-         product_tax_code: "A_GEN_TAX",
-         unit_price: 10,
-         discount: 2,
-         sales_tax: 4
-       }]
+        amount: BigDecimal("113.58"),
+        customer_id: "12345",
+        line_items: [{
+          discount: 2,
+          id: line_item.id,
+          product_identifier: "G00D-PR0DUCT",
+          product_tax_code: "A_GEN_TAX",
+          quantity: 3,
+          sales_tax: 4,
+          unit_price: 10
+        }],
+        sales_tax: BigDecimal("9.87"),
+        shipping: BigDecimal("3.01"),
+        to_city: "Los Angeles",
+        to_country: "US",
+        to_state: "CA",
+        to_street: "475 N Beverly Dr",
+        to_zip: "90210",
+        transaction_date: "2018-03-06T12:10:33Z",
+        transaction_id: "R111222333"
       })
     end
 
@@ -239,27 +238,28 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     context "when the line item has 0 quantity" do
       let(:line_item) do
         Spree::LineItem.new(
-          variant: variant,
+          additional_tax_total: 4,
           price: 10,
-          quantity: 0,
           promo_total: -2,
-          additional_tax_total: 4
+          quantity: 0,
+          variant: variant
         )
       end
 
       it "excludes the line item" do
         expect(subject).to eq({
-         amount: BigDecimal("113.58"),
-         sales_tax: BigDecimal("9.87"),
-         shipping: BigDecimal("3.01"),
-         to_city: "Los Angeles",
-         to_country: "US",
-         to_state: "CA",
-         to_street: "475 N Beverly Dr",
-         to_zip: "90210",
-         transaction_date: "2018-03-06T12:10:33Z",
-         transaction_id: "R111222333",
-         line_items: []
+          amount: BigDecimal("113.58"),
+          customer_id: "12345",
+          line_items: [],
+          sales_tax: BigDecimal("9.87"),
+          shipping: BigDecimal("3.01"),
+          to_city: "Los Angeles",
+          to_country: "US",
+          to_state: "CA",
+          to_street: "475 N Beverly Dr",
+          to_zip: "90210",
+          transaction_date: "2018-03-06T12:10:33Z",
+          transaction_id: "R111222333",
         })
       end
     end
@@ -280,7 +280,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
         to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
         transaction_id: "RI123123123",
-        transaction_reference_id: "R111222333",
+        transaction_reference_id: "R111222333"
       })
     end
   end

@@ -3,14 +3,14 @@ require 'spec_helper'
 RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   let(:order) do
     Spree::Order.create!(
-      number: "R111222333",
-      total: order_total,
-      shipment_total: BigDecimal("3.01"),
       additional_tax_total: BigDecimal("9.87"),
       item_total: BigDecimal("28.00"),
-      store: store,
+      line_items: [line_item],
+      number: "R111222333",
       ship_address: ship_address,
-      line_items: [line_item]
+      shipment_total: BigDecimal("3.01"),
+      store: store,
+      total: order_total
     ).tap do |order|
       order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
     end
@@ -19,33 +19,32 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:store) do
     Spree::Store.create!(
-      name: "Default Store",
-      url: "https://store.example.com",
+      cart_tax_country_iso: "US",
       code: "store",
       mail_from_address: "contact@example.com",
-      cart_tax_country_iso: "US"
+      name: "Default Store",
+      url: "https://store.example.com"
     )
   end
 
   let(:ship_address) do
     Spree::Address.create!(
-      country: country_us,
-      state: state_california,
-      zipcode: "90210",
-      city: "Los Angeles",
       address1: "475 N Beverly Dr",
-
+      city: "Los Angeles",
+      country: country_us,
       first_name: "Chuck",
       last_name: "Schuldiner",
-      phone: "1-250-555-4444"
+      phone: "1-250-555-4444",
+      state: state_california,
+      zipcode: "90210"
     )
   end
 
   let(:country_us) do
     Spree::Country.create!(
-      iso_name: "UNITED STATES",
-      iso: "US",
       iso3: "USA",
+      iso: "US",
+      iso_name: "UNITED STATES",
       name: "United States",
       numcode: 840,
       states_required: true
@@ -54,36 +53,36 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:state_california) do
     Spree::State.create!(
+      abbr: "CA",
       country: country_us,
-      name: "California",
-      abbr: "CA"
+      name: "California"
     )
   end
 
   let(:line_item) do
     Spree::LineItem.new(
-      variant: variant,
+      additional_tax_total: 4,
       price: 10,
-      quantity: 3,
       promo_total: -2,
-      additional_tax_total: 4
+      quantity: 3,
+      variant: variant
     )
   end
 
   let(:variant) do
     Spree::Variant.create!(
-      sku: "G00D-PR0DUCT",
+      price: 10,
       product: product,
-      price: 10
+      sku: "G00D-PR0DUCT"
     )
   end
 
   let(:product) do
     Spree::Product.create!(
+      master: master_variant,
       name: "Product Name",
       shipping_category: shipping_category,
       tax_category: tax_category,
-      master: master_variant,
       variants: [master_variant]
     )
   end
@@ -94,8 +93,8 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:tax_category) do
     Spree::TaxCategory.create!(
-      name: "Default",
       is_default: true,
+      name: "Default",
       tax_code: "A_GEN_TAX"
     )
   end
@@ -109,13 +108,13 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
   let(:reimbursement) do
     Spree::Reimbursement.new(
-      order: order,
-      total: 333.33,
       number: "RI123123123",
+      order: order,
       return_items: [
         Spree::ReturnItem.new(additional_tax_total: 0.33),
         Spree::ReturnItem.new(additional_tax_total: 33.0)
-      ]
+      ],
+      total: 333.33
     )
   end
 

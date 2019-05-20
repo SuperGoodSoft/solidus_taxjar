@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.13.0
+
 - Report order.user_id as customer_id when calculating taxes and creating transactions. This enables the use of per customer exemptions.
 
 ## v0.12.0

@@ -13,6 +13,7 @@ module SuperGood
       def calculate
         return no_tax if SuperGood::SolidusTaxJar.test_mode
         return no_tax if incomplete_address?(order.tax_address) || order.line_items.none?
+        return no_tax unless taxable_order? order
         return no_tax unless taxable_address? order.tax_address
 
         cache do
@@ -131,6 +132,10 @@ module SuperGood
 
       def exception_handler
         SuperGood::SolidusTaxJar.exception_handler
+      end
+
+      def taxable_order?(order)
+        SuperGood::SolidusTaxJar.taxable_order_check.(order)
       end
 
       def taxable_address?(address)

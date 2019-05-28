@@ -2,6 +2,11 @@
 
 ## master
 
+- Added `SuperGood::SolidusTaxJar.taxable_order_check` option which can be set to a proc that receives the order and will prevent actual tax calculation from occurring if it returns false. If your app has introduced a method like `Spree::Order#complimentary?`, you could avoid trying to compute taxes on complimentary orders by doing the following in an initializer:
+  ```ruby
+  SuperGood::SolidusTaxJar.taxable_order_check = ->(order) { order.complimentary? }
+  ```
+
 ## v0.13.0
 
 - Report order.user_id as customer_id when calculating taxes and creating transactions. This enables the use of per customer exemptions.

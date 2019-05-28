@@ -19,6 +19,7 @@ module SuperGood
       attr_accessor :shipping_calculator
       attr_accessor :shipping_tax_label_maker
       attr_accessor :taxable_address_check
+      attr_accessor :taxable_order_check
       attr_accessor :test_mode
     end
 
@@ -32,6 +33,7 @@ module SuperGood
     self.shipping_calculator = ->(order) { order.shipment_total }
     self.shipping_tax_label_maker = ->(shipment, shipping_tax) { "Sales Tax" }
     self.taxable_address_check = ->(address) { true }
+    self.taxable_order_check = ->(order) { true }
     self.test_mode = false
   end
 end

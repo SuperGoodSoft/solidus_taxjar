@@ -37,6 +37,14 @@ RSpec.describe SuperGood::SolidusTaxJar do
       it { is_expected.to eq true }
     end
 
+    describe ".taxable_order_check" do
+      subject { described_class.taxable_order_check.(order) }
+
+      let(:order) { Spree::Order.new }
+
+      it { is_expected.to eq true }
+    end
+
     describe ".shipping_tax_label_maker" do
       subject { described_class.shipping_tax_label_maker.(shipment, shipping_tax) }
       let(:shipment) { Spree::Shipment.new }

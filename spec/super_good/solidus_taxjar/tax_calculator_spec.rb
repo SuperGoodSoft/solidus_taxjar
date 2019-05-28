@@ -243,6 +243,20 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
           end
         end
 
+        context "but the taxable order check returns false" do
+          before do
+            allow(SuperGood::SolidusTaxJar.taxable_order_check)
+              .to receive(:call).with(order)
+              .and_return(false)
+          end
+
+          it "returns no taxes" do
+            expect(subject.order_id).to eq order.id
+            expect(subject.shipment_taxes).to be_empty
+            expect(subject.line_item_taxes).to be_empty
+          end
+        end
+
         context "when there are shipping taxes" do
           let(:shipping_tax_breakdown) do
             instance_double ::Taxjar::Shipping, tax_collectable: 10.00

@@ -13,7 +13,13 @@ module SuperGood
       end
 
       def tax_for(order)
-        taxjar_client.tax_for_order APIParams.order_params(order)
+        taxjar_client.tax_for_order(APIParams.order_params(order)).tap do |taxes|
+          next unless SuperGood::SolidusTaxJar.logging_enabled
+
+          Rails.logger.info(
+            "TaxJar response for #{order.number}: #{taxes.to_h.inspect}"
+          )
+        end
       end
 
       def tax_rates_for(address)

@@ -2,6 +2,8 @@
 
 ## master
 
+- Made sure cache key is a string, instead of a giant nested hash/array structure that probably won't get interpreted by Rails well. Still not happy with the caching behaviour, but it's configurable.
+
 ## v0.14.0
 
 - Added `SuperGood::SolidusTaxJar.taxable_order_check` option which can be set to a proc that receives the order and will prevent actual tax calculation from occurring if it returns false. If your app has introduced a method like `Spree::Order#complimentary?`, you could avoid trying to compute taxes on complimentary orders by doing the following in an initializer:

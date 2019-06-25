@@ -24,7 +24,7 @@ module SuperGood
     end
 
     self.cache_duration = 3.hours
-    self.cache_key = ->(order) { APIParams.order_params(order) }
+    self.cache_key = ->(order) { APIParams.order_params(order).to_json }
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
     self.exception_handler = ->(e) {
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"

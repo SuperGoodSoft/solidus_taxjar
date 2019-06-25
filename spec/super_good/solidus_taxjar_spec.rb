@@ -6,6 +6,21 @@ RSpec.describe SuperGood::SolidusTaxJar do
   end
 
   describe "configuration" do
+    describe ".cache_key" do
+      subject { described_class.cache_key.(order) }
+
+      let(:order) { Spree::Order.new }
+
+      it "returns the API params converted to JSON" do
+        allow(SuperGood::SolidusTaxJar::APIParams)
+          .to receive(:order_params)
+          .with(order)
+          .and_return({ some: "hash", with: "stuff", in: "it" })
+
+        expect(subject).to eq '{"some":"hash","with":"stuff","in":"it"}'
+      end
+    end
+
     describe ".discount_calculator" do
       subject { described_class.discount_calculator }
       it { is_expected.to eq SuperGood::SolidusTaxJar::DiscountCalculator }

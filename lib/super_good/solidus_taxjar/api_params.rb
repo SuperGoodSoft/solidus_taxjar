@@ -8,6 +8,13 @@ module SuperGood
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: order.shipment_total)
+            .tap do |params|
+              next unless SuperGood::SolidusTaxJar.logging_enabled
+
+              Rails.logger.info(
+                "TaxJar params: #{params.inspect}"
+              )
+            end
         end
 
         def address_params(address)

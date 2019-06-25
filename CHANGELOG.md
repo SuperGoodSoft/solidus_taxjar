@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.15.1
+
 - Add support for request/response logging.
 
 ## v0.15.0

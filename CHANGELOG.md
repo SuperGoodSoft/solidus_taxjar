@@ -2,6 +2,8 @@
 
 ## master
 
+- Add support for request/response logging.
+
 ## v0.15.0
 
 - Made sure cache key is a string, instead of a giant nested hash/array structure that probably won't get interpreted by Rails well. Still not happy with the caching behaviour, but it's configurable.

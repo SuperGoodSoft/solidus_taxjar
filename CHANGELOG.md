@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.15.2
+
 - Add order number to param logging.
 
 ## v0.15.1

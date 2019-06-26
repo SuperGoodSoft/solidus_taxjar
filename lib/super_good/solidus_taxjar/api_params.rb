@@ -12,7 +12,7 @@ module SuperGood
               next unless SuperGood::SolidusTaxJar.logging_enabled
 
               Rails.logger.info(
-                "TaxJar params: #{params.inspect}"
+                "TaxJar params for #{order.number}: #{params.inspect}"
               )
             end
         end

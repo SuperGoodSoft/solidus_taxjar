@@ -2,6 +2,8 @@
 
 ## master
 
+- Add order number to param logging.
+
 ## v0.15.1
 
 - Add support for request/response logging.

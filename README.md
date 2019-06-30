@@ -1,5 +1,3 @@
-## *Warning:* This extension is under active development and not yet at a v1.0 release.
-
 # `SuperGood::SolidusTaxJar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
 
 `SuperGood::SolidusTaxJar` is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.
@@ -41,6 +39,14 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    ```
 
 4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
+
+## Project Status
+
+This extension is under active development and not yet at a v1.0 release, but it's currently being used in production by multiple Solidus stores.
+
+Requirements for TaxJar integrations vary as some stores also need reporting, which isn't provided out of the box by this extension. This is because individual stores will be using different background job frameworks or runners (Sidekiq, delayed_job, ActiveJob, etc.) and a reliable integration will rely on one of these. Because this part of the integration is small, we've chosen to provide the transaction reporting functionality, but have skipped directly integrating it.
+
+If you're having trouble integrating this extension with your store and would like some assistance, please reach out to Jared via e-mail at [jared@super.gd](mailto:jared@super.gd) or on the official Solidus as `@jared`.
 
 ## Development
 

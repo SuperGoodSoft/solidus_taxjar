@@ -1,9 +1,7 @@
 module SuperGood
   module SolidusTaxJar
     class TaxCalculator
-      def self.default_api
-        ::SuperGood::SolidusTaxJar::API.new
-      end
+      include CalculatorHelper
 
       def initialize(order, api: self.class.default_api)
         @order = order
@@ -115,31 +113,12 @@ module SuperGood
         Spree::TaxRate.find_by(name: "Sales Tax")
       end
 
-      def cache
-        if !Rails.env.test?
-          Rails.cache.fetch(
-            cache_key,
-            expires_in: SuperGood::SolidusTaxJar.cache_duration
-          ) { yield }
-        else
-          yield
-        end
-      end
-
       def cache_key
         SuperGood::SolidusTaxJar.cache_key.(order)
       end
 
-      def exception_handler
-        SuperGood::SolidusTaxJar.exception_handler
-      end
-
       def taxable_order?(order)
         SuperGood::SolidusTaxJar.taxable_order_check.(order)
-      end
-
-      def taxable_address?(address)
-        SuperGood::SolidusTaxJar.taxable_address_check.(address)
       end
 
       def shipping_tax_label(shipment, shipping_tax)
@@ -151,18 +130,6 @@ module SuperGood
 
       def line_item_tax_label(taxjar_line_item, spree_line_item)
         SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item, spree_line_item)
-      end
-
-      def incomplete_address?(tax_address)
-        return true if tax_address.is_a?(Spree::Tax::TaxLocation)
-
-        [
-          tax_address.address1,
-          tax_address.city,
-          tax_address&.state&.abbr || tax_address.state_name,
-          tax_address.zipcode,
-          tax_address.country.iso
-        ].any?(&:blank?)
       end
     end
   end

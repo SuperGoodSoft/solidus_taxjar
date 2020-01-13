@@ -29,6 +29,13 @@ module SuperGood
           ]
         end
 
+        def tax_rate_address_params(address)
+          {
+            amount: 100,
+            shipping: 0,
+          }.merge(order_address_params(address))
+        end
+
         def transaction_params(order)
           {}
             .merge(customer_params(order))

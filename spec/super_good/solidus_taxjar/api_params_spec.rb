@@ -183,6 +183,24 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     end
   end
 
+  describe "#tax_rate_address_params" do
+    subject { described_class.tax_rate_address_params(ship_address) }
+
+    it "returns params for fetching the tax rate for that address" do
+      expect(subject).to eq(
+        {
+          amount: 100,
+          shipping: 0,
+          to_city: "Los Angeles",
+          to_country: "US",
+          to_state: "CA",
+          to_street: "475 N Beverly Dr",
+          to_zip: "90210"
+        }
+      )
+    end
+  end
+
   describe "#transaction_params" do
     subject { described_class.transaction_params(order) }
 

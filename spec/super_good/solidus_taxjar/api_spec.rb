@@ -23,6 +23,30 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     it { is_expected.to eq({ some_kind_of: "response" }) }
   end
 
+  describe "tax_rate_for" do
+    subject { api.tax_rate_for address }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:address) { Spree::Address.new }
+    let(:tax_rate) { 0.04 }
+    let(:response) { double(rate: tax_rate) }
+
+    before do
+      allow(SuperGood::SolidusTaxJar::APIParams)
+        .to receive(:tax_rate_address_params)
+        .with(address)
+        .and_return({ address: "params" })
+
+      allow(dummy_client)
+        .to receive(:tax_for_order)
+        .with({ address: "params" })
+        .and_return(response)
+    end
+
+    it { is_expected.to eq(tax_rate) }
+  end
+
   describe "#tax_rates_for" do
     subject { api.tax_rates_for address }
 

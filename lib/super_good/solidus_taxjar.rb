@@ -7,6 +7,7 @@ require "super_good/solidus_taxjar/api_params"
 require "super_good/solidus_taxjar/api"
 require "super_good/solidus_taxjar/calculator_helper"
 require "super_good/solidus_taxjar/tax_calculator"
+require "super_good/solidus_taxjar/tax_rate_calculator"
 require "super_good/solidus_taxjar/discount_calculator"
 
 module SuperGood

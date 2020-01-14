@@ -48,6 +48,21 @@ Requirements for TaxJar integrations vary as some stores also need reporting, wh
 
 If you're having trouble integrating this extension with your store and would like some assistance, please reach out to Jared via e-mail at [jared@super.gd](mailto:jared@super.gd) or on the official Solidus as `@jared`.
 
+## Features
+
+The extension provides currently two high level `calculator` classes that wrap the low-level Ruby taxjar gem API calls:
+
+* tax calculator
+* tax rate calculator
+
+### TaxCalculator
+
+`SuperGood::SolidusTaxJar::TaxCalculator` allows calculating the full tax breakdown for a given `Spree::Order`. The breakdown includes separate line items taxes and shipment taxes.
+
+### TaxRateCalculator
+
+`SuperGood::SolidusTaxJar::TaxRateCalculator` allows calculating the tax rate for a given `Spree::Address`. It relies on the same low-level Ruby TaxJar API endpoint of the tax calculator in order to provide the most coherent and reliable results. TaxJar support recommends using this endpoint for live calculations.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

@@ -22,6 +22,10 @@ module SuperGood
         end
       end
 
+      def tax_rate_for(address)
+        taxjar_client.tax_for_order(APIParams.tax_rate_address_params(address)).rate
+      end
+
       def tax_rates_for(address)
         taxjar_client.rates_for_location(*APIParams.address_params(address))
       end

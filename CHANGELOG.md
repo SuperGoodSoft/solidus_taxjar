@@ -1,6 +1,7 @@
 # Changelog
 
 ## master
+- Fix `#incomplete_address?` method to be friendly also to completely blank addresses.
 
 - Added `SuperGood::SolidusTaxJar::TaxRateCalculator` for retrieving the tax rate for a given `Spree::Address`. The calculator follows `TaxCalculator` conventions by relying on address validators and custom exception handling.
 

@@ -12,6 +12,10 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
 
     let(:dummy_tax_rate) { BigDecimal(0) }
 
+    let(:empty_address) do
+      ::Spree::Address.new
+    end
+
     let(:incomplete_address) do
       ::Spree::Address.new(
         first_name: "Ronnie James",
@@ -32,6 +36,21 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
 
     shared_examples "returns the dummy tax rate" do
       it { expect(subject).to eq dummy_tax_rate }
+    end
+
+    context "when the address is an empty address" do
+      let(:address) { empty_address }
+
+      context "when we're not rescuing from errors" do
+        around do |example|
+          handler = SuperGood::SolidusTaxJar.exception_handler
+          SuperGood::SolidusTaxJar.exception_handler = -> (error) { raise error }
+          example.run
+          SuperGood::SolidusTaxJar.exception_handler = handler
+        end
+
+        it_behaves_like "returns the dummy tax rate"
+      end
     end
 
     context "when the address is not complete" do

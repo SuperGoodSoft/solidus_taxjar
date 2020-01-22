@@ -17,7 +17,7 @@ module SuperGood
           address.city,
           address&.state&.abbr || address.state_name,
           address.zipcode,
-          address.country.iso
+          address.country&.iso
         ].any?(&:blank?)
       end
 

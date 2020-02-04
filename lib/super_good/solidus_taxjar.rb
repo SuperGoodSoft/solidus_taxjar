@@ -15,6 +15,7 @@ module SuperGood
     class << self
       attr_accessor :cache_duration
       attr_accessor :cache_key
+      attr_accessor :custom_order_params
       attr_accessor :discount_calculator
       attr_accessor :exception_handler
       attr_accessor :line_item_tax_label_maker
@@ -31,6 +32,7 @@ module SuperGood
       record_type = record.class.name.demodulize.underscore
       APIParams.send("#{record_type}_params", record).to_json
     }
+    self.custom_order_params = ->(order) { {} }
     self.discount_calculator = ::SuperGood::SolidusTaxJar::DiscountCalculator
     self.exception_handler = ->(e) {
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"

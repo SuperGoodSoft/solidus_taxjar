@@ -141,6 +141,53 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       )
     end
 
+    context "when custom params are used" do
+      around do |example|
+        default = SuperGood::SolidusTaxJar.custom_order_params
+        SuperGood::SolidusTaxJar.custom_order_params = -> (order) {
+          {
+            nexus_addresses: [
+              {
+                id: 'Main Location',
+                country: 'AU',
+                zip: 'NSW 2000',
+                city: 'Sydney',
+                street: '483 George St',
+              }
+            ]
+          }
+        }
+        example.run
+        SuperGood::SolidusTaxJar.custom_order_params = default
+      end
+
+      it "returns params for fetching the tax for the order" do
+        expect(subject).to eq(
+          customer_id: "12345",
+          line_items: [{
+            discount: 2.00,
+            id: order.line_items.first.id,
+            product_tax_code: "A_GEN_TAX",
+            quantity: 3,
+            unit_price: 10.00
+          }],
+          nexus_addresses: [{
+            id: 'Main Location',
+            country: 'AU',
+            zip: 'NSW 2000',
+            city: 'Sydney',
+            street: '483 George St',
+          }],
+          shipping: 3.01,
+          to_city: "Los Angeles",
+          to_country: "US",
+          to_state: "CA",
+          to_street: "475 N Beverly Dr",
+          to_zip: "90210"
+        )
+      end
+    end
+
     context "when the line item has zero quantity" do
       let(:line_item) do
         Spree::LineItem.new(

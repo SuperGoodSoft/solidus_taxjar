@@ -8,6 +8,7 @@ module SuperGood
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: order.shipment_total)
+            .merge(SuperGood::SolidusTaxJar.custom_order_params.(order))
             .tap do |params|
               next unless SuperGood::SolidusTaxJar.logging_enabled
 

@@ -2,6 +2,24 @@
 
 ## master
 
+- Added `SuperGood::SolidusTaxJar.custom_order_params` to allow for custom overrides to the parameters sent to TaxJar when calculating order taxes. For example, if you needed to send a custom nexus address you could do:
+  ```ruby
+  SuperGood::SolidusTaxJar.custom_order_params = ->(order) {
+    {
+      nexus_addresses: [
+        {
+          id: 'Main Location',
+          country: 'AU',
+          zip: 'NSW 2000',
+          city: 'Sydney',
+          street: '483 George St',
+        }
+      ]
+    }
+  }
+  ```
+  The callback receives the `Spree::Order` that the params are for and the return value can override existing values like the order's ID.
+
 ## v0.16.0
 
 - Fix `#incomplete_address?` method to be friendly also to completely blank addresses.

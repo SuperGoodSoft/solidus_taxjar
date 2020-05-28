@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.17.1
+
 - Fixed bug where shipping calculator was not used for order shipping param. (Thanks @spaghetticode!)
 
 ## v0.17.0

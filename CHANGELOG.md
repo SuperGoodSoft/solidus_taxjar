@@ -2,6 +2,8 @@
 
 ## master
 
+- Fixed bug where shipping calculator was not used for order shipping param. (Thanks @spaghetticode!)
+
 ## v0.17.0
 
 - Added `SuperGood::SolidusTaxJar.custom_order_params` to allow for custom overrides to the parameters sent to TaxJar when calculating order taxes. For example, if you needed to send a custom nexus address you could do:

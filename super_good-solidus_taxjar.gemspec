@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "solidus_support"
   spec.add_dependency "taxjar-ruby"
 
+  spec.add_development_dependency "solidus_dev_support"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "rake", "~> 10.0"

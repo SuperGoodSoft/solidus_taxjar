@@ -2,6 +2,8 @@
 
 ## master
 
+- Migrated project to `solidus_dev_support`
+
 ## v0.17.1
 
 - Fixed bug where shipping calculator was not used for order shipping param. (Thanks @spaghetticode!)

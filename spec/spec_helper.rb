@@ -1,38 +1,20 @@
-ENV['RAILS_ENV'] ||= 'test'
+# frozen_string_literal: true
 
-require "bundler/setup"
-require "database_cleaner"
+# Configure Rails Environment
+ENV['RAILS_ENV'] = 'test'
 
-begin
-  require File.expand_path('../dummy/config/environment', __FILE__)
-rescue LoadError
-  puts 'Could not load dummy application. Please ensure you have run `bundle exec rake test_app`'
-  exit
-end
+require File.expand_path('dummy/config/environment.rb', __dir__).tap { |file|
+  # Create the dummy app if it's still missing.
+  system 'bin/rake extension:test_app' unless File.exist? file
+}
+
+require 'solidus_dev_support/rspec/rails_helper'
+
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
-
-  config.disable_monkey_patching!
-  config.filter_run :focus
-  config.run_all_when_everything_filtered = true
-  config.default_formatter = 'doc' if config.files_to_run.one?
-
-  config.order = "random"
-  Kernel.srand config.seed
-
-  config.before :suite do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before :each do
-    DatabaseCleaner.start
-  end
-
-  # After each spec clean the database.
-  config.after :each do
-    DatabaseCleaner.clean
-  end
+  config.infer_spec_type_from_file_location!
+  config.use_transactional_fixtures = false
 end

@@ -22,7 +22,7 @@ module SuperGood
       end
 
       def taxable_address?(address)
-        SuperGood::SolidusTaxJar.taxable_address_check.(address)
+        SuperGood::SolidusTaxJar.taxable_address_check.call(address)
       end
 
       def cache

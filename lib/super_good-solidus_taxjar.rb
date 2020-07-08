@@ -1,1 +1,1 @@
-require 'super_good/solidus_taxjar'
+require "super_good/solidus_taxjar"

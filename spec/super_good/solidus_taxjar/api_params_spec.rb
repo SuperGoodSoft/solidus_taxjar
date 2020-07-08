@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxJar::APIParams do
   let(:order) do
@@ -144,15 +144,15 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
     context "when custom params are used" do
       around do |example|
         default = SuperGood::SolidusTaxJar.custom_order_params
-        SuperGood::SolidusTaxJar.custom_order_params = -> (order) {
+        SuperGood::SolidusTaxJar.custom_order_params = ->(order) {
           {
             nexus_addresses: [
               {
-                id: 'Main Location',
-                country: 'AU',
-                zip: 'NSW 2000',
-                city: 'Sydney',
-                street: '483 George St',
+                id: "Main Location",
+                country: "AU",
+                zip: "NSW 2000",
+                city: "Sydney",
+                street: "483 George St"
               }
             ]
           }
@@ -172,11 +172,11 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
             unit_price: 10.00
           }],
           nexus_addresses: [{
-            id: 'Main Location',
-            country: 'AU',
-            zip: 'NSW 2000',
-            city: 'Sydney',
-            street: '483 George St',
+            id: "Main Location",
+            country: "AU",
+            zip: "NSW 2000",
+            city: "Sydney",
+            street: "483 George St"
           }],
           shipping: 3.01,
           to_city: "Los Angeles",
@@ -324,7 +324,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
           to_street: "475 N Beverly Dr",
           to_zip: "90210",
           transaction_date: "2018-03-06T12:10:33Z",
-          transaction_id: "R111222333",
+          transaction_id: "R111222333"
         })
       end
     end

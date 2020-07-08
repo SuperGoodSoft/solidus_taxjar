@@ -23,8 +23,8 @@ module SuperGood
             shipment_taxes: shipment_taxes
           )
         end
-      rescue StandardError => e
-        exception_handler.(e)
+      rescue => e
+        exception_handler.call(e)
         no_tax
       end
 
@@ -34,7 +34,7 @@ module SuperGood
 
       def line_item_taxes
         @line_item_taxes ||=
-          taxjar_breakdown.line_items.map do |taxjar_line_item|
+          taxjar_breakdown.line_items.map { |taxjar_line_item|
             spree_line_item_id = taxjar_line_item.id.to_i
 
             # Searching in memory because this association is loaded and most
@@ -48,13 +48,13 @@ module SuperGood
               amount: taxjar_line_item.tax_collectable,
               included_in_price: false
             )
-          end
+          }
       end
 
       def shipment_taxes
         @shipment_taxes ||=
           if taxjar_breakdown.shipping? &&
-            (total_shipping_tax = taxjar_breakdown.shipping.tax_collectable) != 0
+              (total_shipping_tax = taxjar_breakdown.shipping.tax_collectable) != 0
 
             # Distribute shipping tax across shipments:
             # TaxJar does not provide a breakdown of shipping taxes, so we have
@@ -114,22 +114,22 @@ module SuperGood
       end
 
       def cache_key
-        SuperGood::SolidusTaxJar.cache_key.(order)
+        SuperGood::SolidusTaxJar.cache_key.call(order)
       end
 
       def taxable_order?(order)
-        SuperGood::SolidusTaxJar.taxable_order_check.(order)
+        SuperGood::SolidusTaxJar.taxable_order_check.call(order)
       end
 
       def shipping_tax_label(shipment, shipping_tax)
-        SuperGood::SolidusTaxJar.shipping_tax_label_maker.(
+        SuperGood::SolidusTaxJar.shipping_tax_label_maker.call(
           shipment,
           shipping_tax
         )
       end
 
       def line_item_tax_label(taxjar_line_item, spree_line_item)
-        SuperGood::SolidusTaxJar.line_item_tax_label_maker.(taxjar_line_item, spree_line_item)
+        SuperGood::SolidusTaxJar.line_item_tax_label_maker.call(taxjar_line_item, spree_line_item)
       end
     end
   end

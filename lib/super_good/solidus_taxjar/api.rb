@@ -46,6 +46,10 @@ module SuperGood
         taxjar_client.create_refund APIParams.refund_params(reimbursement)
       end
 
+      def validate_spree_address(spree_address)
+        taxjar_client.validate_address APIParams.validate_address_params(spree_address)
+      end
+
       private
 
       attr_reader :taxjar_client

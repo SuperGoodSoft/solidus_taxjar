@@ -151,4 +151,26 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
 
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
+
+  describe "#validate_spree_address" do
+    subject { api.validate_spree_address spree_address }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:spree_address) { build :address }
+
+    before do
+      allow(SuperGood::SolidusTaxJar::APIParams)
+        .to receive(:validate_address_params)
+        .with(spree_address)
+        .and_return({address: "params"})
+
+      allow(dummy_client)
+        .to receive(:validate_address)
+        .with({address: "params"})
+        .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
 end

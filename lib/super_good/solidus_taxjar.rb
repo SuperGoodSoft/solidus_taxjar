@@ -9,6 +9,7 @@ require "super_good/solidus_taxjar/calculator_helper"
 require "super_good/solidus_taxjar/tax_calculator"
 require "super_good/solidus_taxjar/tax_rate_calculator"
 require "super_good/solidus_taxjar/discount_calculator"
+require "super_good/solidus_taxjar/addresses"
 
 module SuperGood
   module SolidusTaxJar

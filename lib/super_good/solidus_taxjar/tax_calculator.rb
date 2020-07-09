@@ -3,7 +3,7 @@ module SuperGood
     class TaxCalculator
       include CalculatorHelper
 
-      def initialize(order, api: self.class.default_api)
+      def initialize(order, api: SuperGood::SolidusTaxJar.api)
         @order = order
         @api = api
       end

@@ -2,7 +2,7 @@ module SuperGood
   module SolidusTaxJar
     class TaxRateCalculator
       include CalculatorHelper
-      def initialize(address, api: self.class.default_api)
+      def initialize(address, api: SuperGood::SolidusTaxJar.api)
         @address = address
         @api = api
       end

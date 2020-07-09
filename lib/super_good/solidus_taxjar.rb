@@ -25,6 +25,10 @@ module SuperGood
       attr_accessor :taxable_address_check
       attr_accessor :taxable_order_check
       attr_accessor :test_mode
+
+      def api
+        ::SuperGood::SolidusTaxJar::API.new
+      end
     end
 
     self.cache_duration = 3.hours

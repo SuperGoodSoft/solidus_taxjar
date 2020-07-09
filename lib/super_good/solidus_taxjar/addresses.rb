@@ -5,6 +5,10 @@ module SuperGood
         def normalize(spree_address)
           new.normalize(spree_address)
         end
+
+        def possibilities(spree_address)
+          new.possibilities(spree_address)
+        end
       end
 
       def initialize(api: ::SuperGood::SolidusTaxJar.api)
@@ -12,7 +16,7 @@ module SuperGood
       end
 
       def normalize(spree_address)
-        taxjar_address = api.validate_spree_address(spree_address).first
+        taxjar_address = taxjar_addresses(spree_address).first
 
         return if taxjar_address.nil?
 
@@ -25,9 +29,25 @@ module SuperGood
         })
       end
 
+      def possibilities(spree_address)
+        taxjar_addresses(spree_address).map { |taxjar_address|
+          Spree::Address.immutable_merge(spree_address, {
+            country: us, # TaxJar only supports the US currently.
+            state: state(taxjar_address.state),
+            zipcode: taxjar_address.zip,
+            city: taxjar_address.city,
+            address1: taxjar_address.street
+          })
+        }
+      end
+
       private
 
       attr_reader :api
+
+      def taxjar_addresses(spree_address)
+        api.validate_spree_address(spree_address)
+      end
 
       def us
         Spree::Country.find_by iso: "US"

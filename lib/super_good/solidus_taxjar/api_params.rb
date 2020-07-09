@@ -66,6 +66,16 @@ module SuperGood
             )
         end
 
+        def validate_address_params(spree_address)
+          {
+            country: spree_address.country&.iso,
+            state: spree_address.state&.abbr || adddress.state_name,
+            zip: spree_address.zipcode,
+            city: spree_address.city,
+            street: spree_address.address1
+          }
+        end
+
         private
 
         def customer_params(order)

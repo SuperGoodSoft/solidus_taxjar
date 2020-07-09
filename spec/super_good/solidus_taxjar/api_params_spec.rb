@@ -349,4 +349,18 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
       })
     end
   end
+
+  describe "#validate_address_params" do
+    subject { described_class.validate_address_params(ship_address) }
+
+    it "returns params for validating an address" do
+      expect(subject).to eq({
+        country: "US",
+        state: "CA",
+        zip: "90210",
+        city: "Los Angeles",
+        street: "475 N Beverly Dr"
+      })
+    end
+  end
 end

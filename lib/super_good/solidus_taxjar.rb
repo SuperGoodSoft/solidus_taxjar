@@ -1,6 +1,6 @@
-require 'solidus_core'
-require 'solidus_support'
-require 'taxjar'
+require "solidus_core"
+require "solidus_support"
+require "taxjar"
 
 require "super_good/solidus_taxjar/version"
 require "super_good/solidus_taxjar/api_params"
@@ -9,6 +9,7 @@ require "super_good/solidus_taxjar/calculator_helper"
 require "super_good/solidus_taxjar/tax_calculator"
 require "super_good/solidus_taxjar/tax_rate_calculator"
 require "super_good/solidus_taxjar/discount_calculator"
+require "super_good/solidus_taxjar/addresses"
 
 module SuperGood
   module SolidusTaxJar
@@ -25,6 +26,10 @@ module SuperGood
       attr_accessor :taxable_address_check
       attr_accessor :taxable_order_check
       attr_accessor :test_mode
+
+      def api
+        ::SuperGood::SolidusTaxJar::API.new
+      end
     end
 
     self.cache_duration = 3.hours

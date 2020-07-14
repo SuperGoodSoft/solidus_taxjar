@@ -3,12 +3,6 @@ module SuperGood
     module CalculatorHelper
       extend ActiveSupport::Concern
 
-      class_methods do
-        def default_api
-          ::SuperGood::SolidusTaxJar::API.new
-        end
-      end
-
       def incomplete_address?(address)
         return true if address.is_a?(Spree::Tax::TaxLocation)
 
@@ -22,7 +16,7 @@ module SuperGood
       end
 
       def taxable_address?(address)
-        SuperGood::SolidusTaxJar.taxable_address_check.(address)
+        SuperGood::SolidusTaxJar.taxable_address_check.call(address)
       end
 
       def cache

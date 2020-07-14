@@ -4,7 +4,7 @@ module SuperGood
       def self.default_taxjar_client
         ::Taxjar::Client.new(
           api_key: ENV.fetch("TAXJAR_API_KEY"),
-          api_url: ENV.fetch("TAXJAR_API_URL") { 'https://api.taxjar.com' } # Sandbox URL: https://api.sandbox.taxjar.com
+          api_url: ENV.fetch("TAXJAR_API_URL") { "https://api.taxjar.com" } # Sandbox URL: https://api.sandbox.taxjar.com
         )
       end
 
@@ -44,6 +44,10 @@ module SuperGood
 
       def create_refund_for(reimbursement)
         taxjar_client.create_refund APIParams.refund_params(reimbursement)
+      end
+
+      def validate_spree_address(spree_address)
+        taxjar_client.validate_address APIParams.validate_address_params(spree_address)
       end
 
       private

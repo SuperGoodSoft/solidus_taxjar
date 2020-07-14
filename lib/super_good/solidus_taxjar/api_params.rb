@@ -8,7 +8,7 @@ module SuperGood
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: shipping(order))
-            .merge(SuperGood::SolidusTaxJar.custom_order_params.(order))
+            .merge(SuperGood::SolidusTaxJar.custom_order_params.call(order))
             .tap do |params|
               next unless SuperGood::SolidusTaxJar.logging_enabled
 
@@ -33,7 +33,7 @@ module SuperGood
         def tax_rate_address_params(address)
           {
             amount: 100,
-            shipping: 0,
+            shipping: 0
           }.merge(order_address_params(address))
         end
 
@@ -66,12 +66,22 @@ module SuperGood
             )
         end
 
+        def validate_address_params(spree_address)
+          {
+            country: spree_address.country&.iso,
+            state: spree_address.state&.abbr || adddress.state_name,
+            zip: spree_address.zipcode,
+            city: spree_address.city,
+            street: spree_address.address1
+          }
+        end
+
         private
 
         def customer_params(order)
           return {} unless order.user_id
 
-          { customer_id: order.user_id.to_s }
+          {customer_id: order.user_id.to_s}
         end
 
         def order_address_params(address)
@@ -80,7 +90,7 @@ module SuperGood
             to_zip: address.zipcode,
             to_city: address.city,
             to_state: address&.state&.abbr || address.state_name,
-            to_street: address.address1,
+            to_street: address.address1
           }
         end
 
@@ -127,7 +137,7 @@ module SuperGood
         end
 
         def shipping(order)
-          SuperGood::SolidusTaxJar.shipping_calculator.(order)
+          SuperGood::SolidusTaxJar.shipping_calculator.call(order)
         end
 
         def sales_tax(order)

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxJar::DiscountCalculator do
   describe "#discount" do

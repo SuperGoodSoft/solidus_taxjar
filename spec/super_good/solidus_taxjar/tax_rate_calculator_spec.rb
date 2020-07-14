@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
   describe "#calculate" do
@@ -44,7 +44,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
       context "when we're not rescuing from errors" do
         around do |example|
           handler = SuperGood::SolidusTaxJar.exception_handler
-          SuperGood::SolidusTaxJar.exception_handler = -> (error) { raise error }
+          SuperGood::SolidusTaxJar.exception_handler = ->(error) { raise error }
           example.run
           SuperGood::SolidusTaxJar.exception_handler = handler
         end

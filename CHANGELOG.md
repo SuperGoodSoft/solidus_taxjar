@@ -2,7 +2,8 @@
 
 ## master
 
-- Migrated project to `solidus_dev_support`
+- [#21](https://github.com/SuperGoodSoft/solidus_taxjar/pull/21) Migrated project to `solidus_dev_support`
+- [#22](https://github.com/SuperGoodSoft/solidus_taxjar/pull/22) Added support for TaxJar address validation API through `SuperGood::SolidusTaxJar::Addresses` class
 
 ## v0.17.1
 

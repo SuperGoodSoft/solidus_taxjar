@@ -47,6 +47,8 @@ module SuperGood
 
       def taxjar_addresses(spree_address)
         api.validate_spree_address(spree_address)
+      rescue Taxjar::Error::NotFound
+        []
       end
 
       def us

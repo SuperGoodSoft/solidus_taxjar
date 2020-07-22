@@ -41,20 +41,25 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
       instance_double ::SuperGood::SolidusTaxJar::API
     }
 
-    before do
-      allow(dummy_api)
-        .to receive(:validate_spree_address)
-        .with(spree_address)
-        .and_return(results)
-    end
-
     context "when there are no possibilities for the address" do
-      let(:results) { [] }
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_raise(Taxjar::Error::NotFound)
+      end
 
       it { is_expected.to be_nil }
     end
 
     context "when there is one possibility for the address" do
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_return(results)
+      end
+
       let(:results) {
         [
           Taxjar::Address.new(
@@ -85,6 +90,13 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
     end
 
     context "when there are multiple possibilities for the address" do
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_return(results)
+      end
+
       let(:results) {
         [
           Taxjar::Address.new(
@@ -162,20 +174,25 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
       instance_double ::SuperGood::SolidusTaxJar::API
     }
 
-    before do
-      allow(dummy_api)
-        .to receive(:validate_spree_address)
-        .with(spree_address)
-        .and_return(results)
-    end
-
     context "when there are no possibilities for the address" do
-      let(:results) { [] }
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_raise(Taxjar::Error::NotFound)
+      end
 
       it { is_expected.to be_empty }
     end
 
     context "when there is one possibility for the address" do
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_return(results)
+      end
+
       let(:results) {
         [
           Taxjar::Address.new(
@@ -206,6 +223,13 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
     end
 
     context "when there are multiple possibilities for the address" do
+      before do
+        allow(dummy_api)
+          .to receive(:validate_spree_address)
+          .with(spree_address)
+          .and_return(results)
+      end
+
       let(:results) {
         [
           Taxjar::Address.new(

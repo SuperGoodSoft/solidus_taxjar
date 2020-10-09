@@ -25,7 +25,7 @@ else
   BRANCH="master"
 fi
 
-extension_name="solidus_taxjar"
+extension_name="super_good-solidus_taxjar"
 
 # Stay away from the bundler env of the containing extension.
 function unbundled {
@@ -53,6 +53,7 @@ gem 'solidus', github: 'solidusio/solidus', branch: '$BRANCH'
 gem 'solidus_auth_devise', '>= 2.1.0'
 gem 'rails-i18n'
 gem 'solidus_i18n'
+gem 'solidus_paypal_commerce_platform'
 
 gem '$extension_name', path: '..'
 

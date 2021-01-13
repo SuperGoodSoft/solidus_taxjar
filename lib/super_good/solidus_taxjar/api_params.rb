@@ -100,7 +100,7 @@ module SuperGood
               {
                 id: line_item.id,
                 quantity: line_item.quantity,
-                unit_price: line_item.price,
+                unit_price: line_item.unit_price,
                 discount: discount(line_item),
                 product_tax_code: line_item.tax_category&.tax_code
               }

@@ -1,14 +1,14 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     class TaxRateCalculator
       include CalculatorHelper
-      def initialize(address, api: SuperGood::SolidusTaxJar.api)
+      def initialize(address, api: SuperGood::SolidusTaxjar.api)
         @address = address
         @api = api
       end
 
       def calculate
-        return no_rate if SuperGood::SolidusTaxJar.test_mode
+        return no_rate if SuperGood::SolidusTaxjar.test_mode
         return no_rate if incomplete_address?(address)
         return no_rate unless taxable_address?(address)
         cache do
@@ -28,7 +28,7 @@ module SuperGood
       end
 
       def cache_key
-        SuperGood::SolidusTaxJar.cache_key.call(address)
+        SuperGood::SolidusTaxjar.cache_key.call(address)
       end
     end
   end

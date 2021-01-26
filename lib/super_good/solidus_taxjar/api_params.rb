@@ -1,16 +1,16 @@
 module SuperGood
-  module SolidusTaxJar
-    module APIParams
+  module SolidusTaxjar
+    module ApiParams
       class << self
         def order_params(order)
           {}
-            .merge(customer_params(order))
+            .merge(customer_id(order))
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: shipping(order))
-            .merge(SuperGood::SolidusTaxJar.custom_order_params.call(order))
+            .merge(SuperGood::SolidusTaxjar.custom_order_params.call(order))
             .tap do |params|
-              next unless SuperGood::SolidusTaxJar.logging_enabled
+              next unless SuperGood::SolidusTaxjar.logging_enabled
 
               Rails.logger.info(
                 "TaxJar params for #{order.number}: #{params.inspect}"
@@ -39,7 +39,7 @@ module SuperGood
 
         def transaction_params(order)
           {}
-            .merge(customer_params(order))
+            .merge(customer_id(order))
             .merge(order_address_params(order.tax_address))
             .merge(transaction_line_items_params(order.line_items))
             .merge(
@@ -76,9 +76,33 @@ module SuperGood
           }
         end
 
+        def customer_params(user)
+          customer = user.tax_jar_customer
+          address = customer.address
+
+          {
+            customer_id: user.id,
+            exemption_type: customer.tax_exemption_type,
+            name: address.company ? address.company : address.full_name,
+            country: address.country.iso,
+            state: address.state.abbr,
+            zip: address.zip,
+            city: address.city,
+            street: address.street,
+            exempt_regions: customer.tax_jar_customer_states.map do |customer_state|
+              state = customer_state.state
+
+              {
+                state: state.abbr,
+                country: state.country.iso
+              }
+            end
+          }
+        end
+
         private
 
-        def customer_params(order)
+        def customer_id(order)
           return {} unless order.user_id
 
           {customer_id: order.user_id.to_s}
@@ -133,11 +157,11 @@ module SuperGood
         end
 
         def discount(line_item)
-          ::SuperGood::SolidusTaxJar.discount_calculator.new(line_item).discount
+          ::SuperGood::SolidusTaxjar.discount_calculator.new(line_item).discount
         end
 
         def shipping(order)
-          SuperGood::SolidusTaxJar.shipping_calculator.call(order)
+          SuperGood::SolidusTaxjar.shipping_calculator.call(order)
         end
 
         def sales_tax(order)

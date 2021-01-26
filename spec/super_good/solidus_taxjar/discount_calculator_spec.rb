@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxJar::DiscountCalculator do
+RSpec.describe SuperGood::SolidusTaxjar::DiscountCalculator do
   describe "#discount" do
     subject { calculator.discount }
 

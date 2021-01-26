@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     module CalculatorHelper
       extend ActiveSupport::Concern
 
@@ -16,14 +16,14 @@ module SuperGood
       end
 
       def taxable_address?(address)
-        SuperGood::SolidusTaxJar.taxable_address_check.call(address)
+        SuperGood::SolidusTaxjar.taxable_address_check.call(address)
       end
 
       def cache
         if !Rails.env.test?
           Rails.cache.fetch(
             cache_key,
-            expires_in: SuperGood::SolidusTaxJar.cache_duration
+            expires_in: SuperGood::SolidusTaxjar.cache_duration
           ) { yield }
         else
           yield
@@ -31,7 +31,7 @@ module SuperGood
       end
 
       def exception_handler
-        SuperGood::SolidusTaxJar.exception_handler
+        SuperGood::SolidusTaxjar.exception_handler
       end
     end
   end

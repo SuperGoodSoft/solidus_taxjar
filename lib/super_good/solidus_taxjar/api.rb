@@ -1,6 +1,6 @@
 module SuperGood
-  module SolidusTaxJar
-    class API
+  module SolidusTaxjar
+    class Api
       def self.default_taxjar_client
         ::Taxjar::Client.new(
           api_key: ENV.fetch("TAXJAR_API_KEY"),
@@ -13,8 +13,8 @@ module SuperGood
       end
 
       def tax_for(order)
-        taxjar_client.tax_for_order(APIParams.order_params(order)).tap do |taxes|
-          next unless SuperGood::SolidusTaxJar.logging_enabled
+        taxjar_client.tax_for_order(ApiParams.order_params(order)).tap do |taxes|
+          next unless SuperGood::SolidusTaxjar.logging_enabled
 
           Rails.logger.info(
             "TaxJar response for #{order.number}: #{taxes.to_h.inspect}"
@@ -23,19 +23,19 @@ module SuperGood
       end
 
       def tax_rate_for(address)
-        taxjar_client.tax_for_order(APIParams.tax_rate_address_params(address)).rate
+        taxjar_client.tax_for_order(ApiParams.tax_rate_address_params(address)).rate
       end
 
       def tax_rates_for(address)
-        taxjar_client.rates_for_location(*APIParams.address_params(address))
+        taxjar_client.rates_for_location(*ApiParams.address_params(address))
       end
 
       def create_transaction_for(order)
-        taxjar_client.create_order APIParams.transaction_params(order)
+        taxjar_client.create_order ApiParams.transaction_params(order)
       end
 
       def update_transaction_for(order)
-        taxjar_client.update_order APIParams.transaction_params(order)
+        taxjar_client.update_order ApiParams.transaction_params(order)
       end
 
       def delete_transaction_for(order)
@@ -43,11 +43,27 @@ module SuperGood
       end
 
       def create_refund_for(reimbursement)
-        taxjar_client.create_refund APIParams.refund_params(reimbursement)
+        taxjar_client.create_refund ApiParams.refund_params(reimbursement)
       end
 
       def validate_spree_address(spree_address)
-        taxjar_client.validate_address APIParams.validate_address_params(spree_address)
+        taxjar_client.validate_address ApiParams.validate_address_params(spree_address)
+      end
+
+      def create_customer_for(user)
+        taxjar_client.create_customer ApiParams.customer_params(user)
+      end
+
+      def update_customer_for(user)
+        taxjar_client.update_customer ApiParams.customer_params(user)
+      end
+
+      def delete_customer_for(user)
+        taxjar_client.delete_customer ApiParams.customer_params(user)
+      end
+
+      def nexus_regions
+        taxjar_client.nexus_regions
       end
 
       private

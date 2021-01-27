@@ -77,7 +77,7 @@ module SuperGood
         end
 
         def customer_params(user)
-          customer = user.tax_jar_customer
+          customer = user.taxjar_customer
           address = customer.address
 
           {
@@ -89,7 +89,7 @@ module SuperGood
             zip: address.zip,
             city: address.city,
             street: address.street,
-            exempt_regions: customer.tax_jar_customer_states.map do |customer_state|
+            exempt_regions: customer.taxjar_customer_states.map do |customer_state|
               state = customer_state.state
 
               {

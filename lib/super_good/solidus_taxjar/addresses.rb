@@ -20,7 +20,7 @@ module SuperGood
 
         return if taxjar_address.nil?
 
-        Spree::Address.immutable_merge(spree_address, {
+        ::Spree::Address.immutable_merge(spree_address, {
           country: us, # TaxJar only supports the US currently.
           state: state(taxjar_address.state),
           zipcode: taxjar_address.zip,
@@ -31,7 +31,7 @@ module SuperGood
 
       def possibilities(spree_address)
         taxjar_addresses(spree_address).map { |taxjar_address|
-          Spree::Address.immutable_merge(spree_address, {
+          ::Spree::Address.immutable_merge(spree_address, {
             country: us, # TaxJar only supports the US currently.
             state: state(taxjar_address.state),
             zipcode: taxjar_address.zip,
@@ -52,7 +52,7 @@ module SuperGood
       end
 
       def us
-        Spree::Country.find_by iso: "US"
+        ::Spree::Country.find_by iso: "US"
       end
 
       def state(abbr)

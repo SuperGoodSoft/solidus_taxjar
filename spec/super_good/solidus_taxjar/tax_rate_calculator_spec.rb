@@ -7,7 +7,7 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
     let(:calculator) { described_class.new(address, api: dummy_api) }
 
     let(:dummy_api) do
-      instance_double ::SuperGood::SolidusTaxjar::API
+      instance_double ::SuperGood::SolidusTaxjar::Api
     end
 
     let(:dummy_tax_rate) { BigDecimal(0) }

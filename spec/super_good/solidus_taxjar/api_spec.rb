@@ -113,7 +113,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
 
-  describe "#update_transaction_for" do
+  describe "#delete_transaction_for" do
     subject { api.delete_transaction_for order }
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
@@ -169,6 +169,70 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
         .to receive(:validate_address)
         .with({address: "params"})
         .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
+
+  describe "#create_customer_for" do
+    subject { api.create_customer_for user }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:taxjar_customer) { SuperGood::SolidusTaxjar::Customer.new }
+    let(:user) {::Spree.user_class.new(taxjar_customer: taxjar_customer)}
+
+    before do
+      allow(SuperGood::SolidusTaxjar::ApiParams)
+        .to receive(:customer_params)
+              .with(taxjar_customer)
+              .and_return({customer: "params"})
+
+      allow(dummy_client)
+        .to receive(:create_customer)
+              .with({customer: "params"})
+              .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
+
+  describe "#update_customer_for" do
+    subject { api.update_customer_for user }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:taxjar_customer) { SuperGood::SolidusTaxjar::Customer.new }
+    let(:user) {::Spree.user_class.new(taxjar_customer: taxjar_customer)}
+
+    before do
+      allow(SuperGood::SolidusTaxjar::ApiParams)
+        .to receive(:customer_params)
+              .with(taxjar_customer)
+              .and_return({customer: "params"})
+
+      allow(dummy_client)
+        .to receive(:update_customer)
+              .with({customer: "params"})
+              .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
+
+  describe "#delete_customer_for" do
+    subject { api.delete_customer_for user }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:taxjar_customer) { SuperGood::SolidusTaxjar::Customer.new }
+    let(:user) {::Spree.user_class.new(id: 12345, taxjar_customer: taxjar_customer)}
+
+    before do
+      allow(dummy_client)
+        .to receive(:delete_customer)
+              .with(12345)
+              .and_return({some_kind_of: "response"})
     end
 
     it { is_expected.to eq({some_kind_of: "response"}) }

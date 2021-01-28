@@ -76,21 +76,20 @@ module SuperGood
           }
         end
 
-        def customer_params(user)
-          customer = user.taxjar_customer
+        def customer_params(customer)
           address = customer.address
 
           {
-            customer_id: user.id,
+            customer_id: customer.user_id,
             exemption_type: customer.tax_exemption_type,
             name: address.company ? address.company : address.full_name,
             country: address.country.iso,
             state: address.state.abbr,
-            zip: address.zip,
+            zip: address.zipcode,
             city: address.city,
-            street: address.street,
-            exempt_regions: customer.taxjar_customer_states.map do |customer_state|
-              state = customer_state.state
+            street: address.address1,
+            exempt_regions: customer.taxjar_exempt_regions.map do |exempt_region|
+              state = exempt_region.state
 
               {
                 state: state.abbr,

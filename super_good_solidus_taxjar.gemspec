@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "super_good/solidus_taxjar/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "super_good-solidus_taxjar"
+  spec.name = "super_good_solidus_taxjar"
   spec.version = SuperGood::SolidusTaxJar::VERSION
   spec.authors = ["Jared Norman"]
   spec.email = ["jared@super.gd"]

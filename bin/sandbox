@@ -25,7 +25,7 @@ else
   BRANCH="master"
 fi
 
-extension_name="super_good-solidus_taxjar"
+extension_name="super_good_solidus_taxjar"
 
 # Stay away from the bundler env of the containing extension.
 function unbundled {

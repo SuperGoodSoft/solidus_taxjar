@@ -9,7 +9,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 1. Add this line to your application's Gemfile:
 
    ```ruby
-   gem 'super_good-solidus_taxjar'
+   gem 'super_good_solidus_taxjar'
    ```
 
    And then execute:

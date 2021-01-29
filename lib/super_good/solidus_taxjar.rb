@@ -28,14 +28,14 @@ module SuperGood
       attr_accessor :test_mode
 
       def api
-        ::SuperGood::SolidusTaxjar::API.new
+        ::SuperGood::SolidusTaxjar::Api.new
       end
     end
 
     self.cache_duration = 3.hours
     self.cache_key = ->(record) {
       record_type = record.class.name.demodulize.underscore
-      APIParams.send("#{record_type}_params", record).to_json
+      ApiParams.send("#{record_type}_params", record).to_json
     }
     self.custom_order_params = ->(order) { {} }
     self.discount_calculator = ::SuperGood::SolidusTaxjar::DiscountCalculator

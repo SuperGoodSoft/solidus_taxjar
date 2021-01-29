@@ -7,7 +7,7 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
     let(:calculator) { described_class.new(order, api: dummy_api) }
 
     let(:dummy_api) do
-      instance_double ::SuperGood::SolidusTaxjar::API
+      instance_double ::SuperGood::SolidusTaxjar::Api
     end
 
     let(:order) do

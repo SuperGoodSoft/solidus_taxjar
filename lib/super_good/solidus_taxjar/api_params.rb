@@ -1,6 +1,6 @@
 module SuperGood
   module SolidusTaxjar
-    module APIParams
+    module ApiParams
       class << self
         def order_params(order)
           {}

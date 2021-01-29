@@ -38,7 +38,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
     }
 
     let(:dummy_api) {
-      instance_double ::SuperGood::SolidusTaxjar::API
+      instance_double ::SuperGood::SolidusTaxjar::Api
     }
 
     context "when there are no possibilities for the address" do
@@ -171,7 +171,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
     }
 
     let(:dummy_api) {
-      instance_double ::SuperGood::SolidusTaxjar::API
+      instance_double ::SuperGood::SolidusTaxjar::Api
     }
 
     context "when there are no possibilities for the address" do

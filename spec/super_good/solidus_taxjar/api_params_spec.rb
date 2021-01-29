@@ -119,6 +119,17 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     )
   end
 
+  let(:taxjar_customer) do
+    SuperGood::SolidusTaxjar::Customer.new(
+      user_id: 12345,
+      address: ship_address,
+      tax_exemption_type: "wholesale",
+      taxjar_exempt_regions: [
+        SuperGood::SolidusTaxjar::ExemptRegion.new(state: state_california, approved: true),
+      ],
+    )
+  end
+
   describe "#order_params" do
     subject { described_class.order_params(order) }
 
@@ -360,6 +371,27 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         zip: "90210",
         city: "Los Angeles",
         street: "475 N Beverly Dr"
+      })
+    end
+  end
+
+  describe "#taxjar_customer_params" do
+    subject { described_class.customer_params(taxjar_customer) }
+
+    it "returns params for fetching the tax info for that customer" do
+      expect(subject).to eq({
+        customer_id: 12345,
+        exemption_type: "wholesale",
+        name: "Chuck Schuldiner",
+        country: "US",
+        state: "CA",
+        zip: "90210",
+        city: "Los Angeles",
+        street: "475 N Beverly Dr",
+        exempt_regions: [{
+          state: "CA",
+          country: "US"
+        }]
       })
     end
   end

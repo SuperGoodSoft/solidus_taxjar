@@ -17,7 +17,7 @@ module SuperGood
         cache do
           next no_tax unless taxjar_breakdown
 
-          Spree::Tax::OrderTax.new(
+          ::Spree::Tax::OrderTax.new(
             order_id: order.id,
             line_item_taxes: line_item_taxes,
             shipment_taxes: shipment_taxes
@@ -41,7 +41,7 @@ module SuperGood
             # orders aren't going to have a huge number of line items.
             spree_line_item = order.line_items.find { |li| li.id == spree_line_item_id }
 
-            Spree::Tax::ItemTax.new(
+            ::Spree::Tax::ItemTax.new(
               item_id: spree_line_item_id,
               label: line_item_tax_label(taxjar_line_item, spree_line_item),
               tax_rate: tax_rate,
@@ -102,7 +102,7 @@ module SuperGood
       end
 
       def no_tax
-        Spree::Tax::OrderTax.new(
+        ::Spree::Tax::OrderTax.new(
           order_id: order.id,
           line_item_taxes: [],
           shipment_taxes: []
@@ -110,7 +110,7 @@ module SuperGood
       end
 
       def tax_rate
-        Spree::TaxRate.find_by(name: "Sales Tax")
+        ::Spree::TaxRate.find_by(name: "Sales Tax")
       end
 
       def cache_key

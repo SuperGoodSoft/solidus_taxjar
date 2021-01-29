@@ -4,7 +4,7 @@ module SuperGood
       class << self
         def order_params(order)
           {}
-            .merge(customer_params(order))
+            .merge(customer_id(order))
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: shipping(order))
@@ -39,7 +39,7 @@ module SuperGood
 
         def transaction_params(order)
           {}
-            .merge(customer_params(order))
+            .merge(customer_id(order))
             .merge(order_address_params(order.tax_address))
             .merge(transaction_line_items_params(order.line_items))
             .merge(
@@ -76,9 +76,32 @@ module SuperGood
           }
         end
 
+        def customer_params(customer)
+          address = customer.address
+
+          {
+            customer_id: customer.user_id,
+            exemption_type: customer.tax_exemption_type,
+            name: address.company ? address.company : address.full_name,
+            country: address.country.iso,
+            state: address.state.abbr,
+            zip: address.zipcode,
+            city: address.city,
+            street: address.address1,
+            exempt_regions: customer.taxjar_exempt_regions.map do |exempt_region|
+              state = exempt_region.state
+
+              {
+                state: state.abbr,
+                country: state.country.iso
+              }
+            end
+          }
+        end
+
         private
 
-        def customer_params(order)
+        def customer_id(order)
           return {} unless order.user_id
 
           {customer_id: order.user_id.to_s}

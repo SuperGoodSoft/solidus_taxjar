@@ -50,6 +50,22 @@ module SuperGood
         taxjar_client.validate_address ApiParams.validate_address_params(spree_address)
       end
 
+      def create_customer_for(user)
+        taxjar_client.create_customer ApiParams.customer_params(user.taxjar_customer)
+      end
+
+      def update_customer_for(user)
+        taxjar_client.update_customer ApiParams.customer_params(user.taxjar_customer)
+      end
+
+      def delete_customer_for(user)
+        taxjar_client.delete_customer user.id
+      end
+
+      def nexus_regions
+        taxjar_client.nexus_regions
+      end
+
       private
 
       attr_reader :taxjar_client

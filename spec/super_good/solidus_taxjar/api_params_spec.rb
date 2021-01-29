@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxJar::APIParams do
+RSpec.describe SuperGood::SolidusTaxjar::APIParams do
   let(:order) do
     Spree::Order.create!(
       additional_tax_total: BigDecimal("9.87"),
@@ -143,8 +143,8 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
 
     context "when custom params are used" do
       around do |example|
-        default = SuperGood::SolidusTaxJar.custom_order_params
-        SuperGood::SolidusTaxJar.custom_order_params = ->(order) {
+        default = SuperGood::SolidusTaxjar.custom_order_params
+        SuperGood::SolidusTaxjar.custom_order_params = ->(order) {
           {
             nexus_addresses: [
               {
@@ -158,7 +158,7 @@ RSpec.describe SuperGood::SolidusTaxJar::APIParams do
           }
         }
         example.run
-        SuperGood::SolidusTaxJar.custom_order_params = default
+        SuperGood::SolidusTaxjar.custom_order_params = default
       end
 
       it "returns params for fetching the tax for the order" do

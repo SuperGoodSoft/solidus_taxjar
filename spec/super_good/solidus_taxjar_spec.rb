@@ -1,8 +1,8 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxJar do
+RSpec.describe SuperGood::SolidusTaxjar do
   it "has a version number" do
-    expect(SuperGood::SolidusTaxJar::VERSION).not_to be nil
+    expect(SuperGood::SolidusTaxjar::VERSION).not_to be nil
   end
 
   describe "configuration" do
@@ -12,7 +12,7 @@ RSpec.describe SuperGood::SolidusTaxJar do
       let(:order) { Spree::Order.new }
 
       it "returns the API params converted to JSON" do
-        allow(SuperGood::SolidusTaxJar::APIParams)
+        allow(SuperGood::SolidusTaxjar::APIParams)
           .to receive(:order_params)
           .with(order)
           .and_return({some: "hash", with: "stuff", in: "it"})
@@ -23,7 +23,7 @@ RSpec.describe SuperGood::SolidusTaxJar do
 
     describe ".discount_calculator" do
       subject { described_class.discount_calculator }
-      it { is_expected.to eq SuperGood::SolidusTaxJar::DiscountCalculator }
+      it { is_expected.to eq SuperGood::SolidusTaxjar::DiscountCalculator }
     end
 
     describe ".test_mode" do

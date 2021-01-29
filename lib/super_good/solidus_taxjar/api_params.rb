@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     module APIParams
       class << self
         def order_params(order)
@@ -8,9 +8,9 @@ module SuperGood
             .merge(order_address_params(order.tax_address))
             .merge(line_items_params(order.line_items))
             .merge(shipping: shipping(order))
-            .merge(SuperGood::SolidusTaxJar.custom_order_params.call(order))
+            .merge(SuperGood::SolidusTaxjar.custom_order_params.call(order))
             .tap do |params|
-              next unless SuperGood::SolidusTaxJar.logging_enabled
+              next unless SuperGood::SolidusTaxjar.logging_enabled
 
               Rails.logger.info(
                 "TaxJar params for #{order.number}: #{params.inspect}"
@@ -133,11 +133,11 @@ module SuperGood
         end
 
         def discount(line_item)
-          ::SuperGood::SolidusTaxJar.discount_calculator.new(line_item).discount
+          ::SuperGood::SolidusTaxjar.discount_calculator.new(line_item).discount
         end
 
         def shipping(order)
-          SuperGood::SolidusTaxJar.shipping_calculator.call(order)
+          SuperGood::SolidusTaxjar.shipping_calculator.call(order)
         end
 
         def sales_tax(order)

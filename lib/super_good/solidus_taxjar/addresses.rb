@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     class Addresses
       class << self
         def normalize(spree_address)
@@ -11,7 +11,7 @@ module SuperGood
         end
       end
 
-      def initialize(api: ::SuperGood::SolidusTaxJar.api)
+      def initialize(api: ::SuperGood::SolidusTaxjar.api)
         @api = api
       end
 

@@ -1,13 +1,13 @@
 require "spec_helper"
 
-RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
+RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
   describe "#calculate" do
     subject { calculator.calculate }
 
     let(:calculator) { described_class.new(address, api: dummy_api) }
 
     let(:dummy_api) do
-      instance_double ::SuperGood::SolidusTaxJar::API
+      instance_double ::SuperGood::SolidusTaxjar::API
     end
 
     let(:dummy_tax_rate) { BigDecimal(0) }
@@ -43,10 +43,10 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
 
       context "when we're not rescuing from errors" do
         around do |example|
-          handler = SuperGood::SolidusTaxJar.exception_handler
-          SuperGood::SolidusTaxJar.exception_handler = ->(error) { raise error }
+          handler = SuperGood::SolidusTaxjar.exception_handler
+          SuperGood::SolidusTaxjar.exception_handler = ->(error) { raise error }
           example.run
-          SuperGood::SolidusTaxJar.exception_handler = handler
+          SuperGood::SolidusTaxjar.exception_handler = handler
         end
 
         it_behaves_like "returns the dummy tax rate"
@@ -64,7 +64,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
 
       context "when the address is not taxable" do
         before do
-          allow(SuperGood::SolidusTaxJar.taxable_address_check)
+          allow(SuperGood::SolidusTaxjar.taxable_address_check)
             .to receive(:call).with(address)
             .and_return(false)
         end
@@ -93,7 +93,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
       end
 
       it "calls the configured error handler" do
-        expect(SuperGood::SolidusTaxJar.exception_handler).to receive(:call) do |e|
+        expect(SuperGood::SolidusTaxjar.exception_handler).to receive(:call) do |e|
           expect(e).to be_a StandardError
           expect(e.message).to eq "A bad thing happened."
         end
@@ -107,8 +107,8 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxRateCalculator do
     context "when test_mode is set" do
       let(:address) { complete_address }
 
-      before { SuperGood::SolidusTaxJar.test_mode = true }
-      after { SuperGood::SolidusTaxJar.test_mode = false }
+      before { SuperGood::SolidusTaxjar.test_mode = true }
+      after { SuperGood::SolidusTaxjar.test_mode = false }
 
       it_behaves_like "returns the dummy tax rate"
     end

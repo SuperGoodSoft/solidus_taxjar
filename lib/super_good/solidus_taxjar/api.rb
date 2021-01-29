@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     class API
       def self.default_taxjar_client
         ::Taxjar::Client.new(
@@ -14,7 +14,7 @@ module SuperGood
 
       def tax_for(order)
         taxjar_client.tax_for_order(APIParams.order_params(order)).tap do |taxes|
-          next unless SuperGood::SolidusTaxJar.logging_enabled
+          next unless SuperGood::SolidusTaxjar.logging_enabled
 
           Rails.logger.info(
             "TaxJar response for #{order.number}: #{taxes.to_h.inspect}"

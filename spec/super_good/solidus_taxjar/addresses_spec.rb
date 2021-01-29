@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxJar::Addresses do
+RSpec.describe SuperGood::SolidusTaxjar::Addresses do
   describe "#normalize" do
     subject { described_class.new(api: dummy_api).normalize(spree_address) }
 
@@ -38,7 +38,7 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
     }
 
     let(:dummy_api) {
-      instance_double ::SuperGood::SolidusTaxJar::API
+      instance_double ::SuperGood::SolidusTaxjar::API
     }
 
     context "when there are no possibilities for the address" do
@@ -171,7 +171,7 @@ RSpec.describe SuperGood::SolidusTaxJar::Addresses do
     }
 
     let(:dummy_api) {
-      instance_double ::SuperGood::SolidusTaxJar::API
+      instance_double ::SuperGood::SolidusTaxjar::API
     }
 
     context "when there are no possibilities for the address" do

@@ -1,13 +1,13 @@
 require "spec_helper"
 
-RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
+RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
   describe "#calculate" do
     subject { calculator.calculate }
 
     let(:calculator) { described_class.new(order, api: dummy_api) }
 
     let(:dummy_api) do
-      instance_double ::SuperGood::SolidusTaxJar::API
+      instance_double ::SuperGood::SolidusTaxjar::API
     end
 
     let(:order) do
@@ -141,7 +141,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
       end
 
       it "calls the configured error handler" do
-        expect(SuperGood::SolidusTaxJar.exception_handler).to receive(:call) do |e|
+        expect(SuperGood::SolidusTaxjar.exception_handler).to receive(:call) do |e|
           expect(e).to be_a StandardError
           expect(e.message).to eq "A bad thing happened."
         end
@@ -217,7 +217,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
         context "with custom line item tax labels" do
           before do
-            allow(SuperGood::SolidusTaxJar.line_item_tax_label_maker)
+            allow(SuperGood::SolidusTaxjar.line_item_tax_label_maker)
               .to receive(:call)
               .with(taxjar_line_item, line_items.first)
               .and_return("Space Tax")
@@ -231,7 +231,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
         context "but the taxable address check returns false" do
           before do
-            allow(SuperGood::SolidusTaxJar.taxable_address_check)
+            allow(SuperGood::SolidusTaxjar.taxable_address_check)
               .to receive(:call).with(address)
               .and_return(false)
           end
@@ -245,7 +245,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
         context "but the taxable order check returns false" do
           before do
-            allow(SuperGood::SolidusTaxJar.taxable_order_check)
+            allow(SuperGood::SolidusTaxjar.taxable_order_check)
               .to receive(:call).with(order)
               .and_return(false)
           end
@@ -289,7 +289,7 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
 
           context "with custom shipping tax labels" do
             before do
-              allow(SuperGood::SolidusTaxJar.shipping_tax_label_maker).to receive(:call)
+              allow(SuperGood::SolidusTaxjar.shipping_tax_label_maker).to receive(:call)
                 .and_return("Magic Tax", "Spicy Tax", "Vegetable Tax")
             end
 
@@ -307,8 +307,8 @@ RSpec.describe ::SuperGood::SolidusTaxJar::TaxCalculator do
         end
 
         context "when test_mode is set" do
-          before { SuperGood::SolidusTaxJar.test_mode = true }
-          after { SuperGood::SolidusTaxJar.test_mode = false }
+          before { SuperGood::SolidusTaxjar.test_mode = true }
+          after { SuperGood::SolidusTaxjar.test_mode = false }
 
           it "returns no taxes" do
             expect(subject.order_id).to eq order.id

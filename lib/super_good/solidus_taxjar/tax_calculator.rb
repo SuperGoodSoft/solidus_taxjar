@@ -1,15 +1,15 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     class TaxCalculator
       include CalculatorHelper
 
-      def initialize(order, api: SuperGood::SolidusTaxJar.api)
+      def initialize(order, api: SuperGood::SolidusTaxjar.api)
         @order = order
         @api = api
       end
 
       def calculate
-        return no_tax if SuperGood::SolidusTaxJar.test_mode
+        return no_tax if SuperGood::SolidusTaxjar.test_mode
         return no_tax if incomplete_address?(order.tax_address) || order.line_items.none?
         return no_tax unless taxable_order? order
         return no_tax unless taxable_address? order.tax_address
@@ -114,22 +114,22 @@ module SuperGood
       end
 
       def cache_key
-        SuperGood::SolidusTaxJar.cache_key.call(order)
+        SuperGood::SolidusTaxjar.cache_key.call(order)
       end
 
       def taxable_order?(order)
-        SuperGood::SolidusTaxJar.taxable_order_check.call(order)
+        SuperGood::SolidusTaxjar.taxable_order_check.call(order)
       end
 
       def shipping_tax_label(shipment, shipping_tax)
-        SuperGood::SolidusTaxJar.shipping_tax_label_maker.call(
+        SuperGood::SolidusTaxjar.shipping_tax_label_maker.call(
           shipment,
           shipping_tax
         )
       end
 
       def line_item_tax_label(taxjar_line_item, spree_line_item)
-        SuperGood::SolidusTaxJar.line_item_tax_label_maker.call(taxjar_line_item, spree_line_item)
+        SuperGood::SolidusTaxjar.line_item_tax_label_maker.call(taxjar_line_item, spree_line_item)
       end
     end
   end

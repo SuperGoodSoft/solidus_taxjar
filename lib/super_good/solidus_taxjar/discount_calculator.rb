@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
+  module SolidusTaxjar
     class DiscountCalculator
       def initialize(line_item)
         @line_item = line_item

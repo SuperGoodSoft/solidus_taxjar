@@ -4,7 +4,7 @@ require "super_good/solidus_taxjar/version"
 
 Gem::Specification.new do |spec|
   spec.name = "super_good_solidus_taxjar"
-  spec.version = SuperGood::SolidusTaxJar::VERSION
+  spec.version = SuperGood::SolidusTaxjar::VERSION
   spec.authors = ["Jared Norman"]
   spec.email = ["jared@super.gd"]
 

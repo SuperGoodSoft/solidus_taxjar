@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxJar::API do
+RSpec.describe SuperGood::SolidusTaxjar::API do
   describe "#tax_for" do
     subject { api.tax_for order }
 
@@ -9,7 +9,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:order) { Spree::Order.new }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:order_params)
         .with(order)
         .and_return({order: "params"})
@@ -33,7 +33,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:response) { double(rate: tax_rate) }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:tax_rate_address_params)
         .with(address)
         .and_return({address: "params"})
@@ -55,7 +55,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:address) { Spree::Address.new }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:address_params)
         .with(address)
         .and_return(["zipcode", {address: "params"}])
@@ -77,7 +77,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:order) { Spree::Order.new }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:transaction_params)
         .with(order)
         .and_return({transaction: "params"})
@@ -99,7 +99,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:order) { Spree::Order.new }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:transaction_params)
         .with(order)
         .and_return({transaction: "params"})
@@ -138,7 +138,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:reimbursement) { Spree::Reimbursement.new }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:refund_params)
         .with(reimbursement)
         .and_return({refund: "params"})
@@ -160,7 +160,7 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
     let(:spree_address) { build :address }
 
     before do
-      allow(SuperGood::SolidusTaxJar::APIParams)
+      allow(SuperGood::SolidusTaxjar::APIParams)
         .to receive(:validate_address_params)
         .with(spree_address)
         .and_return({address: "params"})

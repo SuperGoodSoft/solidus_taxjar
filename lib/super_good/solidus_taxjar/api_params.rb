@@ -123,7 +123,7 @@ module SuperGood
               {
                 id: line_item.id,
                 quantity: line_item.quantity,
-                unit_price: line_item.price,
+                unit_price: SuperGood::SolidusTaxjar.line_item_unit_price_calculator.call(line_item),
                 discount: discount(line_item),
                 product_tax_code: line_item.tax_category&.tax_code
               }
@@ -139,7 +139,7 @@ module SuperGood
                 quantity: line_item.quantity,
                 product_identifier: line_item.sku,
                 product_tax_code: line_item.tax_category&.tax_code,
-                unit_price: line_item.price,
+                unit_price: SuperGood::SolidusTaxjar.line_item_unit_price_calculator.call(line_item),
                 discount: discount(line_item),
                 sales_tax: line_item_sales_tax(line_item)
               }

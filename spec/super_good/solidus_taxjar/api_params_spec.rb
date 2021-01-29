@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxjar::APIParams do
+RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   let(:order) do
     Spree::Order.create!(
       additional_tax_total: BigDecimal("9.87"),

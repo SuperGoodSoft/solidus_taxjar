@@ -12,7 +12,7 @@ RSpec.describe SuperGood::SolidusTaxjar do
       let(:order) { Spree::Order.new }
 
       it "returns the API params converted to JSON" do
-        allow(SuperGood::SolidusTaxjar::APIParams)
+        allow(SuperGood::SolidusTaxjar::ApiParams)
           .to receive(:order_params)
           .with(order)
           .and_return({some: "hash", with: "stuff", in: "it"})

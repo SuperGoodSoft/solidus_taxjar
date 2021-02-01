@@ -16,7 +16,14 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
        $ bundle
 
-2. Next, configure Solidus to use this gem:
+2. Install and run the necessary migrations:
+
+   ```shell
+   bundle exec rails g super_good:solidus_taxjar:install
+   bundle exec rake db:migrate
+   ```
+
+3. Next, configure Solidus to use this gem:
 
    ```ruby
    # Put this in config/initializers/solidus.rb
@@ -26,7 +33,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    end
    ```
 
-3. Also, configure your error handling:
+4. Also, configure your error handling:
 
    ```ruby
    # Put this in config/initializers/taxjar.rb
@@ -38,11 +45,19 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    }
    ```
 
-4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
+5. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
+
+## Upgrading from 0.X to 1.0.X
+
+If you're currently using version 0.X and want to upgrade to 1.0.X, follow these steps:
+
+- Upgrade to at least Rails version 5.2.0. This is due to 1.0.X requiring the `active_storage` gem
+- Rename the gem `super_good-solidus_taxjar` to `super_good_solidus_taxjar` in your Gemfile
+- Rename any instances of the module `SolidusTaxJar` to `SolidusTaxjar`
+- Rename any instances of the class `API` to `Api`
+- Rename any instances of the class `APIParams` to `ApiParams`
 
 ## Project Status
-
-This extension is under active development and not yet at a v1.0 release, but it's currently being used in production by multiple Solidus stores.
 
 Requirements for TaxJar integrations vary as some stores also need reporting, which isn't provided out of the box by this extension. This is because individual stores will be using different background job frameworks or runners (Sidekiq, delayed_job, ActiveJob, etc.) and a reliable integration will rely on one of these. Because this part of the integration is small, we've chosen to provide the transaction reporting functionality, but have skipped directly integrating it.
 
@@ -55,6 +70,12 @@ The extension provides currently two high level `calculator` classes that wrap t
 * tax calculator
 * tax rate calculator
 
+The extension also provides two ActiveRecord classes that represent Taxjar Exempt Regions Taxjar Customers:
+
+* exempt region
+* customer
+
+
 ### TaxCalculator
 
 `SuperGood::SolidusTaxjar::TaxCalculator` allows calculating the full tax breakdown for a given `Spree::Order`. The breakdown includes separate line items taxes and shipment taxes.
@@ -62,6 +83,14 @@ The extension provides currently two high level `calculator` classes that wrap t
 ### TaxRateCalculator
 
 `SuperGood::SolidusTaxjar::TaxRateCalculator` allows calculating the tax rate for a given `Spree::Address`. It relies on the same low-level Ruby TaxJar API endpoint of the tax calculator in order to provide the most coherent and reliable results. TaxJar support recommends using this endpoint for live calculations.
+
+### ExemptRegion
+
+`SuperGood::SolidusTaxjar::ExemptRegion` is an ActiveRecord model used for storing TaxJar Exempt Region information. It contains exempt region information such as the State the customer is tax exempt from as well as the tax exemption document as an active storage attachment.
+
+### Customer
+
+`SuperGood::SolidusTaxjar::Customer` is an ActiveRecord model used for storing TaxJar tax exempt customer information. It has many TaxJar Exempt Regions.
 
 ## Development
 

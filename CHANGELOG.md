@@ -2,8 +2,17 @@
 
 ## master
 
+- [#32](https://github.com/SuperGoodSoft/solidus_taxjar/pull/32) Add Taxjar customers and exempt regions integration
 - [#21](https://github.com/SuperGoodSoft/solidus_taxjar/pull/21) Migrated project to `solidus_dev_support`
 - [#22](https://github.com/SuperGoodSoft/solidus_taxjar/pull/22) Added support for TaxJar address validation API through `SuperGood::SolidusTaxJar::Addresses` class
+
+**Breaking Changes**:
+
+- Gem name `super_good-solidus_taxjar` renamed to `super_good_solidus_taxjar`
+- Module name `SolidusTaxJar` renamed to `SolidusTaxjar`
+- Class name `API` renamed to `Api`
+- Class name `APIParams` renamed to `ApiParams`
+- Removed support for Rails 5.1. This gem now requires Rails >= 5.2.0 for `active_storage`
 
 ## v0.17.1
 

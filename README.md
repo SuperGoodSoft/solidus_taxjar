@@ -16,7 +16,14 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
        $ bundle
 
-2. Next, configure Solidus to use this gem:
+2. Install and run the necessary migrations:
+
+   ```shell
+   bundle exec rails g super_good:solidus_taxjar:install
+   bundle exec rake db:migrate
+   ```
+
+3. Next, configure Solidus to use this gem:
 
    ```ruby
    # Put this in config/initializers/solidus.rb
@@ -26,7 +33,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    end
    ```
 
-3. Also, configure your error handling:
+4. Also, configure your error handling:
 
    ```ruby
    # Put this in config/initializers/taxjar.rb
@@ -38,7 +45,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    }
    ```
 
-4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
+5. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
 
 ## Project Status
 

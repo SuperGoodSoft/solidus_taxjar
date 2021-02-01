@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## v1.0.0
 
 - [#32](https://github.com/SuperGoodSoft/solidus_taxjar/pull/32) Add Taxjar customers and exempt regions integration
 - [#21](https://github.com/SuperGoodSoft/solidus_taxjar/pull/21) Migrated project to `solidus_dev_support`

@@ -1,0 +1,12 @@
+<%= render 'spree/admin/shared/taxes_tabs' %>
+
+<% content_for :page_title do %>
+  <%= "Taxjar Settings" %>
+<% end %>
+
+<% if ENV["TAXJAR_API_KEY"] %>
+  <table>
+  </table>
+<% else %>
+  <p>You must provide a TaxJar API token to configure the extension. Please see the extension readme for details.</p>
+<% end %>

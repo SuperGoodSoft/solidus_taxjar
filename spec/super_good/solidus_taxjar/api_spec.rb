@@ -1,6 +1,23 @@
 require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxJar::API do
+  describe ".new" do
+    subject { described_class.new }
+
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+
+    before do
+      ENV["TAXJAR_API_KEY"] = 'taxjar_api_token'
+    end
+
+    it "puts the API version in the header" do
+      expect_any_instance_of(::Taxjar::Client).to receive(:set_api_config).with('headers', {
+        'x-api-version' => '2020-08-07'
+      })
+      subject
+    end
+  end
+
   describe "#tax_for" do
     subject { api.tax_for order }
 

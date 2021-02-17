@@ -8,7 +8,7 @@ require File.expand_path("dummy/config/environment.rb", __dir__).tap { |file|
   system "bin/rake extension:test_app" unless File.exist? file
 }
 
-require "solidus_dev_support/rspec/rails_helper"
+require "solidus_dev_support/rspec/feature_helper"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

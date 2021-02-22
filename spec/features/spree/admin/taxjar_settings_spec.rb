@@ -39,6 +39,9 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
         expect(page).to have_content("TaxJar Settings")
         click_on "TaxJar Settings"
         expect(page).to have_content "You must provide a TaxJar API token"
+
+        expect(page).to have_link(href: "https://app.taxjar.com/api_sign_up")
+        expect(page).to have_link(href: "https://support.taxjar.com/article/160-how-do-i-get-a-sales-tax-api-token")
       end
     end
   end

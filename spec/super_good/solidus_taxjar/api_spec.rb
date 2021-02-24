@@ -10,9 +10,10 @@ RSpec.describe SuperGood::SolidusTaxJar::API do
       ENV["TAXJAR_API_KEY"] = 'taxjar_api_token'
     end
 
-    it "puts the API version in the header" do
+    it "sets the correct headers" do
       expect_any_instance_of(::Taxjar::Client).to receive(:set_api_config).with('headers', {
-        'x-api-version' => '2020-08-07'
+        'x-api-version' => '2020-08-07',
+        'plugin' => 'supergoodsolidustaxjar'
       })
       subject
     end

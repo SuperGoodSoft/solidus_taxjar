@@ -3,12 +3,17 @@ dist: trusty
 sudo: false
 language: ruby
 cache: bundler
+addons:
+  postgresql: "9.3"
 jobs:
   include:
     - rvm: 2.5.8
       env: SOLIDUS_BRANCH=v2.9 DB=postgresql RAILS_VERSION="~> 5.1.0"
     - rvm: 2.6.6
       env: SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0"
+    - rvm: 2.6.6
+      env: SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 6.0.0"
+
 before_install:
   - gem update --system
   - gem install bundler

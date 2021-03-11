@@ -3,6 +3,6 @@
 module SuperGoodSolidusTaxjar
   class Engine < Rails::Engine
     isolate_namespace Spree
-    engine_name 'super_good-solidus_taxjar'
+    engine_name 'super_good_solidus_taxjar'
   end
 end

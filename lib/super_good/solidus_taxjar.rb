@@ -27,6 +27,7 @@ module SuperGood
       attr_accessor :taxable_order_check
       attr_accessor :test_mode
       attr_accessor :job_queue
+      attr_accessor :reporting_enabled
 
       def api
         ::SuperGood::SolidusTaxJar::API.new
@@ -51,5 +52,6 @@ module SuperGood
     self.taxable_order_check = ->(order) { true }
     self.test_mode = false
     self.job_queue = :default
+    self.reporting_enabled = true
   end
 end

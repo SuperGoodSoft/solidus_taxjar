@@ -389,7 +389,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
 
       it "uses the state_name to build address params" do
-        pending("fix for state name fallback")
         expect(subject).to eq({
           country: "GB",
           state: "West Midlands",

@@ -1,11 +1,26 @@
 # Changelog
 
-## master
+## v0.18.0
 
 - [#21](https://github.com/SuperGoodSoft/solidus_taxjar/pull/21) Migrated project to `solidus_dev_support`
 - [#22](https://github.com/SuperGoodSoft/solidus_taxjar/pull/22) Added support for TaxJar address validation API through `SuperGood::SolidusTaxJar::Addresses` class
 - [#34](https://github.com/SuperGoodSoft/solidus_taxjar/pull/34) Include API version in request headers
 - [#38](https://github.com/SuperGoodSoft/solidus_taxjar/pull/38) Added a rails engine to support future solidus backend UI
+- [#43](https://github.com/SuperGoodSoft/solidus_taxjar/pull/43) Support zeitwerk loading
+
+**Breaking Changes**:
+
+- Module name `SolidusTaxJar` renamed to `SolidusTaxjar`
+- Class name `API` renamed to `Api`
+- Class name `APIParams` renamed to `ApiParams`
+
+### Upgrading from 0.17.X to 0.18.X
+
+If you're currently using version 0.17.X and want to upgrade to 0.18.X, follow these steps:
+
+- Rename any instances of the module `SolidusTaxJar` to `SolidusTaxjar`
+- Rename any instances of the class `API` to `Api`
+- Rename any instances of the class `APIParams` to `ApiParams`
 
 ## v0.17.1
 

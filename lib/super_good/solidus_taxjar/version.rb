@@ -1,5 +1,5 @@
 module SuperGood
-  module SolidusTaxJar
-    VERSION = "0.17.1"
+  module SolidusTaxjar
+    VERSION = "0.18.0"
   end
 end

@@ -1,8 +1,8 @@
-# `SuperGood::SolidusTaxJar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
+# `SuperGood::SolidusTaxjar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
 
-`SuperGood::SolidusTaxJar` is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.
+`SuperGood::SolidusTaxjar` is a [Solidus](https://github.com/solidusio/solidus) extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/) for tax calculations.
 
-This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spree_taxjar), like [solidus_taxjar](https://github.com/boomerdigital/solidus_taxjar). Instead of using a custom calculator, `SuperGood::SolidusTaxJar` uses the new configurable tax system [by @adammathys](https://github.com/solidusio/solidus/pull/1892) introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
+This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spree_taxjar), like [solidus_taxjar](https://github.com/boomerdigital/solidus_taxjar). Instead of using a custom calculator, `SuperGood::SolidusTaxjar` uses the new configurable tax system [by @adammathys](https://github.com/solidusio/solidus/pull/1892) introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
 
 ## Installation
 
@@ -16,29 +16,36 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
        $ bundle
 
-2. Next, configure Solidus to use this gem:
+2. Install and run the necessary migrations:
+
+   ```shell
+   bundle exec rails g super_good:solidus_taxjar:install
+   bundle exec rake db:migrate
+   ```
+
+3. Next, configure Solidus to use this gem:
 
    ```ruby
    # Put this in config/initializers/solidus.rb
 
    Spree.config do |config|
-     config.tax_calculator_class = SuperGood::SolidusTaxJar::TaxCalculator
+     config.tax_calculator_class = SuperGood::SolidusTaxjar::TaxCalculator
    end
    ```
 
-3. Also, configure your error handling:
+4. Also, configure your error handling:
 
    ```ruby
    # Put this in config/initializers/taxjar.rb
 
-   SuperGood::SolidusTaxJar.exception_handler = ->(e) {
+   SuperGood::SolidusTaxjar.exception_handler = ->(e) {
      # Report exceptions in here. For example, if you were using the Sentry's
      # raven-ruby gem to report errors, you might do this:
      Raven.capture_exception(e)
    }
    ```
 
-4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
+5. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to a your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name "Sales Tax". This will be used as the source for the tax adjustments that Solidus creates.
 
 ## Project Status
 
@@ -57,11 +64,11 @@ The extension provides currently two high level `calculator` classes that wrap t
 
 ### TaxCalculator
 
-`SuperGood::SolidusTaxJar::TaxCalculator` allows calculating the full tax breakdown for a given `Spree::Order`. The breakdown includes separate line items taxes and shipment taxes.
+`SuperGood::SolidusTaxjar::TaxCalculator` allows calculating the full tax breakdown for a given `Spree::Order`. The breakdown includes separate line items taxes and shipment taxes.
 
 ### TaxRateCalculator
 
-`SuperGood::SolidusTaxJar::TaxRateCalculator` allows calculating the tax rate for a given `Spree::Address`. It relies on the same low-level Ruby TaxJar API endpoint of the tax calculator in order to provide the most coherent and reliable results. TaxJar support recommends using this endpoint for live calculations.
+`SuperGood::SolidusTaxjar::TaxRateCalculator` allows calculating the tax rate for a given `Spree::Address`. It relies on the same low-level Ruby TaxJar API endpoint of the tax calculator in order to provide the most coherent and reliable results. TaxJar support recommends using this endpoint for live calculations.
 
 ## Development
 

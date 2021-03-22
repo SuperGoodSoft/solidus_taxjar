@@ -69,7 +69,7 @@ module SuperGood
         def validate_address_params(spree_address)
           {
             country: spree_address.country&.iso,
-            state: spree_address.state&.abbr || adddress.state_name,
+            state: spree_address.state&.abbr || spree_address.state_name,
             zip: spree_address.zipcode,
             city: spree_address.city,
             street: spree_address.address1

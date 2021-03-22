@@ -362,5 +362,41 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         street: "475 N Beverly Dr"
       })
     end
+
+    context "with an address without a state" do
+      let(:ship_address) do
+        Spree::Address.create!(
+          address1: "72 High St",
+          city: "Birmingham",
+          country: country_uk,
+          first_name: "Chuck",
+          last_name: "Schuldiner",
+          phone: "1-250-555-4444",
+          state_name: "West Midlands",
+          zipcode: "B4 7TA"
+        )
+      end
+
+      let(:country_uk) do
+        Spree::Country.create!(
+          iso3: "GBR",
+          iso: "GB",
+          iso_name: "UNITED KINGDOM",
+          name: "United Kingdom",
+          numcode: 826,
+          states_required: false
+        )
+      end
+
+      it "uses the state_name to build address params" do
+        expect(subject).to eq({
+          country: "GB",
+          state: "West Midlands",
+          zip: "B4 7TA",
+          city: "Birmingham",
+          street: "72 High St"
+        })
+      end
+    end
   end
 end

@@ -14,6 +14,7 @@ Merge Checklist
 
 - [ ] Run the manual tests
 - [ ] Update the changelog
+- [ ] Run a sandbox app and verify taxes are being calculated
 
 Screenshots
 ---

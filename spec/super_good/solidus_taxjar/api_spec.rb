@@ -17,6 +17,19 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     end
   end
 
+  describe ".default_taxjar_client" do
+    subject { described_class.default_taxjar_client }
+
+    before do
+      ENV["TAXJAR_API_KEY"] = 'taxjar_api_token'
+    end
+
+    it "returns an instance of the TaxJar client" do
+      expect(subject).to be_an_instance_of(::Taxjar::Client)
+    end
+  end
+
+
   describe "#tax_for" do
     subject { api.tax_for order }
 

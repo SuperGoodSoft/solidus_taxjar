@@ -2,13 +2,15 @@ module SuperGood
   module SolidusTaxjar
     class Api
       def self.default_taxjar_client
-        ::Taxjar::Client.new(
+        client = ::Taxjar::Client.new(
           api_key: ENV.fetch("TAXJAR_API_KEY"),
           api_url: ENV.fetch("TAXJAR_API_URL") { "https://api.taxjar.com" } # Sandbox URL: https://api.sandbox.taxjar.com
-        ).set_api_config('headers', {
+        )
+        client.set_api_config('headers', {
           'x-api-version' => '2020-08-07',
           'plugin' => 'supergoodsolidustaxjar'
         })
+        client
       end
 
       def initialize(taxjar_client: self.class.default_taxjar_client)

@@ -2,9 +2,13 @@
 
 ## master
 
-- [#47](https://github.com/SuperGoodSoft/solidus_taxjar/pull/47) Fixed bug in `validate_address_params` for addresses without a state
+[#52](https://github.com/supergoodsoft/solidus_taxjar/pull/52) fixes a critical bug in the API class that was released in `v0.18.0`. Please upgrade.
 
-## v0.18.0
+- [#47](https://github.com/SuperGoodSoft/solidus_taxjar/pull/47) Fixed bug in `validate_address_params` for addresses without a state
+- [#52](https://github.com/supergoodsoft/solidus_taxjar/pull/52) Fixed critical bug in API class
+
+## ~~v0.18.0~~ 
+`v0.18.0` was removed due to a regression in the API class that was fixed in [#52](https://github.com/SuperGoodSoft/solidus_taxjar/pull/52) and `v0.18.1`
 
 - [#21](https://github.com/SuperGoodSoft/solidus_taxjar/pull/21) Migrated project to `solidus_dev_support`
 - [#22](https://github.com/SuperGoodSoft/solidus_taxjar/pull/22) Added support for TaxJar address validation API through `SuperGood::SolidusTaxJar::Addresses` class

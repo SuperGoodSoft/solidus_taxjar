@@ -4,8 +4,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe ".new" do
     subject { described_class.new }
 
-    let(:dummy_client) { instance_double ::Taxjar::Client }
-
     before do
       ENV["TAXJAR_API_KEY"] = 'taxjar_api_token'
     end

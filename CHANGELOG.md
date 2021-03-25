@@ -2,6 +2,8 @@
 
 ## master
 
+## v0.18.1 
+
 [#52](https://github.com/supergoodsoft/solidus_taxjar/pull/52) fixes a critical bug in the API class that was released in `v0.18.0`. Please upgrade.
 
 - [#47](https://github.com/SuperGoodSoft/solidus_taxjar/pull/47) Fixed bug in `validate_address_params` for addresses without a state

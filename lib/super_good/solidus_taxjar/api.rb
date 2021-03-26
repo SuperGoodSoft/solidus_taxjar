@@ -55,6 +55,10 @@ module SuperGood
         taxjar_client.validate_address ApiParams.validate_address_params(spree_address)
       end
 
+      def nexus_regions
+        taxjar_client.nexus_regions
+      end
+
       private
 
       attr_reader :taxjar_client

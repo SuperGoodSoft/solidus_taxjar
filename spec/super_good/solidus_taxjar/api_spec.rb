@@ -202,4 +202,19 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
 
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
+
+  describe "#nexus_regions" do
+    subject { api.nexus_regions }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+
+    before do
+      allow(dummy_client)
+        .to receive(:nexus_regions)
+        .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
 end

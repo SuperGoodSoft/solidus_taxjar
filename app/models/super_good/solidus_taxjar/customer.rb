@@ -13,7 +13,8 @@ module SuperGood
 
       validates :user, :address, presence: true
 
-      accepts_nested_attributes_for :address, :taxjar_exempt_regions
+      accepts_nested_attributes_for :address
+      accepts_nested_attributes_for :taxjar_exempt_regions, allow_destroy: true
     end
   end
 end

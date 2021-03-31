@@ -8,6 +8,8 @@ module SuperGood
                  inverse_of: :taxjar_exempt_regions
       has_one_attached :tax_exemption_document
 
+      scope :approved, -> { where(approved: true) }
+
       validates :state, :taxjar_customer, presence: true
     end
   end

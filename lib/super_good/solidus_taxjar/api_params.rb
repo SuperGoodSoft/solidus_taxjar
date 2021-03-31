@@ -88,7 +88,7 @@ module SuperGood
             zip: address.zipcode,
             city: address.city,
             street: address.address1,
-            exempt_regions: customer.taxjar_exempt_regions.map do |exempt_region|
+            exempt_regions: customer.taxjar_exempt_regions.approved.map do |exempt_region|
               state = exempt_region.state
 
               {

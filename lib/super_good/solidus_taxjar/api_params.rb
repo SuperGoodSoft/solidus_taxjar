@@ -82,7 +82,7 @@ module SuperGood
           {
             customer_id: customer.user_id,
             exemption_type: customer.tax_exemption_type,
-            name: address.company ? address.company : address.full_name,
+            name: address.company.present? ? address.company : address.full_name,
             country: address.country.iso,
             state: address.state.abbr,
             zip: address.zipcode,

@@ -73,5 +73,15 @@ RSpec.describe SuperGood::SolidusTaxjar do
       let(:spree_line_item) { Spree::LineItem.new }
       it { is_expected.to eq "Sales Tax" }
     end
+
+    describe ".shipping_calculator" do
+      subject { described_class.shipping_calculator.call(order) }
+
+      let(:order) { instance_double(Spree::Order, shipment_total: 10) }
+
+      it "returns the shipment total" do
+        expect(subject).to eq(10)
+      end
+    end
   end
 end

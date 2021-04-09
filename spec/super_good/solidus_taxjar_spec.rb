@@ -77,9 +77,14 @@ RSpec.describe SuperGood::SolidusTaxjar do
     describe ".shipping_calculator" do
       subject { described_class.shipping_calculator.call(order) }
 
-      let(:order) { instance_double(Spree::Order, shipment_total: 10) }
+      let(:order) { create :order }
+      let(:shipment) { create :shipment, order: order, cost: 20 }
 
-      it "returns the shipment total" do
+      before do
+        create :adjustment, order: order, adjustable: shipment, amount: -10, eligible: true, source: create(:shipping_rate, shipment: shipment)
+      end
+
+      it "returns the shipment total including promotions" do
         expect(subject).to eq(10)
       end
     end

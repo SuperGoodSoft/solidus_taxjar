@@ -3,6 +3,7 @@
 ## master
 
 - [#51](https://github.com/SuperGoodSoft/solidus_taxjar/pull/51) Add nexus regions method to API
+- [#58](https://github.com/SuperGoodSoft/solidus_taxjar/pull/58) Take shipping promotions into account in default calculator
 
 ## v0.18.1
 

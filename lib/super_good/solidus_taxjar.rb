@@ -44,7 +44,7 @@ module SuperGood
     }
     self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }
     self.logging_enabled = false
-    self.shipping_calculator = ->(order) { order.shipment_total }
+    self.shipping_calculator = ->(order) { order.shipments.sum(&:total_before_tax) }
     self.shipping_tax_label_maker = ->(shipment, shipping_tax) { "Sales Tax" }
     self.taxable_address_check = ->(address) { true }
     self.taxable_order_check = ->(order) { true }

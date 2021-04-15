@@ -8,9 +8,9 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       line_items: [line_item],
       number: "R111222333",
       ship_address: ship_address,
-      shipment_total: BigDecimal("3.01"),
       store: store,
       total: order_total,
+      shipments: [shipment],
       user_id: 12345
     ).tap do |order|
       order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
@@ -118,6 +118,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       total: 333.33
     )
   end
+
+  let(:shipment) { Spree::Shipment.create!(cost: BigDecimal("3.01")) }
 
   describe "#order_params" do
     subject { described_class.order_params(order) }

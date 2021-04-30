@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "solidus_core", ">= 2.4.0"
-  spec.add_dependency "solidus_support"
+  spec.add_dependency "solidus_support", "~> 0.7"
   spec.add_dependency "taxjar-ruby"
 
   spec.add_development_dependency "solidus_dev_support"

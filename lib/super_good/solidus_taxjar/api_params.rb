@@ -72,7 +72,7 @@ module SuperGood
             state: spree_address.state&.abbr || spree_address.state_name,
             zip: spree_address.zipcode,
             city: spree_address.city,
-            street: spree_address.address1
+            street: [spree_address.address1, spree_address.address2].compact.join(' ')
           }
         end
 

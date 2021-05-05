@@ -1,10 +1,6 @@
 version: 2.1
 orbs:
-  # Always take the latest version of the orb, this allows us to
-  # run specs against Solidus supported versions only without the need
-  # to change this configuration every time a Solidus version is released
-  # or goes EOL.
-  solidusio_extensions: solidusio/extensions@volatile
+  solidusio_extensions: solidusio/extensions@0.2.24
 
 jobs:
   run-specs-with-postgres:

@@ -5,6 +5,7 @@
 - [#51](https://github.com/SuperGoodSoft/solidus_taxjar/pull/51) Add nexus regions method to API
 - [#58](https://github.com/SuperGoodSoft/solidus_taxjar/pull/58) Take shipping promotions into account in default calculator
 - [#59](https://github.com/SuperGoodSoft/solidus_taxjar/pull/59) Add pry debugging tools
+- [#69](https://github.com/SuperGoodSoft/solidus_taxjar/pull/69) Lock ExecJS version
 
 ## v0.18.1
 

@@ -16,14 +16,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
        $ bundle
 
-2. Install and run the necessary migrations:
-
-   ```shell
-   bundle exec rails g super_good:solidus_taxjar:install
-   bundle exec rake db:migrate
-   ```
-
-3. Next, configure Solidus to use this gem:
+2. Next, configure Solidus to use this gem:
 
    ```ruby
    # Put this in config/initializers/solidus.rb
@@ -33,7 +26,7 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
    end
    ```
 
-4. Also, configure your error handling:
+3. Also, configure your error handling:
 
    ```ruby
    # Put this in config/initializers/taxjar.rb

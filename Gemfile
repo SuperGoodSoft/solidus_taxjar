@@ -13,6 +13,10 @@ gem "rails", ENV.fetch("RAILS_VERSION") { ">0.a" }
 
 # Provides basic authentication functionality for testing parts of your engine
 gem "solidus_auth_devise"
+# ExecJS 2.8 has a bug in it which breaks js precompiling, which is required for our features
+# specs. Many other solidus extensions are also experiencing failing specs because of this.
+# For now, we should lock the version of ExecJS until a new release comes out that fixes this bug.
+gem "execjs", '~> 2.7.0'
 
 case ENV["DB"]
 when "mysql"

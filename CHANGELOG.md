@@ -6,6 +6,7 @@
 - [#58](https://github.com/SuperGoodSoft/solidus_taxjar/pull/58) Take shipping promotions into account in default calculator
 - [#59](https://github.com/SuperGoodSoft/solidus_taxjar/pull/59) Add pry debugging tools
 - [#69](https://github.com/SuperGoodSoft/solidus_taxjar/pull/69) Lock ExecJS version
+- [#37](https://github.com/SuperGoodSoft/solidus_taxjar/pull/37) Added a basic Taxjar settings admin interface which displays placeholder text.
 
 ## v0.18.1
 

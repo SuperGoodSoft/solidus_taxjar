@@ -400,5 +400,35 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         })
       end
     end
+
+    context "an address with address2" do
+      let(:ship_address) do
+        Spree::Address.create!(
+          address1: "1 World Trade CTR",
+          address2: "STE 45A",
+          city: "New York",
+          country: country_us,
+          first_name: "Chuck",
+          last_name: "Schuldiner",
+          phone: "1-250-555-4444",
+          state: Spree::State.create!(
+            abbr: "NY",
+            country: country_us,
+            name: "New York"
+          ),
+          zipcode: "10007"
+        )
+      end
+
+      it "concatenates address1 and address2 into the street parameter" do
+        expect(subject).to eq({
+          country: "US",
+          state: "NY",
+          zip: "10007",
+          city: "New York",
+          street: "1 World Trade CTR STE 45A"
+        })
+      end
+    end
   end
 end

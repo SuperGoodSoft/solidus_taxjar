@@ -55,6 +55,8 @@ The extension provides currently two high level `calculator` classes that wrap t
 * tax calculator
 * tax rate calculator
 
+The extension requires the `order_recalculated` event which is not supported on Solidus < 2.11, so this extension provides a [compatibility layer](app/decorators/super_good/solidus_taxjar/spree/order_updater/fire_recalculated_event.rb).
+
 ### TaxCalculator
 
 `SuperGood::SolidusTaxjar::TaxCalculator` allows calculating the full tax breakdown for a given `Spree::Order`. The breakdown includes separate line items taxes and shipment taxes.

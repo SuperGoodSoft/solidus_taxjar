@@ -10,6 +10,7 @@
 - [#69](https://github.com/SuperGoodSoft/solidus_taxjar/pull/69) Lock ExecJS version
 - [#37](https://github.com/SuperGoodSoft/solidus_taxjar/pull/37) Added a basic Taxjar settings admin interface which displays placeholder text.
 - [#64](https://github.com/SuperGoodSoft/solidus_taxjar/pull/64) Provide Spree::Address.address2 to TaxJar address validation if it is present.
+- [#80](https://github.com/SuperGoodSoft/solidus_taxjar/pull/80) Support order_recalculated event in < 2.11
 
 ## v0.18.1
 

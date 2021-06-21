@@ -4,7 +4,7 @@ module SuperGood
       extend ActiveSupport::Concern
 
       def incomplete_address?(address)
-        return true if address.is_a?(Spree::Tax::TaxLocation)
+        return true if address.is_a?(::Spree::Tax::TaxLocation)
 
         [
           address.address1,

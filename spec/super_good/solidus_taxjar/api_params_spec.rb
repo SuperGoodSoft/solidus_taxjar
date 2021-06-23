@@ -328,17 +328,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         number: "RI123123123",
         order: order,
         return_items: [
-          Spree::ReturnItem.new(additional_tax_total: 0.33),
-          Spree::ReturnItem.new(additional_tax_total: 33.0)
+          Spree::ReturnItem.new(additional_tax_total: 12, amount: 36),
         ],
-        total: 333.33
+        total: 36
       )
     end
 
     it "returns params for creating/updating a refund" do
       expect(subject).to eq({
-        amount: BigDecimal("300.00"),
-        sales_tax: BigDecimal("33.33"),
+        amount: BigDecimal("-24"),
+        sales_tax: BigDecimal("-12"),
         shipping: 0,
         to_city: "Los Angeles",
         to_country: "US",

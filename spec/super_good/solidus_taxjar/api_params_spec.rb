@@ -107,18 +107,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     )
   end
 
-  let(:reimbursement) do
-    Spree::Reimbursement.new(
-      number: "RI123123123",
-      order: order,
-      return_items: [
-        Spree::ReturnItem.new(additional_tax_total: 0.33),
-        Spree::ReturnItem.new(additional_tax_total: 33.0)
-      ],
-      total: 333.33
-    )
-  end
-
   let(:shipment) { Spree::Shipment.create!(cost: BigDecimal("3.01")) }
 
   describe "#order_params" do
@@ -334,6 +322,18 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
   describe "#refund_params" do
     subject { described_class.refund_params(reimbursement) }
+
+    let(:reimbursement) do
+      Spree::Reimbursement.new(
+        number: "RI123123123",
+        order: order,
+        return_items: [
+          Spree::ReturnItem.new(additional_tax_total: 0.33),
+          Spree::ReturnItem.new(additional_tax_total: 33.0)
+        ],
+        total: 333.33
+      )
+    end
 
     it "returns params for creating/updating a refund" do
       expect(subject).to eq({

@@ -5,7 +5,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     Spree::Order.create!(
       additional_tax_total: BigDecimal("9.87"),
       item_total: BigDecimal("28.00"),
-      line_items: [line_item],
+      line_items: line_items,
       number: "R111222333",
       ship_address: ship_address,
       store: store,
@@ -59,6 +59,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       name: "California"
     )
   end
+
+  let(:line_items) { [line_item] }
 
   let(:line_item) do
     Spree::LineItem.new(
@@ -323,21 +325,75 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   describe "#refund_params" do
     subject { described_class.refund_params(reimbursement) }
 
+    let(:line_items) { [line_item, refunded_line_item] }
+
+    let(:refunded_line_item) do
+      Spree::LineItem.new(
+        additional_tax_total: 1,
+        price: 3,
+        promo_total: -1,
+        quantity: 2,
+        variant: variant
+      )
+    end
+
+    let(:variant) do
+      Spree::Variant.create!(
+        price: 3,
+        product: product,
+        sku: "G00D-PR0DUCT-2"
+      )
+    end
+
+    let(:product) do
+      Spree::Product.create!(
+        master: refunded_product_master_variant,
+        name: "Product Name 2",
+        shipping_category: shipping_category,
+        tax_category: refunded_item_tax_category,
+        variants: [refunded_product_master_variant]
+      )
+    end
+
+    let(:refunded_product_master_variant) do
+      Spree::Variant.new(
+        is_master: true,
+        price: 3
+      )
+    end
+
+    let(:refunded_item_tax_category) do
+      Spree::TaxCategory.create!(
+        is_default: true,
+        name: "Default",
+        tax_code: "DIFFERENT_TAX_CATEGORY"
+      )
+    end
+
     let(:reimbursement) do
       Spree::Reimbursement.new(
         number: "RI123123123",
         order: order,
         return_items: [
-          Spree::ReturnItem.new(additional_tax_total: 12, amount: 36),
+          Spree::ReturnItem.new(
+            additional_tax_total: 2,
+            amount: 6,
+            inventory_unit: Spree::InventoryUnit.new(line_item: refunded_line_item)
+          ),
+          Spree::ReturnItem.new(
+            additional_tax_total: 0,
+            amount: 0,
+            inventory_unit: Spree::InventoryUnit.new
+          )
         ],
-        total: 36
+        total: 6
       )
     end
 
     it "returns params for creating/updating a refund" do
       expect(subject).to eq({
-        amount: BigDecimal("-24"),
-        sales_tax: BigDecimal("-12"),
+        amount: BigDecimal("-4"),
+        sales_tax: BigDecimal("-2"),
         shipping: 0,
         to_city: "Los Angeles",
         to_country: "US",
@@ -346,7 +402,15 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
         transaction_id: "RI123123123",
-        transaction_reference_id: "R111222333"
+        transaction_reference_id: "R111222333",
+        line_items: [{
+          id: refunded_line_item.id,
+          product_identifier: "G00D-PR0DUCT-2",
+          product_tax_code: "DIFFERENT_TAX_CATEGORY",
+          quantity: 2,
+          sales_tax: -1,
+          unit_price: -3
+        }]
       })
     end
   end

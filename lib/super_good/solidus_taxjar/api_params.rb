@@ -57,6 +57,11 @@ module SuperGood
           {}
             .merge(order_address_params(reimbursement.order.tax_address))
             .merge(
+              refund_transaction_line_items_params(
+                reimbursement.return_items.map(&:inventory_unit).map(&:line_item).compact
+              )
+            )
+            .merge(
               transaction_id: reimbursement.number,
               transaction_reference_id: reimbursement.order.number,
               transaction_date: reimbursement.order.completed_at.to_formatted_s(:iso8601),
@@ -119,6 +124,21 @@ module SuperGood
                 unit_price: line_item.price,
                 discount: discount(line_item),
                 sales_tax: line_item_sales_tax(line_item)
+              }
+            end
+          }
+        end
+
+        def refund_transaction_line_items_params(line_items)
+          {
+            line_items: valid_line_items(line_items).map do |line_item|
+              {
+                id: line_item.id,
+                quantity: line_item.quantity,
+                product_identifier: line_item.sku,
+                product_tax_code: line_item.tax_category&.tax_code,
+                unit_price: -1 * line_item.price,
+                sales_tax: -1 * line_item_sales_tax(line_item)
               }
             end
           }

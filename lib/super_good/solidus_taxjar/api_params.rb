@@ -60,9 +60,9 @@ module SuperGood
               transaction_id: reimbursement.number,
               transaction_reference_id: reimbursement.order.number,
               transaction_date: reimbursement.order.completed_at.to_formatted_s(:iso8601),
-              amount: reimbursement.total - additional_taxes,
+              amount: -1 * (reimbursement.total - additional_taxes),
               shipping: 0,
-              sales_tax: additional_taxes
+              sales_tax: -1 * additional_taxes
             )
         end
 

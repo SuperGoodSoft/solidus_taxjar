@@ -1,6 +1,7 @@
 # Changelog
 
 ## master
+## v0.18.2
 
 - [#71](https://github.com/SuperGoodSoft/solidus_taxjar/pull/69) Unlock ExecJS version. This reverts the temporary fix introduced in #69
 - [#79](https://github.com/SuperGoodSoft/solidus_taxjar/pull/79) Relax Ruby required version to support Ruby 3.0+

@@ -16,15 +16,11 @@ This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spr
 
        $ bundle
 
-2. Next, configure Solidus to use this gem:
+2. Next, configure Solidus to use this gem by running the install generator:
 
-   ```ruby
-   # Put this in config/initializers/solidus.rb
-
-   Spree.config do |config|
-     config.tax_calculator_class = SuperGood::SolidusTaxjar::TaxCalculator
-   end
-   ```
+  ```sh
+  bundle exec rails generate super_good:solidus_taxjar:install
+  ```
 
 3. Also, configure your error handling:
 

@@ -1,6 +1,9 @@
 # Changelog
 
 ## master
+
+- [#88](https://github.com/SuperGoodSoft/solidus_taxjar/pull/88) Fire `shipment_shipped` event when any shipment on an order ships.
+
 ## v0.18.2
 
 - [#71](https://github.com/SuperGoodSoft/solidus_taxjar/pull/69) Unlock ExecJS version. This reverts the temporary fix introduced in #69

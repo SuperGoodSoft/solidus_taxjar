@@ -3,6 +3,7 @@
 ## master
 
 - [#88](https://github.com/SuperGoodSoft/solidus_taxjar/pull/88) Fire `shipment_shipped` event when any shipment on an order ships.
+- [#86](https://github.com/SuperGoodSoft/solidus_taxjar/pull/86)  Fix invalid refund endpoint call.
 
 ## v0.18.2
 

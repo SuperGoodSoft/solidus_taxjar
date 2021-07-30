@@ -3,6 +3,7 @@ require "solidus_support"
 require "taxjar"
 
 require "super_good/solidus_taxjar/version"
+require "super_good/solidus_taxjar/transaction_id_generator"
 require "super_good/solidus_taxjar/api_params"
 require "super_good/solidus_taxjar/api"
 require "super_good/solidus_taxjar/calculator_helper"

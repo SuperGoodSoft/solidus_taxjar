@@ -6,13 +6,18 @@ module SuperGood
       def incomplete_address?(address)
         return true if address.is_a?(::Spree::Tax::TaxLocation)
 
-        [
+        fields = [
           address.address1,
           address.city,
-          address.state&.abbr || address.state_name,
           address.zipcode,
           address.country&.iso
-        ].any?(&:blank?)
+        ]
+
+        if state_required?(address.country)
+          fields << (address.state&.abbr || address.state_name)
+        end
+
+        fields.any?(&:blank?)
       end
 
       def taxable_address?(address)
@@ -32,6 +37,15 @@ module SuperGood
 
       def exception_handler
         SuperGood::SolidusTaxjar.exception_handler
+      end
+
+      # Only require a "state" value if this is an address for Canada or the
+      # USA. This aligns with TaxJar's API requirement for `to_state`.
+      #
+      # @param country [Spree::Country] The country to check.
+      # @return [Boolean] True if the "state" field is required for the country
+      def state_required?(country)
+        ["CA", "US"].include?(country&.iso)
       end
     end
   end

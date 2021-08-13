@@ -42,7 +42,7 @@ This extension is under active development and not yet at a v1.0 release, but it
 
 Requirements for TaxJar integrations vary as some stores also need reporting, which isn't provided out of the box by this extension. This is because individual stores will be using different background job frameworks or runners (Sidekiq, delayed_job, ActiveJob, etc.) and a reliable integration will rely on one of these. Because this part of the integration is small, we've chosen to provide the transaction reporting functionality, but have skipped directly integrating it.
 
-If you're having trouble integrating this extension with your store and would like some assistance, please reach out to Jared via e-mail at [jared@super.gd](mailto:jared@super.gd) or on the official Solidus as `@jared`.
+If you're having trouble integrating this extension with your store and would like some assistance, please reach out to Jared via e-mail at [jared@super.gd](mailto:jared@super.gd) or on the official Solidus Slack as `@Jared Norman`.
 
 ## Features
 
@@ -63,9 +63,11 @@ The extension requires the `order_recalculated` event which is not supported on 
 
 ## Development
 
-Before installing dependencies, make sure your environment variables are setup. Our CI uses something like this: `SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0`. These environment variables need to be set when installing dependencies and running specs, so set them before the command like this: `SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0 bin/setup`
+Before installing dependencies, make sure your environment variables are setup. Our CI uses something like this: `SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0"`.
 
-Run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+** NOTE: These environment variables need to be set when installing dependencies and running specs, so set them before each command like this: `SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0" bin/setup` **
+
+Run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 

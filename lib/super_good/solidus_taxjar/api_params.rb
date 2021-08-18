@@ -37,13 +37,13 @@ module SuperGood
           }.merge(order_address_params(address))
         end
 
-        def transaction_params(order)
+        def transaction_params(order, transaction_id = order.number)
           {}
             .merge(customer_params(order))
             .merge(order_address_params(order.tax_address))
             .merge(transaction_line_items_params(order.line_items))
             .merge(
-              transaction_id: order.number,
+              transaction_id: transaction_id,
               transaction_date: order.completed_at.to_formatted_s(:iso8601),
               amount: [order.total - order.additional_tax_total, 0].max,
               shipping: shipping(order),

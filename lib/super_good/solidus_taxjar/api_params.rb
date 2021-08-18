@@ -61,7 +61,14 @@ module SuperGood
                 transaction_date: spree_order.completed_at.to_formatted_s(:iso8601),
                 amount: -1 * taxjar_order.amount,
                 sales_tax: -1 * taxjar_order.sales_tax,
-                shipping: -1 * taxjar_order.shipping
+                shipping: -1 * taxjar_order.shipping,
+                line_items: taxjar_order.line_items.map { |line_item|
+                  line_item.to_h.merge({
+                    unit_price: line_item.unit_price * -1,
+                    discount:  line_item.discount * -1,
+                    sales_tax: line_item.sales_tax * -1
+                  })
+                }
               }
             )
         end

@@ -330,6 +330,18 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         })
       end
     end
+
+    context "with an optional transaction_id specified" do
+      subject {
+        described_class.transaction_params(order, custom_transaction_id)
+      }
+
+      let(:custom_transaction_id) { "R0123456789" }
+
+      it "uses the specified transaction_id" do
+        expect(subject).to include(transaction_id: "R0123456789")
+      end
+    end
   end
 
   describe "#refund_params" do

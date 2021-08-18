@@ -367,8 +367,15 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   describe "#refund_transaction_params" do
     subject { described_class.refund_transaction_params(order, taxjar_order) }
 
+    let(:taxjar_line_item) {  {id: 1, quantity: 2, unit_price: 2.00, discount: 0.50, sales_tax: 0.80} }
     let(:taxjar_order) {
-      Taxjar::Order.new(transaction_id: "R111222333-1", amount: 123.45, sales_tax: 33.33, shipping: 3.01)
+      Taxjar::Order.new(
+        transaction_id: "R111222333-1",
+        amount: 123.45,
+        sales_tax: 33.33,
+        shipping: 3.01,
+        line_items: [taxjar_line_item]
+      )
     }
 
     it "returns params for creating/updating a refund" do
@@ -383,7 +390,14 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
         transaction_reference_id: "R111222333-1",
-        transaction_id: "R111222333-1-REFUND"
+        transaction_id: "R111222333-1-REFUND",
+        line_items: [{
+          id: 1,
+          quantity: 2,
+          unit_price: -2.00,
+          discount: -0.50,
+          sales_tax: -0.80
+        }]
       })
     end
   end

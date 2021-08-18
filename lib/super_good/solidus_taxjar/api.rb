@@ -54,6 +54,11 @@ module SuperGood
         taxjar_client.show_order order.number
       end
 
+      def create_refund_transaction_for(order)
+        taxjar_order = show_latest_transaction_for(order)
+        taxjar_client.create_refund ApiParams.refund_transaction_params(order, taxjar_order)
+      end
+
       def create_refund_for(reimbursement)
         taxjar_client.create_refund ApiParams.refund_params(reimbursement)
       end

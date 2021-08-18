@@ -200,6 +200,40 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
 
+  describe "#create_refund_transaction_for" do
+    subject { api.create_refund_transaction_for order }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:order) { Spree::Order.new(number: "R111222333") }
+    let(:taxjar_order) {
+      Taxjar::Order.new(
+        amount: 20,
+        sales_tax: 2,
+        shipping: 5
+      )
+    }
+
+    before do
+      allow(dummy_client)
+        .to receive(:show_order)
+        .with(order.number)
+        .and_return(taxjar_order)
+
+      allow(SuperGood::SolidusTaxjar::ApiParams)
+        .to receive(:refund_transaction_params)
+        .with(order, taxjar_order)
+        .and_return({refund_transaction: "params"})
+
+      allow(dummy_client)
+        .to receive(:create_refund)
+        .with({refund_transaction: "params"})
+        .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
+
   describe "#validate_spree_address" do
     subject { api.validate_spree_address spree_address }
 

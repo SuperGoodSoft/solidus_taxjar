@@ -51,6 +51,17 @@ module SuperGood
             )
         end
 
+        def refund_transaction_params(spree_order, taxjar_order)
+          {
+            transaction_id: TransactionIdGenerator.refund_transaction_id(taxjar_order.transaction_id),
+            transaction_reference_id: taxjar_order.transaction_id,
+            transaction_date: spree_order.completed_at.to_formatted_s(:iso8601),
+            amount: -1 * taxjar_order.amount,
+            sales_tax: -1 * taxjar_order.sales_tax,
+            shipping: -1 * taxjar_order.shipping
+          }
+        end
+
         def refund_params(reimbursement)
           additional_taxes = reimbursement.return_items.sum(&:additional_tax_total)
 

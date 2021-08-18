@@ -161,6 +161,23 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
 
+  describe "#show_latest_transaction_for" do
+    subject { api.show_latest_transaction_for order }
+
+    let(:api) { described_class.new(taxjar_client: dummy_client) }
+    let(:dummy_client) { instance_double ::Taxjar::Client }
+    let(:order) { Spree::Order.new(number: "R111222333") }
+
+    before do
+      allow(dummy_client)
+        .to receive(:show_order)
+        .with("R111222333")
+        .and_return({some_kind_of: "response"})
+    end
+
+    it { is_expected.to eq({some_kind_of: "response"}) }
+  end
+
   describe "#create_refund_for" do
     subject { api.create_refund_for reimbursement }
 

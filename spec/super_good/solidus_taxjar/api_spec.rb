@@ -144,7 +144,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     it { is_expected.to eq({some_kind_of: "response"}) }
   end
 
-  describe "#update_transaction_for" do
+  describe "#delete_transaction_for" do
     subject { api.delete_transaction_for order }
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }

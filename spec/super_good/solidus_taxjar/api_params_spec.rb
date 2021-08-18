@@ -121,7 +121,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
   let(:shipment) { Spree::Shipment.create!(cost: BigDecimal("3.01")) }
 
-  describe "#order_params" do
+  describe ".order_params" do
     subject { described_class.order_params(order) }
 
     it "returns params for fetching the tax for the order" do
@@ -216,7 +216,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
   end
 
-  describe "#address_params" do
+  describe ".address_params" do
     subject { described_class.address_params(ship_address) }
 
     it "returns params for fetching the tax info for that address" do
@@ -232,7 +232,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
   end
 
-  describe "#tax_rate_address_params" do
+  describe ".tax_rate_address_params" do
     subject { described_class.tax_rate_address_params(ship_address) }
 
     it "returns params for fetching the tax rate for that address" do
@@ -250,7 +250,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
   end
 
-  describe "#transaction_params" do
+  describe ".transaction_params" do
     subject { described_class.transaction_params(order) }
 
     it "returns params for creating/updating an order transaction" do

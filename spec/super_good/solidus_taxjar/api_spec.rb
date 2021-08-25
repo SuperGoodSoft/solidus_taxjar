@@ -105,12 +105,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
     let(:dummy_client) { instance_double ::Taxjar::Client }
-    let(:order) { Spree::Order.new }
+    let(:order) { build_stubbed :order, number: "R123" }
 
     before do
       allow(SuperGood::SolidusTaxjar::ApiParams)
         .to receive(:transaction_params)
-        .with(order)
+        .with(order, "R123")
         .and_return({transaction: "params"})
 
       allow(dummy_client)

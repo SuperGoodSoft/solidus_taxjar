@@ -36,7 +36,10 @@ module SuperGood
       end
 
       def create_transaction_for(order)
-        taxjar_client.create_order ApiParams.transaction_params(order)
+        transaction_id = TransactionIdGenerator.next_transaction_id(order: order)
+        taxjar_client.create_order(
+          ApiParams.transaction_params(order, transaction_id)
+        )
       end
 
       def update_transaction_for(order)

@@ -9,6 +9,7 @@
 - [#103](https://github.com/SuperGoodSoft/solidus_taxjar/pull/103) Add `reporting_enabled` configuration option
 - [#97](https://github.com/SuperGoodSoft/solidus_taxjar/pull/97) Add public API method to request the latest transaction associated with a solidus order.
 - [#100](https://github.com/SuperGoodSoft/solidus_taxjar/pull/100) Add public API method to post a taxjar refund transaction for a solidus order.
+- [#102](https://github.com/SuperGoodSoft/solidus_taxjar/pull/102) Add description to transaction line item params
 
 ## v0.18.2
 

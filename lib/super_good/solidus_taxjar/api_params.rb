@@ -137,6 +137,7 @@ module SuperGood
                 id: line_item.id,
                 quantity: line_item.quantity,
                 product_identifier: line_item.sku,
+                description: line_item.variant.descriptive_name,
                 product_tax_code: line_item.tax_category&.tax_code,
                 unit_price: line_item.price,
                 discount: discount(line_item),

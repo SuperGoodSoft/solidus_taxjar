@@ -74,7 +74,23 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     Spree::Variant.create!(
       price: 10,
       product: product,
-      sku: "G00D-PR0DUCT"
+      sku: "G00D-PR0DUCT",
+      option_values: [option_value]
+    )
+  end
+
+  let(:option_value) do
+    Spree::OptionValue.create!(
+      name: "Red",
+      presentation: "red",
+      option_type: option_type
+    )
+  end
+
+  let(:option_type) do
+    Spree::OptionType.create!(
+      name: "Color",
+      presentation: "color"
     )
   end
 
@@ -261,6 +277,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
           discount: 2,
           id: line_item.id,
           product_identifier: "G00D-PR0DUCT",
+          description: "Product Name - color: red",
           product_tax_code: "A_GEN_TAX",
           quantity: 3,
           sales_tax: 4,
@@ -294,6 +311,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
           discount: 2,
           id: line_item.id,
           product_identifier: "G00D-PR0DUCT",
+          description: "Product Name - color: red",
           product_tax_code: "A_GEN_TAX",
           quantity: 3,
           sales_tax: 0,

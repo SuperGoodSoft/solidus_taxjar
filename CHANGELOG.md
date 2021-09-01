@@ -5,6 +5,7 @@
 - [#88](https://github.com/SuperGoodSoft/solidus_taxjar/pull/88) Fire `shipment_shipped` event when any shipment on an order ships.
 - [#81](https://github.com/SuperGoodSoft/solidus_taxjar/pull/81) Add install generator
 - [#95](https://github.com/SuperGoodSoft/solidus_taxjar/pull/95) Only require "state" for Canadian and US addresses
+- [#98](https://github.com/SuperGoodSoft/solidus_taxjar/pull/98) Add generator for TaxJar transaction IDs
 
 ## v0.18.2
 

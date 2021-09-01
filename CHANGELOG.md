@@ -7,6 +7,7 @@
 - [#95](https://github.com/SuperGoodSoft/solidus_taxjar/pull/95) Only require "state" for Canadian and US addresses
 - [#98](https://github.com/SuperGoodSoft/solidus_taxjar/pull/98) Add generator for TaxJar transaction IDs
 - [#103](https://github.com/SuperGoodSoft/solidus_taxjar/pull/103) Add `reporting_enabled` configuration option
+- [#97](https://github.com/SuperGoodSoft/solidus_taxjar/pull/97) Add public API method to request the latest transaction associated with a solidus order.
 
 ## v0.18.2
 

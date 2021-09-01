@@ -89,22 +89,35 @@ endpoint of the tax calculator in order to provide the most coherent and
 reliable results. TaxJar support recommends using this endpoint for live
 calculations.
 
-## Development
+## Development Setup
 
-Before installing dependencies, make sure your environment variables are setup.
-Our CI uses something like this:
-`SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0"`.
+The environment variables needed for development are listed in `.env.sample`. Copy these to `.env`, replace the appropriate values, and run `source .env` in your terminal.
+  * **NOTE: These environment variables need to be set when installing dependencies, running specs, and running the sandbox app**
+  * You can get a TaxJar API key by [signing up for a free trial](https://app.taxjar.com/sign_up).
 
-**NOTE: These environment variables need to be set when installing dependencies
-and running specs, so set them before each command like this:**
+After setting the environment variables, run `bin/setup` to install dependencies. These dependencies should match the rails/solidus versions you specified in your environment variables.
 
-```sh
-SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0" bin/setup
-```
 
-Run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run the
-tests. You can also run `bin/console` for an interactive prompt that will allow
-you to experiment.
+### Running the Tests
+
+The tests are written in rspec, and can be run with `bundle exec rspec`
+
+* If this is the first time you've run the tests, you will notice that a "dummy" rails application is created in `spec/dummy`
+* **NOTE: If you change the `RAILS_VERSION` or `SOLIDUS_BRANCH` environment variables, you will need to delete this folder before running the tests again**
+
+### Running a local Solidus app with TaxJar
+
+This extension uses the `solidus_dev_support` gem to provide tooling for developing extensions. One of it's most important features is the sandbox app, which runs a solidus store with this extension hooked in.
+
+https://github.com/solidusio/solidus_dev_support#sandbox-app
+
+By using `bin/rails-sandbox`, you can run any command that `bin/rails` would accept (`bin/rails-sandbox server`, `bin/rails-sandbox console`), except it will run it on a locally generated sandbox store.
+
+* `binding.pry`s set in your local source code will be hit by the sandbox app, as it links itself directly to your development folder.
+* If this is the first time you've run the sandbox, you will notice that a `sandbox` folder is created with a solidus store.
+* **NOTE: If you change the `RAILS_VERSION` or `SOLIDUS_BRANCH` environment variables, you will need to delete this folder before running the tests again**
+
+### Releasing a new version
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 To release a new version, update the version number in `version.rb`, and then

@@ -42,6 +42,9 @@ introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
     }
     ```
 
+    For more information about configuring the extension, see
+    [Configuration](#configuration).
+
 1. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to
   your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name
   "Sales Tax". This will be used as the source for the tax adjustments that
@@ -88,6 +91,24 @@ for a given `Spree::Address`. It relies on the same low-level Ruby TaxJar API
 endpoint of the tax calculator in order to provide the most coherent and
 reliable results. TaxJar support recommends using this endpoint for live
 calculations.
+
+## Configuration
+
+See [`lib/super_good/solidus_taxjar.rb`](lib/super_good/solidus_taxjar.rb) for a
+list of configuration options and their default values. You can override the
+default values in one of your Rails application's initializers:
+
+```ruby
+# config/initializers/taxjar.rb
+
+SuperGood::SolidusTaxjar.tap do |config|
+  config.cache_duration = 2.hours
+  config.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) {
+    "My Tax Label"
+  }
+  config.test_mode = true
+end
+```
 
 ## Development
 

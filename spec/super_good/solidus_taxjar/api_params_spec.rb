@@ -376,6 +376,11 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         amount: -123.45,
         sales_tax: -33.33,
         shipping: -3.01,
+        to_city: "Los Angeles",
+        to_country: "US",
+        to_state: "CA",
+        to_street: "475 N Beverly Dr",
+        to_zip: "90210",
         transaction_date: "2018-03-06T12:10:33Z",
         transaction_reference_id: "R111222333-1",
         transaction_id: "R111222333-1-REFUND"

@@ -10,6 +10,9 @@ module SuperGood
             Spree.config do |config|
               config.tax_calculator_class = SuperGood::SolidusTaxjar::TaxCalculator
             end
+            Spree::Event.subscribe 'shipment_shipped' do |shipment|
+              SuperGood::SolidusTaxjar::Reporting.report_transaction(shipment.order)
+            end
           INIT
         end
       end

@@ -10,6 +10,7 @@
 - [#97](https://github.com/SuperGoodSoft/solidus_taxjar/pull/97) Add public API method to request the latest transaction associated with a solidus order.
 - [#100](https://github.com/SuperGoodSoft/solidus_taxjar/pull/100) Add public API method to post a taxjar refund transaction for a solidus order.
 - [#102](https://github.com/SuperGoodSoft/solidus_taxjar/pull/102) Add description to transaction line item params
+- [#107](https://github.com/SuperGoodSoft/solidus_taxjar/pull/107) Fix rails-engine binstub to point to correct engine entry point
 
 ## v0.18.2
 

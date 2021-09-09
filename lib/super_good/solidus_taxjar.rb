@@ -32,6 +32,10 @@ module SuperGood
       def api
         ::SuperGood::SolidusTaxjar::Api.new
       end
+
+      def table_name_prefix
+        "solidus_taxjar_"
+      end
     end
 
     self.cache_duration = 3.hours

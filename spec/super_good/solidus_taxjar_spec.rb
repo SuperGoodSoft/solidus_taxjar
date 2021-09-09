@@ -5,6 +5,12 @@ RSpec.describe SuperGood::SolidusTaxjar do
     expect(SuperGood::SolidusTaxjar::VERSION).not_to be nil
   end
 
+  describe ".table_name_prefix" do
+    subject { described_class.table_name_prefix }
+
+    it { is_expected.to eq("solidus_taxjar_") }
+  end
+
   describe "configuration" do
     describe ".cache_key" do
       subject { described_class.cache_key.call(order) }

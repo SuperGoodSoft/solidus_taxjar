@@ -105,7 +105,15 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
     let(:dummy_client) { instance_double ::Taxjar::Client }
-    let(:order) { build_stubbed :order, number: "R123" }
+    let(:order) { create :order, number: "R123" }
+
+    let(:dummy_response) do
+      instance_double(
+        ::Taxjar::Order,
+        transaction_id: "R123",
+        transaction_date: "2015-05-15T00:00:00Z"
+      )
+    end
 
     before do
       allow(SuperGood::SolidusTaxjar::ApiParams)
@@ -116,10 +124,37 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
       allow(dummy_client)
         .to receive(:create_order)
         .with({transaction: "params"})
-        .and_return({some_kind_of: "response"})
+        .and_return(dummy_response)
     end
 
-    it { is_expected.to eq({some_kind_of: "response"}) }
+    it { is_expected.to eq(dummy_response) }
+
+    it "creates an `OrderTransaction` for the order" do
+      expect { subject }
+        .to change { order.taxjar_order_transactions.count }
+        .from(0)
+        .to(1)
+    end
+
+    it "sets `transaction_id` and `transaction_date` on the order transaction" do
+      subject
+      expect(order.taxjar_order_transactions.first)
+        .to have_attributes(
+          transaction_id: "R123",
+          transaction_date: DateTime.new(2015, 5, 15, 0, 0, 0, "+0")
+        )
+    end
+
+    context "when the API call to create the transaction fails" do
+      before do
+        allow(dummy_client).to receive(:create_order).and_raise(Taxjar::Error)
+      end
+
+      it "does not create an `OrderTransaction` for the order" do
+        expect { subject }.to raise_error(Taxjar::Error)
+        expect(order.taxjar_order_transactions.count).to be_zero
+      end
+    end
   end
 
   describe "#update_transaction_for" do

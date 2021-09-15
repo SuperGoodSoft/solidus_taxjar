@@ -56,7 +56,14 @@ module SuperGood
       end
 
       def show_latest_transaction_for(order)
-        taxjar_client.show_order order.number
+        latest_transaction_id =
+          OrderTransaction.latest_for(order)&.transaction_id
+
+        if latest_transaction_id.nil?
+          raise StandardError, "No latest TaxJar order transaction for #{order.number}"
+        end
+
+        taxjar_client.show_order(latest_transaction_id)
       end
 
       def create_refund_transaction_for(order)

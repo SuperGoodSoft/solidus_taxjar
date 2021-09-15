@@ -10,6 +10,9 @@ require File.expand_path("dummy/config/environment.rb", __dir__).tap { |file|
 
 require "solidus_dev_support/rspec/feature_helper"
 
+factories = Dir["#{::SuperGoodSolidusTaxjar::Engine.root}/lib/super_good/solidus_taxjar/testing_support/factories/**/*_factory.rb"].sort
+factories.each { |f| require f }
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }

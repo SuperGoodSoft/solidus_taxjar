@@ -203,14 +203,34 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { Spree::Order.new(number: "R111222333") }
 
-    before do
-      allow(dummy_client)
-        .to receive(:show_order)
-        .with("R111222333")
-        .and_return({some_kind_of: "response"})
+    context "with a persisted order transaction" do
+      before do
+        create(
+          :taxjar_order_transaction,
+          order: order,
+          transaction_id: "R111222333-42"
+        )
+      end
+
+      let(:order) { create(:order, number: "R111222333") }
+
+      it "uses the persisted transaction_id to fetch the TaxJar transaction" do
+        expect(dummy_client)
+          .to receive(:show_order)
+          .with("R111222333-42")
+          .and_return({some_kind_of: "response"})
+        expect(subject).to eq({some_kind_of: "response"})
+      end
     end
 
-    it { is_expected.to eq({some_kind_of: "response"}) }
+    context "without a persisted order transaction" do
+      it "raises an exception" do
+        expect { subject }.to raise_error(
+          StandardError,
+          "No latest TaxJar order transaction for R111222333"
+        )
+      end
+    end
   end
 
   describe "#create_refund_for" do
@@ -240,7 +260,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
 
     let(:api) { described_class.new(taxjar_client: dummy_client) }
     let(:dummy_client) { instance_double ::Taxjar::Client }
-    let(:order) { Spree::Order.new(number: "R111222333") }
+    let(:order) { create(:order_ready_to_ship, number: "R111222333") }
+
     let(:taxjar_order) {
       Taxjar::Order.new(
         amount: 20,
@@ -252,7 +273,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     before do
       allow(dummy_client)
         .to receive(:show_order)
-        .with(order.number)
+        .with("R111222333-10")
         .and_return(taxjar_order)
 
       allow(SuperGood::SolidusTaxjar::ApiParams)
@@ -266,7 +287,32 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
         .and_return({some_kind_of: "response"})
     end
 
-    it { is_expected.to eq({some_kind_of: "response"}) }
+    context "when no order transaction has been persisted" do
+      it "raises an exception" do
+        expect { subject }.to raise_error(
+          StandardError,
+          "No latest TaxJar order transaction for R111222333"
+        )
+      end
+    end
+
+    context "when an order transaction has been persisted" do
+      before do
+        create(
+          :taxjar_order_transaction,
+          order: order,
+          transaction_id: "R111222333-10"
+        )
+      end
+
+      it "requests the latest transaction from TaxJar" do
+        expect(dummy_client).to receive(:show_order).with("R111222333-10")
+
+        subject
+      end
+
+      it { is_expected.to eq({some_kind_of: "response"}) }
+    end
   end
 
   describe "#validate_spree_address" do

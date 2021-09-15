@@ -6,6 +6,7 @@ module SuperGood
       end
 
       def report_transaction(order)
+        return unless SuperGood::SolidusTaxjar.reporting_enabled
         begin
           @api.show_latest_transaction_for(order)
         rescue Taxjar::Error::NotFound => e

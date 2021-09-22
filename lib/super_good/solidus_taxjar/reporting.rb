@@ -14,6 +14,13 @@ module SuperGood
           @api.create_transaction_for(order)
         end
       end
+
+      def sync_transaction(order)
+        return unless SuperGood::SolidusTaxjar.reporting_enabled
+
+        @api.create_refund_transaction_for(order)
+        @api.create_transaction_for(order)
+      end
     end
   end
 end

@@ -11,6 +11,22 @@ RSpec.describe SuperGood::SolidusTaxjar do
     it { is_expected.to eq("solidus_taxjar_") }
   end
 
+  describe ".api" do
+    subject { described_class.api }
+
+    it "returns an instance of the api client" do
+      expect(subject).to be_a(SuperGood::SolidusTaxjar::Api)
+    end
+  end
+
+  describe ".reporting" do
+    subject { described_class.reporting }
+
+    it "creates a new reporting" do
+      expect(subject).to be_a(::SuperGood::SolidusTaxjar::Reporting)
+    end
+  end
+
   describe "configuration" do
     describe ".cache_key" do
       subject { described_class.cache_key.call(order) }

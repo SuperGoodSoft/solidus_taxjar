@@ -37,6 +37,10 @@ module SuperGood
       def table_name_prefix
         "solidus_taxjar_"
       end
+
+      def reporting
+        ::SuperGood::SolidusTaxjar::Reporting.new
+      end
     end
 
     self.cache_duration = 3.hours

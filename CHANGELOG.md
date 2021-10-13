@@ -14,6 +14,7 @@
 - [#108](https://github.com/SuperGoodSoft/solidus_taxjar/pull/108) Add new model associated with a `Spree::Order` to represent taxjar order creation transactions
 - [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
 - [#114](https://github.com/SuperGoodSoft/solidus_taxjar/pull/114) Add new model associated with a `SuperGood::SolidusTaxjar::OrderTransaction` to represent taxjar refund creation transactions
+- [#116](https://github.com/SuperGoodSoft/solidus_taxjar/pull/116) Update the `OrderTransaction` model to record the transaction date.
 
 ## v0.18.2
 

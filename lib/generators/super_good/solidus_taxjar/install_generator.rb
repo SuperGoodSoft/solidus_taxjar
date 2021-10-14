@@ -16,7 +16,7 @@ module SuperGood
         end
 
         def add_migrations
-          run 'bin/rails railties:install:migrations FROM=solidus_taxjar'
+          run 'bin/rails railties:install:migrations FROM=super_good_solidus_taxjar'
         end
 
         def run_migrations

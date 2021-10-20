@@ -12,6 +12,7 @@
 - [#102](https://github.com/SuperGoodSoft/solidus_taxjar/pull/102) Add description to transaction line item params
 - [#107](https://github.com/SuperGoodSoft/solidus_taxjar/pull/107) Fix rails-engine binstub to point to correct engine entry point
 - [#108](https://github.com/SuperGoodSoft/solidus_taxjar/pull/108) Add new model associated with a `Spree::Order` to represent taxjar order creation transactions
+- [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
 
 ## v0.18.2
 

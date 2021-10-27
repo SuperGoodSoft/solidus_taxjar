@@ -15,6 +15,7 @@
 - [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
 - [#114](https://github.com/SuperGoodSoft/solidus_taxjar/pull/114) Add new model associated with a `SuperGood::SolidusTaxjar::OrderTransaction` to represent taxjar refund creation transactions
 - [#116](https://github.com/SuperGoodSoft/solidus_taxjar/pull/116) Update the `OrderTransaction` model to record the transaction date.
+- [#120](https://github.com/SuperGoodSoft/solidus_taxjar/pull/120) Change default `SOLIDUS_BRANCH` and `RAILS_VERSION`
 
 ## v0.18.2
 

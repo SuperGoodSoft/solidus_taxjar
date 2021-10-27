@@ -2,14 +2,14 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
+branch = ENV.fetch("SOLIDUS_BRANCH", "v2.10")
 
 gem "solidus", github: "solidusio/solidus", branch: branch
 
 # Needed to help Bundler figure out how to resolve dependencies,
 # otherwise it takes forever to resolve them.
 # See https://github.com/bundler/bundler/issues/6677
-gem "rails", ENV.fetch("RAILS_VERSION") { ">0.a" }
+gem "rails", ENV.fetch("RAILS_VERSION", "~> 5.2")
 
 # Provides basic authentication functionality for testing parts of your engine
 gem "solidus_auth_devise"

@@ -112,17 +112,6 @@ end
 
 ## Development
 
-Before installing dependencies, make sure your environment variables are setup.
-Our CI uses something like this:
-`SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0"`.
-
-**NOTE: These environment variables need to be set when installing dependencies
-and running specs, so set them before each command like this:**
-
-```sh
-SOLIDUS_BRANCH=v2.10 DB=postgresql RAILS_VERSION="~> 5.2.0" bin/setup
-```
-
 Run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run the
 tests. You can also run `bin/console` for an interactive prompt that will allow
 you to experiment.
@@ -131,6 +120,17 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 To release a new version, update the version number in `version.rb`, and then
 run `bundle exec rake release`, which will create a git tag for the version,
 push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+### Changing the Rails/Solidus Versions
+
+The Rails and the Solidus version can be changed by setting the `RAILS_VERSION`
+and `SOLIDUS_BRANCH` environment variables, respectively. See the
+[Gemfile](./Gemfile) for examples.
+
+### Changing the Database Vendor
+
+The database vendor can also be changed from the default (`sqlite3`) by setting
+the `DB` environment variable.
 
 ## Contributing
 

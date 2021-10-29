@@ -119,9 +119,6 @@ tests. You can also run `bin/console` for an interactive prompt that will allow
 you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
-To release a new version, update the version number in `version.rb`, and then
-run `bundle exec rake release`, which will create a git tag for the version,
-push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ### Changing the Rails/Solidus Versions
 
@@ -133,6 +130,18 @@ and `SOLIDUS_BRANCH` environment variables, respectively. See the
 
 The database vendor can also be changed from the default (`sqlite3`) by setting
 the `DB` environment variable.
+
+## Releasing a New Version
+
+1. Update the `master` header in changelog to the version that you're releasing.
+2. Commit your changes and open a PR for the release
+3. Once the PR has been merged into master, run `gem bump -v [<major>|<minor>|<patch>] -p -t -r` to create a tag and release the gem to ✨ RubyGems ✨
+4. Push your local master branch with `--tags` to the repository to add the tag to github.
+5. Create a new release on github with the tag
+    * [ ] Ensure the changelog since the previous release is included
+    * [ ] Ensure you have noted version migration instructions if applicable
+    * [ ] Ensure breaking/significant changes are clearly highlighted
+    * [ ] Ensure changes that are **not production ready** are clearly highlighted
 
 ## Contributing
 

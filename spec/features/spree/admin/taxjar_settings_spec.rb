@@ -8,22 +8,23 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
   end
 
   describe "Taxjar settings tab" do
+    let(:api_token) { "token" }
+
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("TAXJAR_API_KEY").and_return(api_token)
+
+      visit "/admin"
+      click_on "Settings"
+      expect(page).to have_content("Taxes")
+      click_on "Taxes"
+      expect(page).to have_content("TaxJar Settings")
+      click_on "TaxJar Settings"
     end
 
+
     context "Taxjar API token is set" do
-      let(:api_token) { "token" }
-
       it "shows a blank settings page" do
-
-        visit "/admin"
-        click_on "Settings"
-        expect(page).to have_content("Taxes")
-        click_on "Taxes"
-        expect(page).to have_content("TaxJar Settings")
-        click_on "TaxJar Settings"
         expect(page).not_to have_content "You must provide a TaxJar API token"
       end
     end
@@ -32,12 +33,6 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
       let(:api_token) { nil }
 
       it "shows a descriptive error message" do
-        visit "/admin"
-        click_on "Settings"
-        expect(page).to have_content("Taxes")
-        click_on "Taxes"
-        expect(page).to have_content("TaxJar Settings")
-        click_on "TaxJar Settings"
         expect(page).to have_content "You must provide a TaxJar API token"
 
         expect(page).to have_link(href: "https://app.taxjar.com/api_sign_up")

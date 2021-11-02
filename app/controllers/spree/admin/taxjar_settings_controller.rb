@@ -1,7 +1,8 @@
 module Spree
   module Admin
     class TaxjarSettingsController < Spree::Admin::BaseController
-      def show
+      def edit
+      end
       end
     end
   end

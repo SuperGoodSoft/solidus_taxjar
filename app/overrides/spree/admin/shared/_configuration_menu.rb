@@ -6,6 +6,6 @@ Deface::Override.new(
   insert_bottom: "[data-hook='admin_settings_taxes_tabs']"
 ) do
   <<-HTML
-    <%= configurations_sidebar_menu_item "TaxJar Settings", admin_taxjar_settings_path %>
+    <%= configurations_sidebar_menu_item "TaxJar Settings", edit_admin_taxjar_settings_path %>
   HTML
 end

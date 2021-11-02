@@ -11,3 +11,7 @@
   <p>You must provide a TaxJar API token to use this extension. You can sign up for TaxJar <%= link_to "here", "https://app.taxjar.com/api_sign_up", target: "_blank", rel: "noreferrer" %>. Please see the extension documentation for details on providing this token to the extension.</p>
   <p><i>For more help in aquiring a TaxJar API token, see <%= link_to "How do I get a TaxJar sales tax API token?", "https://support.taxjar.com/article/160-how-do-i-get-a-sales-tax-api-token", target: "_blank", rel: "noreferrer" %></i></p>
 <% end %>
+
+<%= form_with do |form| %>
+  <%= form.select :reporting_enabled, ["No", "Yes"] %>
+<% end %>

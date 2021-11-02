@@ -22,6 +22,14 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
       click_on "TaxJar Settings"
     end
 
+    context "Taxjar reporting is enabled" do
+      it "shows that reporting is enabled" do
+
+        binding.pry
+        expect(page).to have_content("Transaction Sync")
+        expect(page).to have_content("No")
+      end
+    end
 
     context "Taxjar API token is set" do
       it "shows a blank settings page" do

@@ -3,7 +3,7 @@ module SuperGood
     class Api
       def self.default_taxjar_client
         client = ::Taxjar::Client.new(
-          api_key: ENV.fetch("TAXJAR_API_KEY"),
+          api_key: ENV["TAXJAR_API_KEY"],
           api_url: ENV.fetch("TAXJAR_API_URL") { "https://api.taxjar.com" } # Sandbox URL: https://api.sandbox.taxjar.com
         )
         client.set_api_config('headers', {

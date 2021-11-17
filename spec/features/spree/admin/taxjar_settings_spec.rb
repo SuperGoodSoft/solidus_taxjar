@@ -25,9 +25,14 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
     context "Taxjar reporting is enabled" do
       it "shows that reporting is enabled" do
 
-        binding.pry
         expect(page).to have_content("Transaction Sync")
-        expect(page).to have_content("No")
+        expect(page).to have_select("reporting_enabled", selected: "No")
+        expect(page).to have_content("Sync orders and refund with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.")
+
+        select "Yes", from: "reporting_enabled"
+        click_on "Save"
+        expect(page).to have_button("Save", disabled: false)
+        expect(page).to have_select("reporting_enabled", selected: "Yes")
       end
     end
 

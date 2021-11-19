@@ -31,7 +31,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
 
         select "Yes", from: "reporting_enabled"
         click_on "Save"
-        expect(page).to have_button("Save", disabled: false)
+        visit current_path
         expect(page).to have_select("reporting_enabled", selected: "Yes")
       end
     end

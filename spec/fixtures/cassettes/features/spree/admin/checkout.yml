@@ -1,0 +1,116 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"to_country":"US","to_zip":"35242","to_city":"Richmond","to_state":"AL","to_street":"143
+        Swan Street","line_items":[{"id":1,"quantity":1,"unit_price":"19.99","discount":"-0.0","product_tax_code":"TaxCode
+        - 593989"}],"shipping":"10.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Noahs-MacBook-Pro.local 20.6.0 Darwin Kernel Version
+        20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64
+        x86_64; ruby 2.6.7-p197; OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer 2af48aa62f42b4c8164d4d00718247d6
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '162'
+      Connection:
+      - close
+      Date:
+      - Mon, 01 Nov 2021 21:32:56 GMT
+      X-Amzn-Requestid:
+      - 3fa62e24-f2df-4133-ab03-11f40cc21003
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - IJN5YF0HIAMFnHg=
+      X-Amzn-Trace-Id:
+      - Root=1-61805d08-5075b52e20dab6f57669eb43
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 28fdf6e146f70e7372911f118404fb20.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA19-C3
+      X-Amz-Cf-Id:
+      - o8SyHENgXqxbPJqnH4nQfYxGBv08NZWooWiuK8F-YNct9fVRV8Iijg==
+    body:
+      encoding: UTF-8
+      string: '{
+  "tax": {
+    "order_total_amount": 29.99,
+    "shipping": 10.00,
+    "taxable_amount": 19.99,
+    "amount_to_collect": 1.35,
+    "rate": 0.09,
+    "has_nexus": true,
+    "freight_taxable": false,
+    "tax_source": "destination",
+    "jurisdictions": {
+      "country": "US",
+      "state": "CA",
+      "county": "LOS ANGELES",
+      "city": "LOS ANGELES"
+    },
+    "breakdown": {
+      "taxable_amount": 19.99,
+      "tax_collectable": 1.35,
+      "combined_tax_rate": 0.09,
+      "state_taxable_amount": 19.99,
+      "state_tax_rate": 0.0625,
+      "state_tax_collectable": 0.94,
+      "county_taxable_amount": 19.99,
+      "county_tax_rate": 0.0025,
+      "county_tax_collectable": 0.04,
+      "city_taxable_amount": 0,
+      "city_tax_rate": 0,
+      "city_tax_collectable": 0,
+      "special_district_taxable_amount": 19.99,
+      "special_tax_rate": 0.025,
+      "special_district_tax_collectable": 0.38,
+      "line_items": [
+        {
+          "id": "1",
+          "taxable_amount": 19.99,
+          "tax_collectable": 1.35,
+          "combined_tax_rate": 0.09,
+          "state_taxable_amount": 19.99,
+          "state_sales_tax_rate": 0.0625,
+          "state_amount": 0.94,
+          "county_taxable_amount": 19.99,
+          "county_tax_rate": 0.0025,
+          "county_amount": 0.04,
+          "city_taxable_amount": 0,
+          "city_tax_rate": 0,
+          "city_amount": 0,
+          "special_district_taxable_amount": 19.99,
+          "special_tax_rate": 0.025,
+          "special_district_amount": 0.38
+        }
+      ]
+    }
+  }
+}'
+    http_version:
+  recorded_at: Mon, 01 Nov 2021 21:32:56 GMT
+recorded_with: VCR 4.0.0

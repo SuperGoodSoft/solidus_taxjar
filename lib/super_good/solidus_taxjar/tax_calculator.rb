@@ -9,6 +9,7 @@ module SuperGood
       end
 
       def calculate
+        binding.pry
         return no_tax if SuperGood::SolidusTaxjar.test_mode
         return no_tax if incomplete_address?(order.tax_address) || order.line_items.none?
         return no_tax unless taxable_order? order

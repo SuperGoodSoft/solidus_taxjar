@@ -21,6 +21,13 @@ Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
+
+  config.before do
+    Rails.cache.clear
+    if RSpec.current_example.metadata[:js] && page.driver.browser.respond_to?(:url_blacklist)
+      page.driver.browser.url_blacklist = ['http://fonts.googleapis.com']
+    end
+  end
 end
 
 VCR.configure do |config|
@@ -31,7 +38,10 @@ VCR.configure do |config|
   driver_urls = Webdrivers::Common.subclasses.map do |driver|
     Addressable::URI.parse(driver.base_url).host
   end
-  config.ignore_hosts("chromedriver.storage.googleapis.com", *driver_urls)
+  config.ignore_hosts(
+    "chromedriver.storage.googleapis.com",
+    *driver_urls
+  )
   config.filter_sensitive_data('<BEARER_TOKEN>') { |interaction|
     auths = interaction.request.headers['Authorization'].first
     if (match = auths.match /^Bearer\s+([^,\s]+)/ )

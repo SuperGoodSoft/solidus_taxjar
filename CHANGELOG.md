@@ -23,6 +23,7 @@
 - [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Run tests against the most up to date versions of solidus.
 - [#141](https://github.com/SuperGoodSoft/solidus_taxjar/pull/141) Handle unimplemented reporting features
 - [#129](https://github.com/SuperGoodSoft/solidus_taxjar/pull/129) Report transaction asynchronously when a shipment is shipped.
+- [#127](https://github.com/SuperGoodSoft/solidus_taxjar/pull/127) Add acceptance test for calculating taxes with the extension.
 
 ## v0.18.2
 

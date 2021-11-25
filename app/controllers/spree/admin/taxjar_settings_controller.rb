@@ -5,6 +5,9 @@ module Spree
       end
 
       def update
+        settings = SuperGood::SolidusTaxjar::Settings.find_or_create_by(id: 1)
+        flash[:alert] = "TaxJar settings updated!"
+        redirect_back(fallback_location: spree.admin_taxjar_settings_path)
       end
     end
   end

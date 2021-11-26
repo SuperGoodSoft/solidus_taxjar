@@ -118,5 +118,11 @@ RSpec.describe SuperGood::SolidusTaxjar do
         expect(subject).to eq(10)
       end
     end
+
+    describe ".job_queue" do
+      subject { described_class.job_queue }
+
+      it { is_expected.to eq :default }
+    end
   end
 end

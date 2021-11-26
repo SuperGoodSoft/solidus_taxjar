@@ -21,6 +21,7 @@ module SuperGood
       attr_accessor :custom_order_params
       attr_accessor :discount_calculator
       attr_accessor :exception_handler
+      attr_accessor :job_queue
       attr_accessor :line_item_tax_label_maker
       attr_accessor :logging_enabled
       attr_accessor :reporting_enabled
@@ -53,6 +54,7 @@ module SuperGood
     self.exception_handler = ->(e) {
       Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
     }
+    self.job_queue = :default
     self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }
     self.logging_enabled = false
 

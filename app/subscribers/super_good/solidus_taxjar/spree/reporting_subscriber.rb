@@ -7,7 +7,7 @@ module SuperGood
 
         def report_transaction(event)
           return unless SuperGood::SolidusTaxjar.reporting_enabled
-          SuperGood::SolidusTaxjar.reporting.report_transaction(event.payload[:shipment].order)
+          SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(event.payload[:shipment].order)
         end
       end
     end

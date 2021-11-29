@@ -4,8 +4,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   describe "shipment_shipped is fired" do
     subject { ::Spree::Event.fire 'shipment_shipped', shipment: shipment  }
 
-    let(:shipment) { build_stubbed(:shipment, state: 'ready', order: order) }
-    let(:order) { build_stubbed :order_with_line_items }
+    let(:shipment) { create(:shipment, state: 'ready', order: order) }
+    let(:order) { create :order_with_line_items }
     let(:reporting) { instance_spy(::SuperGood::SolidusTaxjar::Reporting) }
 
     context "reporting is enabled" do
@@ -13,18 +13,15 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         allow(::SuperGood::SolidusTaxjar)
           .to receive(:reporting_enabled)
           .and_return(true)
-
-        allow(::SuperGood::SolidusTaxjar)
-          .to receive(:reporting)
-          .and_return(reporting)
       end
 
-      it "reports transaction" do
-        expect(reporting)
-          .to receive(:report_transaction)
-          .with(shipment.order)
-
-        subject
+      it "enqueues job to report transaction" do
+        assert_enqueued_with(
+          job: SuperGood::SolidusTaxjar::ReportTransactionJob,
+          args: [shipment.order]
+        ) do
+          subject
+        end
       end
     end
 
@@ -35,11 +32,10 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
           .and_return(false)
       end
 
-      it "doesn't report the transaction" do
-        expect(reporting)
-          .to_not receive(:report_transaction)
-
+      it "doesn't queue to report the transaction" do
         subject
+
+        assert_no_enqueued_jobs
       end
     end
   end

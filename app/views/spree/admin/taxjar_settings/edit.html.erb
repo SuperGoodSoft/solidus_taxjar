@@ -12,9 +12,9 @@
   <p><i>For more help in aquiring a TaxJar API token, see <%= link_to "How do I get a TaxJar sales tax API token?", "https://support.taxjar.com/article/160-how-do-i-get-a-sales-tax-api-token", target: "_blank", rel: "noreferrer" %></i></p>
 <% end %>
 
-<%= form_with url: admin_taxjar_settings_path, method: :put do |form| %>
+<%= form_with model: @settings, url: admin_taxjar_settings_path, method: :put do |form| %>
   <%= form.label :reporting_enabled, "Transaction Sync" %>
-  <%= form.select :reporting_enabled, ["No", "Yes"], selected: "No" %>
+  <%= form.select :reporting_enabled, [ [ "No", false ], [ "Yes", true ] ] %>
   <p>Sync orders and refund with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.</p>
   <%= form.submit %>
 <% end %>

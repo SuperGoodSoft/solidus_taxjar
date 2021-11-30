@@ -14,7 +14,7 @@ RSpec.describe 'Admin TaxJar Settings', :type => :request do
   end
 
   describe "PUT #update" do
-    subject { put spree.admin_taxjar_settings_path }
+    subject { put spree.admin_taxjar_settings_path params:{ super_good_solidus_taxjar_settings:{"reporting_enabled"=>true} }}
 
     it "redirects back to TaxJar settings" do
       subject
@@ -28,10 +28,12 @@ RSpec.describe 'Admin TaxJar Settings', :type => :request do
 
     it "updates the taxjar settings" do
       settings_double = instance_double(SuperGood::SolidusTaxjar::Settings)
-      expect(SuperGood::SolidusTaxjar::Settings).to receive(:find_or_create).and_return(settings_double)
-      expect(settings_double).to receive(:update) do |properties_hash|
+      expect(SuperGood::SolidusTaxjar::Settings).to receive(:find_or_create_by).with(id: 1).and_return(settings_double)
+      expect(settings_double).to receive(:update!) do |properties_hash|
         expect(properties_hash[:reporting_enabled]).to eq "true"
       end
+
+      subject
     end
   end
 end

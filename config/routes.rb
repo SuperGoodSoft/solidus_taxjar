@@ -2,6 +2,6 @@
 
 Spree::Core::Engine.routes.draw do
   namespace :admin do
-    resource :taxjar_settings, only: [:edit]
+    resource :taxjar_settings, only: [:edit, :update]
   end
 end

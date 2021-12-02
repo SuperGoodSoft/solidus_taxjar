@@ -13,6 +13,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("TAXJAR_API_KEY").and_return(api_token)
+      allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
 
       visit "/admin"
       click_on "Settings"

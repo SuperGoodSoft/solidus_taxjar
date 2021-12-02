@@ -53,8 +53,8 @@ RSpec.describe SuperGood::SolidusTaxjar do
       it { is_expected.to eq false }
     end
 
-    describe ".reporting_enabled" do
-      subject { described_class.reporting_enabled }
+    describe ".reporting_ui_enabled" do
+      subject { described_class.reporting_ui_enabled }
 
       it "it defaults to false" do
         expect(subject).to eq false

@@ -24,6 +24,7 @@ module SuperGood
       attr_accessor :job_queue
       attr_accessor :line_item_tax_label_maker
       attr_accessor :logging_enabled
+      attr_accessor :reporting_ui_enabled
       attr_accessor :reporting_enabled
       attr_accessor :shipping_calculator
       attr_accessor :shipping_tax_label_maker
@@ -62,6 +63,9 @@ module SuperGood
     self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }
     self.logging_enabled = false
 
+    # The reporting setting in the admin UI is disabled for now till the reporting
+    # feature is fully implemented.
+    self.reporting_ui_enabled = false
     # The reporting feature is still in development. We recommend *not*
     # enabling this feature until this comment has been removed from the source
     # code.

@@ -1,13 +1,16 @@
 version: 2.1
 orbs:
-  solidusio_extensions: solidusio/extensions@0.2.24
+  # Always run tests agains the versions of Solidus defined in the
+  # most recent version of the Orb.
+  solidusio_extensions: solidusio/extensions@volatile
 
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
       - checkout
-      - solidusio_extensions/run-tests-solidus-older
+      - solidusio_extensions/test-branch:
+          branch: v2.11
       - solidusio_extensions/store-test-results
 
 workflows:

@@ -8,10 +8,7 @@ jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
-      - checkout
-      - solidusio_extensions/test-branch:
-          branch: v2.11
-      - solidusio_extensions/store-test-results
+      - solidusio_extensions/run-tests
 
 workflows:
   "Run specs on supported Solidus versions":

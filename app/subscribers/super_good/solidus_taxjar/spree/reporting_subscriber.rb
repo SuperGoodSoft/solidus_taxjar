@@ -6,7 +6,7 @@ module SuperGood
         event_action :report_transaction, event_name: :shipment_shipped
 
         def report_transaction(event)
-          return unless SuperGood::SolidusTaxjar.reporting_enabled
+          return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
           SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(event.payload[:shipment].order)
         end
       end

@@ -5,6 +5,11 @@ module SuperGood
         @api = api
       end
 
+      def refund_and_create_new_transaction(order)
+        @api.create_refund_transaction_for(order)
+        @api.create_transaction_for(order)
+      end
+
       def report_transaction(order)
         begin
           @api.show_latest_transaction_for(order)

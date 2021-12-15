@@ -35,8 +35,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       address2: nil,
       city: "Los Angeles",
       country: country_us,
-      first_name: "Chuck",
-      last_name: "Schuldiner",
       phone: "1-250-555-4444",
       state_code: "CA",
       zipcode: "90210"
@@ -435,8 +433,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
           address2: nil,
           city: "Birmingham",
           country: country_uk,
-          first_name: "Chuck",
-          last_name: "Schuldiner",
           phone: "1-250-555-4444",
           state: nil,
           state_name: "West Midlands",
@@ -474,8 +470,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
           address2: "STE 45A",
           city: "New York",
           country: country_us,
-          first_name: "Chuck",
-          last_name: "Schuldiner",
           phone: "1-250-555-4444",
           state_code: "NY",
           zipcode: "10007"

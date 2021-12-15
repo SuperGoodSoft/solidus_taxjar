@@ -15,7 +15,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ReportTransactionJob do
 
     it "reports the transaction when it performs the job" do
       allow(SuperGood::SolidusTaxjar).to receive(:reporting).and_return(mock_reporting)
-      expect(mock_reporting).to receive(:report_transaction).with(order)
+      expect(mock_reporting).to receive(:show_or_create_transaction).with(order)
 
       perform_enqueued_jobs do
         subject

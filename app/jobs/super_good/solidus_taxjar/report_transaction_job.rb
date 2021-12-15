@@ -6,7 +6,7 @@ module SuperGood
       queue_as { SuperGood::SolidusTaxjar.job_queue }
 
       def perform(order)
-        SuperGood::SolidusTaxjar.reporting.report_transaction(order)
+        SuperGood::SolidusTaxjar.reporting.show_or_create_transaction(order)
       end
     end
   end

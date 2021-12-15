@@ -10,7 +10,7 @@ module SuperGood
         @api.create_transaction_for(order)
       end
 
-      def report_transaction(order)
+      def show_or_create_transaction(order)
         begin
           @api.show_latest_transaction_for(order)
         rescue NotImplementedError

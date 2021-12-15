@@ -29,14 +29,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:ship_address) do
-    Spree::Address.create!(
+    create(
+      :address,
       address1: "475 N Beverly Dr",
+      address2: nil,
       city: "Los Angeles",
       country: country_us,
       first_name: "Chuck",
       last_name: "Schuldiner",
       phone: "1-250-555-4444",
-      state: state_california,
+      state_code: "CA",
       zipcode: "90210"
     )
   end
@@ -49,14 +51,6 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       name: "United States",
       numcode: 840,
       states_required: true
-    )
-  end
-
-  let(:state_california) do
-    Spree::State.create!(
-      abbr: "CA",
-      country: country_us,
-      name: "California"
     )
   end
 
@@ -435,13 +429,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
     context "with an address without a state" do
       let(:ship_address) do
-        Spree::Address.create!(
+        create(
+          :address,
           address1: "72 High St",
+          address2: nil,
           city: "Birmingham",
           country: country_uk,
           first_name: "Chuck",
           last_name: "Schuldiner",
           phone: "1-250-555-4444",
+          state: nil,
           state_name: "West Midlands",
           zipcode: "B4 7TA"
         )
@@ -471,7 +468,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
     context "an address with address2" do
       let(:ship_address) do
-        Spree::Address.create!(
+        create(
+          :address,
           address1: "1 World Trade CTR",
           address2: "STE 45A",
           city: "New York",
@@ -479,11 +477,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
           first_name: "Chuck",
           last_name: "Schuldiner",
           phone: "1-250-555-4444",
-          state: Spree::State.create!(
-            abbr: "NY",
-            country: country_us,
-            name: "New York"
-          ),
+          state_code: "NY",
           zipcode: "10007"
         )
       end

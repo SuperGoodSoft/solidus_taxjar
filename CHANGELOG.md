@@ -20,6 +20,7 @@
 - [#119](https://github.com/SuperGoodSoft/solidus_taxjar/pull/119) Move the install generator into the correct path so that it will be installed in the dummy app.
 - [#111](https://github.com/SuperGoodSoft/solidus_taxjar/pull/111) Create a new taxjar transaction when a shipment is shipped.
 - [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Only run tests against solidus 2.11. This also represents the drop of official support for solidus 2.9 and 2.10.
+- [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Run tests against the most up to date versions of solidus.
 
 ## v0.18.2
 

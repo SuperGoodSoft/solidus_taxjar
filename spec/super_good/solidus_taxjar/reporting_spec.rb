@@ -51,8 +51,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
     end
   end
 
-  describe "#report_transaction" do
-    subject { reporting.report_transaction(order) }
+  describe "#show_or_create_transaction" do
+    subject { reporting.show_or_create_transaction(order) }
 
     it "shows the latest transaction for the order" do
       allow(dummy_api)

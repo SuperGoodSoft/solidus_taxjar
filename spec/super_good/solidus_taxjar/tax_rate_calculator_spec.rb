@@ -18,7 +18,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
 
     let(:incomplete_address) do
       ::Spree::Address.new(
-        first_name: "Ronnie James",
         zipcode: nil,
         address1: nil,
         city: "Beverly Hills",

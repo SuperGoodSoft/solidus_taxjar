@@ -33,11 +33,6 @@ RSpec.describe SuperGood::SolidusTaxjar::CalculatorHelper do
       it { is_expected.to eq(true) }
     end
 
-    context "with a missing firstname" do
-      let(:address) { build :address, firstname: nil }
-      it { is_expected.to eq(false) }
-    end
-
     context "with a missing state in DE" do
       let(:address) { build :address, country_iso_code: "DE", state: nil }
       it { is_expected.to eq(false) }

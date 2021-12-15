@@ -10,8 +10,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
         address1: "475 North Beverly Drive",
         city: "Los Angeles",
         country: country_us,
-        first_name: "Chuck",
-        last_name: "Schuldiner",
         phone: "1-250-555-4444",
         state: state_california,
         zipcode: "90210"
@@ -79,8 +77,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
             address1: "475 N Beverly Dr",
             city: "Beverly Hills",
             country: country_us,
-            first_name: "Chuck",
-            last_name: "Schuldiner",
             phone: "1-250-555-4444",
             state: state_california,
             zipcode: "90210-4606"
@@ -123,8 +119,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
             address1: "475 N Beverly Dr",
             city: "Beverly Hills",
             country: country_us,
-            first_name: "Chuck",
-            last_name: "Schuldiner",
             phone: "1-250-555-4444",
             state: state_california,
             zipcode: "90210-4606"
@@ -143,8 +137,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
         address1: "475 North Beverly Drive",
         city: "Los Angeles",
         country: country_us,
-        first_name: "Chuck",
-        last_name: "Schuldiner",
         phone: "1-250-555-4444",
         state: state_california,
         zipcode: "90210"
@@ -212,8 +204,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
             address1: "475 N Beverly Dr",
             city: "Beverly Hills",
             country: country_us,
-            first_name: "Chuck",
-            last_name: "Schuldiner",
             phone: "1-250-555-4444",
             state: state_california,
             zipcode: "90210-4606"
@@ -264,8 +254,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
             address1: "475 N Beverly Dr",
             city: "Beverly Hills",
             country: country_us,
-            first_name: "Chuck",
-            last_name: "Schuldiner",
             phone: "1-250-555-4444",
             state: state_california,
             zipcode: "90210-4606"
@@ -275,8 +263,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Addresses do
             address1: "473 N Beverly Dr",
             city: "Phoenix",
             country: country_us,
-            first_name: "Chuck",
-            last_name: "Schuldiner",
             phone: "1-250-555-4444",
             state: state_arizona,
             zipcode: "90213-1234"

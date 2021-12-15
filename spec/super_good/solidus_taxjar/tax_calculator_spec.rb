@@ -77,7 +77,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
     context "when the order has an incomplete tax address" do
       let(:address) do
         ::Spree::Address.new(
-          first_name: "Ronnie James",
           zipcode: nil,
           address1: nil,
           city: "Beverly Hills",
@@ -106,7 +105,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
     context "when the order has no line items" do
       let(:address) do
         ::Spree::Address.new(
-          first_name: "Ronnie James",
           zipcode: "90210",
           address1: "9900 Wilshire Blvd",
           city: "Beverly Hills",
@@ -127,7 +125,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
     context "when the API encounters an error" do
       let(:address) do
         ::Spree::Address.new(
-          first_name: "Ronnie James",
           zipcode: "90210",
           address1: "9900 Wilshire Blvd",
           city: "Beverly Hills",
@@ -159,7 +156,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
     context "when the order has a non-empty tax address" do
       let(:address) do
         ::Spree::Address.new(
-          first_name: "Ronnie James",
           zipcode: "90210",
           address1: "9900 Wilshire Blvd",
           city: "Beverly Hills",

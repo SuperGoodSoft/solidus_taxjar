@@ -35,10 +35,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
           .and_return(false)
       end
 
-      it "returns nothing" do
-        expect(subject).to be_nil
-      end
-
       it "doesn't report the transaction" do
         expect(reporting)
           .to_not receive(:report_transaction)

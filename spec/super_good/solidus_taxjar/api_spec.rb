@@ -226,8 +226,10 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     context "without a persisted order transaction" do
       it "raises an exception" do
         expect { subject }.to raise_error(
-          StandardError,
-          "No latest TaxJar order transaction for R111222333"
+          NotImplementedError,
+          "No latest TaxJar order transaction for #{order.number}. "       \
+          "Backfilling TaxJar transaction orders from Solidus is not yet " \
+          "implemented."
         )
       end
     end
@@ -290,8 +292,10 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     context "when no order transaction has been persisted" do
       it "raises an exception" do
         expect { subject }.to raise_error(
-          StandardError,
-          "No latest TaxJar order transaction for R111222333"
+          NotImplementedError,
+          "No latest TaxJar order transaction for #{order.number}. "       \
+          "Backfilling TaxJar transaction orders from Solidus is not yet " \
+          "implemented."
         )
       end
     end

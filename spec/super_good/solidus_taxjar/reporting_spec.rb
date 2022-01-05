@@ -4,10 +4,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
   describe "#report_transaction" do
     subject { described_class.new(api: dummy_api).report_transaction(order) }
 
-    let(:dummy_api) {
-      instance_double ::SuperGood::SolidusTaxjar::Api
-    }
-
+    let(:dummy_api) { instance_double ::SuperGood::SolidusTaxjar::Api }
     let(:order) { build :order, completed_at: 1.days.ago }
 
     it "updates the transaction" do
@@ -20,18 +17,33 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
     end
 
     context "order doesn't have a transaction" do
-      it "creates the transaction for it" do
-        allow(dummy_api)
-          .to receive(:show_latest_transaction_for)
-          .with(order)
-          .and_raise(Taxjar::Error::NotFound)
+      context "the Solidus application has no record of the transaction" do
+        it "does nothing (until this feature is implemented)" do
+          allow(dummy_api)
+            .to receive(:show_latest_transaction_for)
+            .with(order)
+            .and_raise(NotImplementedError)
 
-        expect(dummy_api)
-          .to receive(:create_transaction_for)
-          .with(order)
-          .and_return({})
+          expect(dummy_api).not_to receive(:create_transaction_for)
 
-        subject
+          subject
+        end
+      end
+
+      context "TaxJar has no record of the transaction" do
+        it "creates the transaction for it" do
+          allow(dummy_api)
+            .to receive(:show_latest_transaction_for)
+            .with(order)
+            .and_raise(Taxjar::Error::NotFound)
+
+          expect(dummy_api)
+            .to receive(:create_transaction_for)
+            .with(order)
+            .and_return({})
+
+          subject
+        end
       end
     end
   end

@@ -60,7 +60,10 @@ module SuperGood
           OrderTransaction.latest_for(order)&.transaction_id
 
         if latest_transaction_id.nil?
-          raise StandardError, "No latest TaxJar order transaction for #{order.number}"
+          raise NotImplementedError,
+            "No latest TaxJar order transaction for #{order.number}. "       \
+            "Backfilling TaxJar transaction orders from Solidus is not yet " \
+            "implemented."
         end
 
         taxjar_client.show_order(latest_transaction_id)

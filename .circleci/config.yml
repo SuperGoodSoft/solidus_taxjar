@@ -4,6 +4,11 @@ orbs:
   # most recent version of the Orb.
   solidusio_extensions: solidusio/extensions@volatile
 
+executors:
+  base:
+    docker:
+      - image: cimg/ruby:2.7-browsers
+
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres

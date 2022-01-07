@@ -20,8 +20,6 @@ end
 
 group :development, :test do
   gem "pry"
-  gem "pry-stack_explorer"
-  gem "pry-byebug"
 end
 
 gemspec

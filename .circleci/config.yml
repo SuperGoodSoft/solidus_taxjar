@@ -12,8 +12,18 @@ jobs:
       - solidusio_extensions/run-tests-solidus-older
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
+  run-specs-with-master:
+    executor: solidusio_extensions/postgres
+    steps:
+      - checkout
+      - solidusio_extensions/run-tests-solidus-master
+      - solidusio_extensions/store-test-results
+
 
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
       - run-specs-with-postgres
+  "Run specs on Solidus master":
+    jobs:
+      - run-specs-with-master

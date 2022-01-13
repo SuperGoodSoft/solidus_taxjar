@@ -18,7 +18,14 @@ RSpec.feature 'Checkout', js: true do
     # account in order to actually be charged tax. This means
     # your account should have "nexus" in the state.
     address = "order_bill_address_attributes"
-    fill_in "#{address}_name", with: "Ryan Bigg"
+
+    if Spree.solidus_gem_version >= Gem::Version.new("2.11")
+      fill_in "#{address}_name", with: "Ryan Bigg"
+    else
+      fill_in "#{address}_firstname", with: "Ryan"
+      fill_in "#{address}_lastname", with: "Bigg"
+    end
+
     fill_in "#{address}_address1", with: "450 Helen Ave"
     fill_in "#{address}_city", with: "Ontario"
     select "United States of America", from: "#{address}_country_id"

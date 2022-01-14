@@ -1,4 +1,6 @@
-# `SuperGood::SolidusTaxjar` [![Build Status](https://travis-ci.com/SuperGoodSoft/solidus_taxjar.svg?token=rc5QTgHvLLF7cpqkmyfd&branch=master)](https://travis-ci.com/SuperGoodSoft/solidus_taxjar)
+# `SuperGood::SolidusTaxjar`
+
+[![CircleCI build status](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master.svg?style=shield)](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master)
 
 `SuperGood::SolidusTaxjar` is a [Solidus](https://github.com/solidusio/solidus)
 extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/)

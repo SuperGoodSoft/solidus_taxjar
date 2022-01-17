@@ -21,9 +21,6 @@ module SuperGood
           line_item_taxes: line_item_taxes,
           shipment_taxes: shipment_taxes
         )
-      rescue => e
-        exception_handler.call(e)
-        no_tax
       end
 
       private

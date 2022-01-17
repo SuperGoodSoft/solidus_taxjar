@@ -34,13 +34,15 @@ RSpec.feature 'Checkout', js: true do
     fill_in "#{address}_phone", with: "(555) 555-5555"
   end
 
-  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/checkout", allow_playback_repeats: true} do
+  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/checkout", allow_playback_repeats: true, allow_unused_http_interactions: false} do
     visit spree.root_path
 
     click_link mug.name
     click_button "add-to-cart-button"
 
     click_button "Checkout"
+
+    Spree::Order.last.line_items.first.update!(id: 1)
 
     fill_in "order_email", with: "test@example.com"
     click_on "Continue"

@@ -14,15 +14,13 @@ module SuperGood
         return no_tax unless taxable_order? order
         return no_tax unless taxable_address? order.tax_address
 
-        cache do
-          next no_tax unless taxjar_breakdown
+        return no_tax unless taxjar_breakdown
 
-          ::Spree::Tax::OrderTax.new(
-            order_id: order.id,
-            line_item_taxes: line_item_taxes,
-            shipment_taxes: shipment_taxes
-          )
-        end
+        ::Spree::Tax::OrderTax.new(
+          order_id: order.id,
+          line_item_taxes: line_item_taxes,
+          shipment_taxes: shipment_taxes
+        )
       rescue => e
         exception_handler.call(e)
         no_tax

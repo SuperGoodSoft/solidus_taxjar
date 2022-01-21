@@ -3,12 +3,20 @@ FactoryBot.define do
     order
     transaction_date { Date.current }
 
-    sequence(:transaction_id) { |n|
-      if n == 1
-        order.number
-      else
-        "#{order.number}-#{n - 1}"
-      end
+    transient do
+      last_transaction_id {
+        SuperGood::SolidusTaxjar::OrderTransaction
+          .latest_for(order)
+          &.transaction_id
+      }
+    end
+
+    transaction_id {
+      SuperGood::SolidusTaxjar::TransactionIdGenerator
+        .next_transaction_id(
+          order: order,
+          current_transaction_id: last_transaction_id
+        )
     }
   end
 end

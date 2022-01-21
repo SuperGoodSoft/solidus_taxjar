@@ -124,5 +124,13 @@ RSpec.describe SuperGood::SolidusTaxjar do
 
       it { is_expected.to eq :default }
     end
+
+    describe ".configuration" do
+      subject { described_class.configuration }
+
+      it "returns a Configuration instance" do
+        expect(subject).to be_instance_of(SuperGood::SolidusTaxjar::Configuration)
+      end
+    end
   end
 end

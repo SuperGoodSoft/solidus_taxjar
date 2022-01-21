@@ -31,6 +31,10 @@ module SuperGood
       attr_accessor :taxable_order_check
       attr_accessor :test_mode
 
+      def configuration
+        ::SuperGood::SolidusTaxjar::Configuration.default
+      end
+
       def api
         ::SuperGood::SolidusTaxjar::Api.new
       end

@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-branch = ENV.fetch("SOLIDUS_BRANCH", "v2.10")
+branch = ENV.fetch("SOLIDUS_BRANCH", "v3.1")
 
 gem "solidus", github: "solidusio/solidus", branch: branch
 

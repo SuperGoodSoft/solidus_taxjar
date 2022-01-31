@@ -78,7 +78,7 @@ the low-level Ruby taxjar gem API calls:
 * tax rate calculator
 
 The extension requires the `order_recalculated` event which is not supported on
-Solidus < 2.11, so this extension provides a [compatibility layer](app/decorators/super_good/solidus_taxjar/spree/order_updater/fire_recalculated_event.rb).
+Solidus < 2.11, so this extension provides a [compatibility layer](app/overrides/super_good/solidus_taxjar/spree/order_updater/fire_recalculated_event.rb).
 
 ### TaxCalculator
 

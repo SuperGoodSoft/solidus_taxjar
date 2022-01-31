@@ -1,7 +1,7 @@
 module SuperGood
   module SolidusTaxjar
     module Spree
-      module OrderDecorator
+      module OrderOverride
         def self.prepended(base)
           base.has_many :taxjar_order_transactions,
             class_name: "SuperGood::SolidusTaxjar::OrderTransaction",

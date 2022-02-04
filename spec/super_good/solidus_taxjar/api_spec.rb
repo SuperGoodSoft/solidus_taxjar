@@ -1,6 +1,9 @@
 require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxjar::Api do
+  let(:api) { described_class.new(taxjar_client: dummy_client) }
+  let(:dummy_client) { instance_double ::Taxjar::Client }
+
   describe ".new" do
     subject { described_class.new }
 
@@ -35,8 +38,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#tax_for" do
     subject { api.tax_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { Spree::Order.new }
 
     before do
@@ -57,8 +58,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "tax_rate_for" do
     subject { api.tax_rate_for address }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:address) { Spree::Address.new }
     let(:tax_rate) { 0.04 }
     let(:response) { double(rate: tax_rate) }
@@ -81,8 +80,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#tax_rates_for" do
     subject { api.tax_rates_for address }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:address) { Spree::Address.new }
 
     before do
@@ -103,8 +100,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#create_transaction_for" do
     subject { api.create_transaction_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { create :order, number: "R123" }
 
     let(:dummy_response) do
@@ -160,8 +155,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#update_transaction_for" do
     subject { api.update_transaction_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { Spree::Order.new }
 
     before do
@@ -182,8 +175,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#delete_transaction_for" do
     subject { api.delete_transaction_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { Spree::Order.new(number: "R111222333") }
 
     before do
@@ -199,8 +190,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#show_latest_transaction_for" do
     subject { api.show_latest_transaction_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { Spree::Order.new(number: "R111222333") }
 
     context "with a persisted order transaction" do
@@ -238,8 +227,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#create_refund_for" do
     subject { api.create_refund_for reimbursement }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:reimbursement) { Spree::Reimbursement.new }
 
     before do
@@ -260,8 +247,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#create_refund_transaction_for" do
     subject { api.create_refund_transaction_for order }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:order) { create(:order_ready_to_ship, number: "R111222333") }
 
     let(:taxjar_order) {
@@ -322,8 +307,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
   describe "#validate_spree_address" do
     subject { api.validate_spree_address spree_address }
 
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
     let(:spree_address) { build :address }
 
     before do
@@ -343,9 +326,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
 
   describe "#nexus_regions" do
     subject { api.nexus_regions }
-
-    let(:api) { described_class.new(taxjar_client: dummy_client) }
-    let(:dummy_client) { instance_double ::Taxjar::Client }
 
     before do
       allow(dummy_client)

@@ -19,6 +19,8 @@ module SuperGood
 
       def tax_for(order)
         taxjar_client.tax_for_order(ApiParams.order_params(order)).tap do |taxes|
+          Rails.logger.info("[SUCCESS] POST /v2/taxes/tax")
+
           next unless SuperGood::SolidusTaxjar.logging_enabled
 
           Rails.logger.info(

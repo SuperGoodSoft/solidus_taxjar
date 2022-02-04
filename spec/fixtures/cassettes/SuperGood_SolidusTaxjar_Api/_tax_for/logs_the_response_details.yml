@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"1","to_country":"US","to_zip":"35242","to_city":"Herndon","to_state":"AL","to_street":"10
+        Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":"-0.0","product_tax_code":"TaxCode
+        - 210066"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Noahs-MacBook-Pro.local 20.6.0 Darwin Kernel Version
+        20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64
+        x86_64; ruby 2.6.7-p197; OpenSSL 1.1.1l  24 Aug 2021) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '163'
+      Connection:
+      - close
+      Date:
+      - Fri, 04 Feb 2022 23:25:43 GMT
+      X-Amzn-Requestid:
+      - d6d5e81b-7bf9-48fc-8a08-f642823abc2c
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - NCletHNUoAMF7vQ=
+      X-Amzn-Trace-Id:
+      - Root=1-61fdb5f7-5d5001b5697b3826402d9e0b
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 6396e88c437c096ef98930ce29f731a2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P1
+      X-Amz-Cf-Id:
+      - t1fjac7QXXrd8OpsYH8WTjp4RoxGFxfEMPmVsqKwlJpwscFicbvo9g==
+    body:
+      encoding: UTF-8
+      string: '{"tax":{"amount_to_collect":0,"freight_taxable":false,"has_nexus":false,"order_total_amount":110.0,"rate":0,"shipping":100.0,"tax_source":null,"taxable_amount":0}}'
+    http_version:
+  recorded_at: Fri, 04 Feb 2022 23:25:43 GMT
+recorded_with: VCR 4.0.0

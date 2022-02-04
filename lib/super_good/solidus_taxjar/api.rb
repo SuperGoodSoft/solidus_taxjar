@@ -17,6 +17,10 @@ module SuperGood
         @taxjar_client = taxjar_client
       end
 
+      def tax_categories
+        taxjar_client.categories
+      end
+
       def tax_for(order)
         taxjar_client.tax_for_order(ApiParams.order_params(order)).tap do |taxes|
           next unless SuperGood::SolidusTaxjar.logging_enabled

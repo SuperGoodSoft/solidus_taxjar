@@ -34,6 +34,22 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
     end
   end
 
+  describe "#tax_categories" do
+    subject { api.tax_categories }
+
+    let(:tax_categories) {
+      [
+        instance_double(Taxjar::Category, name: "Clothing"),
+        instance_double(Taxjar::Category, name: "Digital Goods")
+      ]
+    }
+
+    it "responds with a list of tax categories" do
+      allow(dummy_client).to receive(:categories).and_return(tax_categories)
+
+      expect(subject).to eq(tax_categories)
+    end
+  end
 
   describe "#tax_for" do
     subject { api.tax_for order }

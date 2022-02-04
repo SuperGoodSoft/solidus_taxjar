@@ -2,6 +2,7 @@
 
 ## master
 
+- [#138](https://github.com/SuperGoodSoft/solidus_taxjar/pull/138) Add admin UI for configuring reporting
 - [#158](https://github.com/SuperGoodSoft/solidus_taxjar/pull/158) Update sandbox bin stub for `solidus@3`
 - [#88](https://github.com/SuperGoodSoft/solidus_taxjar/pull/88) Fire `shipment_shipped` event when any shipment on an order ships.
 - [#81](https://github.com/SuperGoodSoft/solidus_taxjar/pull/81) Add install generator

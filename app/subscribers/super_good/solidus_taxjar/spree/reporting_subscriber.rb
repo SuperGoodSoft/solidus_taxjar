@@ -3,6 +3,10 @@ module SuperGood
     module Spree
       module ReportingSubscriber
         include ::Spree::Event::Subscriber
+
+        if ::Spree::Event.method_defined?(:register)
+          ::Spree::Event.register("shipment_shipped")
+        end
         event_action :report_transaction, event_name: :shipment_shipped
 
         def report_transaction(event)

@@ -5,8 +5,26 @@
 <% end %>
 
 <% if ENV["TAXJAR_API_KEY"] %>
+  <h2>Nexus Regions</h2>
   <table>
+  <thead>
+    <tr>
+      <th>Country Code</th>
+      <th>Country</th>
+      <th>Region Code</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <% @nexus_regions.each do |region| %>
+    <tr>
+      <td><%= region.country_code %></td>
+      <td><%= region.country %></td>
+      <td><%= region.region_code %></td>
+      <td><%= region.region %></td>
+    </tr>
+  <% end %>
   </table>
+  <a class="btn btn-primary" href="<%= spree.admin_taxjar_settings_sync_nexus_regions_path %>">Sync Nexus Regions</a>
 <% else %>
   <p>You must provide a TaxJar API token to use this extension. You can sign up for TaxJar <%= link_to "here", "https://app.taxjar.com/api_sign_up", target: "_blank", rel: "noreferrer" %>. Please see the extension documentation for details on providing this token to the extension.</p>
   <p><i>For more help in aquiring a TaxJar API token, see <%= link_to "How do I get a TaxJar sales tax API token?", "https://support.taxjar.com/article/160-how-do-i-get-a-sales-tax-api-token", target: "_blank", rel: "noreferrer" %></i></p>

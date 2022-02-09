@@ -25,6 +25,7 @@
 - [#141](https://github.com/SuperGoodSoft/solidus_taxjar/pull/141) Handle unimplemented reporting features
 - [#129](https://github.com/SuperGoodSoft/solidus_taxjar/pull/129) Report transaction asynchronously when a shipment is shipped.
 - [#127](https://github.com/SuperGoodSoft/solidus_taxjar/pull/127) Add acceptance test for calculating taxes with the extension.
+- [#160](https://github.com/SuperGoodSoft/solidus_taxjar/pull/160) Add tax categories API endpoint wrapper
 
 ## v0.18.2
 

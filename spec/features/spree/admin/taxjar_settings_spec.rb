@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature 'Admin TaxJar Settings', js: true do
+RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
   stub_authorization!
 
   background do
@@ -8,7 +8,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
   end
 
   describe "Taxjar settings tab" do
-    let(:api_token) { "token" }
+    let(:api_token) { ENV.fetch("TAXJAR_API_KEY", "fake_token") }
 
     before do
       allow(ENV).to receive(:[]).and_call_original
@@ -37,8 +37,13 @@ RSpec.feature 'Admin TaxJar Settings', js: true do
     end
 
     context "Taxjar API token is set" do
-      it "shows a blank settings page" do
+      it "shows the settings page" do
         expect(page).not_to have_content "You must provide a TaxJar API token"
+        expect(page).to have_content("Nexus Regions")
+        expect(page).not_to have_content("British Columbia")
+        click_on "Sync Nexus Regions"
+        expect(page).to have_content("Updated with new Nexus Regions")
+        expect(page).to have_content("British Columbia")
       end
     end
 

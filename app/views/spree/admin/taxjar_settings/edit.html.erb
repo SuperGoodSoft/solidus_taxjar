@@ -31,7 +31,7 @@
 <% end %>
 
 <% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
-  <%= form_with model: @configuration, url: admin_taxjar_settings_path, method: :put do |form| %>
+  <%= form_with model: @configuration, url: admin_taxjar_settings_path, method: :put, local: true do |form| %>
     <%= render "spree/admin/shared/preference_fields/boolean",
           attribute:  :preferred_reporting_enabled,
           label: "Transaction Sync",

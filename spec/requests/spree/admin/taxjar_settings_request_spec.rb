@@ -110,4 +110,17 @@ RSpec.describe 'Admin TaxJar Settings', :type => :request do
       end
     end
   end
+
+  describe "#backfill_transactions" do
+    subject { post spree.admin_taxjar_settings_backfill_transactions_path }
+
+    it "shows a flash message" do
+      subject
+      expect(flash[:success]).to eq "Transactions Backfilled!"
+    end
+
+    it "redirects to the taxjar settings page" do
+      expect(subject).to redirect_to(spree.edit_admin_taxjar_settings_path)
+    end
+  end
 end

@@ -31,6 +31,12 @@ module Spree
         redirect_back(fallback_location: spree.admin_taxjar_settings_path)
       end
 
+      def backfill_transactions
+        ::SuperGood::SolidusTaxjar::BackfillTransactions.call
+        flash[:success] = "Transactions Backfilled!"
+        redirect_back(fallback_location: edit_admin_taxjar_settings_path)
+      end
+
       private
 
       def configuration_params

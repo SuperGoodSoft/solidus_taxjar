@@ -31,6 +31,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
 
         check "Transaction Sync"
         click_on "Update Configuration"
+        expect(page).to have_content("TaxJar settings updated!")
         expect(page).to have_field("Transaction Sync", checked: true)
       end
     end

@@ -14,15 +14,14 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   end
 
   before do
-    allow(::SuperGood::SolidusTaxjar)
-      .to receive(:reporting_enabled)
-      .and_return(true)
+    create(:taxjar_configuration, preferred_reporting_enabled: reporting_enabled)
   end
 
   let(:order_factory) { :order_ready_to_ship }
   let(:order) { with_events_disabled { create order_factory } }
 
   let(:reporting) { instance_spy ::SuperGood::SolidusTaxjar::Reporting }
+  let(:reporting_enabled) { true }
 
   describe "order_recalculated is fired" do
     subject { ::Spree::Event.fire "order_recalculated", order: order }
@@ -80,14 +79,21 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
           context "when the TaxJar transaction is up-to-date" do
             it "does nothing" do
-              allow(::SuperGood::SolidusTaxjar)
-                .to receive(:reporting)
-                .and_return(reporting)
-
               expect(reporting)
                 .not_to receive(:refund_and_create_new_transaction)
 
               subject
+            end
+
+            context "when reporting is disabled" do
+              let(:reporting_enabled) { false }
+
+              it "does nothing" do
+                expect(reporting)
+                  .not_to receive(:refund_and_create_new_transaction)
+
+                subject
+              end
             end
           end
 
@@ -123,6 +129,17 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
                   .to change { order.taxjar_order_transactions.count }
                   .from(1)
                   .to(2)
+              end
+            end
+
+            context "when reporting is disabled" do
+              let(:reporting_enabled) { false }
+
+              it "does nothing" do
+                expect(reporting)
+                  .not_to receive(:refund_and_create_new_transaction)
+
+                subject
               end
             end
           end
@@ -185,12 +202,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
     let(:reporting) { instance_spy(::SuperGood::SolidusTaxjar::Reporting) }
 
     context "reporting is enabled" do
-      let(:reporting_enabled) { true }
-
-      before do
-        create(:taxjar_configuration, preferred_reporting_enabled: reporting_enabled)
-      end
-
       it "enqueues job to report transaction" do
         assert_enqueued_with(
           job: SuperGood::SolidusTaxjar::ReportTransactionJob,
@@ -202,6 +213,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
     end
 
     context "reporting is disabled" do
+      let(:reporting_enabled) { false }
+
       it "doesn't queue to report the transaction" do
         subject
 

@@ -14,13 +14,20 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("TAXJAR_API_KEY").and_return(api_token)
       allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
+    end
 
+    scenario "the user navigates to the TaxJar Settings" do
       visit "/admin"
       click_on "Settings"
       expect(page).to have_content("Taxes")
       click_on "Taxes"
       expect(page).to have_content("TaxJar Settings")
       click_on "TaxJar Settings"
+
+      within('[data-hook="admin_settings_taxes_tabs"] > .active') do
+        expect(page).to have_content("TaxJar Settings")
+      end
+      expect(page).to have_content("Transaction Sync")
     end
 
     context "order is shipped" do
@@ -33,6 +40,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
       end
 
       scenario "the user backfills their transactions" do
+        visit "/admin/taxjar_settings/edit"
         click_on "Backfill Transactions"
         pending "basic feedback on what happened with the backfill is implemented"
         expect(page).to have_content("Successfully backfilled transactions for 1 orders.")
@@ -42,6 +50,8 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
 
     context "Taxjar reporting is enabled" do
       it "shows that reporting is enabled" do
+        visit "/admin/taxjar_settings/edit"
+
         expect(page).to have_content("Transaction Sync")
         expect(page).to have_field("Transaction Sync", checked: false)
         expect(page).to have_content("Sync orders and refund with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.")
@@ -55,6 +65,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
 
     context "Taxjar API token is set" do
       it "shows the settings page" do
+        visit "/admin/taxjar_settings/edit"
         expect(page).not_to have_content "You must provide a TaxJar API token"
         expect(page).to have_content "Transaction Sync"
         expect(page).to have_content("Nexus Regions")
@@ -70,6 +81,8 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
       let(:api_token) { nil }
 
       it "shows a descriptive error message" do
+        visit "/admin/taxjar_settings/edit"
+
         expect(page).to have_content "You must provide a TaxJar API token"
 
         expect(page).to have_link(href: "https://app.taxjar.com/api_sign_up")

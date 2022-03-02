@@ -25,6 +25,7 @@
   <% end %>
   </table>
   <a class="btn btn-primary" href="<%= spree.admin_taxjar_settings_sync_nexus_regions_path %>">Sync Nexus Regions</a>
+  <a class="btn btn-outline-primary" href="https://app.taxjar.com/account#states">Go to TaxJar to configure states</a>
   <% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
     <%= form_with model: @configuration, url: admin_taxjar_settings_path, method: :put, local: true do |form| %>
       <%= render "spree/admin/shared/preference_fields/boolean",

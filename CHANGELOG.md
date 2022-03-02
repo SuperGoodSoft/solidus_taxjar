@@ -29,6 +29,7 @@
 - [#160](https://github.com/SuperGoodSoft/solidus_taxjar/pull/160) Add tax categories API endpoint wrapper
 - [#171](https://github.com/SuperGoodSoft/solidus_taxjar/pull/171) Display existing Nexus regions
 - [#170](https://github.com/SuperGoodSoft/solidus_taxjar/pull/170) Hide all reporting features behind API key
+- [#174](https://github.com/SuperGoodSoft/solidus_taxjar/pull/174) Provide a link to Taxjar state settings
 
 ## v0.18.2
 

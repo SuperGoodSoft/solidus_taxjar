@@ -41,6 +41,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
         expect(page).not_to have_content "You must provide a TaxJar API token"
         expect(page).to have_content "Transaction Sync"
         expect(page).to have_content("Nexus Regions")
+        expect(page).to have_link("Go to TaxJar to configure states", href: "https://app.taxjar.com/account#states")
         expect(page).not_to have_content("British Columbia")
         click_on "Sync Nexus Regions"
         expect(page).to have_content("Updated with new Nexus Regions")

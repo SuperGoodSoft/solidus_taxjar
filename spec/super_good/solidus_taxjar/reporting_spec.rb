@@ -64,25 +64,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
     end
 
     context "order doesn't have a transaction" do
-      context "the Solidus application has no record of the transaction" do
-        it "does nothing (until this feature is implemented)" do
-          allow(dummy_api)
-            .to receive(:show_latest_transaction_for)
-            .with(order)
-            .and_raise(NotImplementedError)
-
-          expect(dummy_api).not_to receive(:create_transaction_for)
-
-          subject
-        end
-      end
-
       context "TaxJar has no record of the transaction" do
         it "creates the transaction for it" do
           allow(dummy_api)
             .to receive(:show_latest_transaction_for)
             .with(order)
-            .and_raise(Taxjar::Error::NotFound)
+            .and_return(nil)
 
           expect(dummy_api)
             .to receive(:create_transaction_for)

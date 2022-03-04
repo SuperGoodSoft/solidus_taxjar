@@ -270,17 +270,20 @@ RSpec.describe SuperGood::SolidusTaxjar::Api do
           .and_return({some_kind_of: "response"})
         expect(subject).to eq({some_kind_of: "response"})
       end
+
+      context "TaxJar does not have an order transaction persisted" do
+        before do
+          allow(dummy_client)
+            .to receive(:show_order)
+            .and_raise(Taxjar::Error::NotFound)
+        end
+
+        it { is_expected.to eq nil }
+      end
     end
 
     context "without a persisted order transaction" do
-      it "raises an exception" do
-        expect { subject }.to raise_error(
-          NotImplementedError,
-          "No latest TaxJar order transaction for #{order.number}. "       \
-          "Backfilling TaxJar transaction orders from Solidus is not yet " \
-          "implemented."
-        )
-      end
+      it { is_expected.to eq nil }
     end
   end
 

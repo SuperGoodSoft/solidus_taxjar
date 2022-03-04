@@ -27,6 +27,15 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
     subject { ::Spree::Event.fire "order_recalculated", order: order }
 
     context "when the order is completed" do
+      context "when the order has not been shipped" do
+        it "does nothing" do
+          expect(reporting)
+            .not_to receive(:refund_and_create_new_transaction)
+
+          subject
+        end
+      end
+
       context "when the order is paid" do
         context "when a TaxJar transaction already exists on the order" do
           let!(:taxjar_transaction) { create(:taxjar_order_transaction, order: order) }
@@ -146,13 +155,11 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         end
 
         context "when a TaxJar transaction does not exist on the order" do
-          it "raises an error" do
-            expect { subject }.to raise_error(
-              NotImplementedError,
-              "No latest TaxJar order transaction for #{order.number}. "      \
-              "Backfilling TaxJar transaction orders from Solidus is not yet "\
-              "implemented."
-            )
+          it "does nothing" do
+            expect(reporting)
+              .not_to receive(:refund_and_create_new_transaction)
+
+            subject
           end
 
           it(

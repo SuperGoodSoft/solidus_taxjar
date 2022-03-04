@@ -66,7 +66,7 @@ module SuperGood
     }
     self.job_queue = :default
     self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }
-    self.logging_enabled = false
+    self.logging_enabled = true
 
     # The reporting setting in the admin UI is disabled for now till the reporting
     # feature is fully implemented.

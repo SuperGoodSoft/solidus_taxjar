@@ -1,6 +1,7 @@
 require "solidus_core"
 require "solidus_support"
 require "taxjar"
+require "super_good/solidus_taxjar/overrides/request_override"
 
 require "super_good/solidus_taxjar/version"
 require "super_good/solidus_taxjar/transaction_id_generator"

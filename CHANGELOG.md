@@ -30,6 +30,7 @@
 - [#171](https://github.com/SuperGoodSoft/solidus_taxjar/pull/171) Display existing Nexus regions
 - [#170](https://github.com/SuperGoodSoft/solidus_taxjar/pull/170) Hide all reporting features behind API key
 - [#174](https://github.com/SuperGoodSoft/solidus_taxjar/pull/174) Provide a link to Taxjar state settings
+- [#177](https://github.com/SuperGoodSoft/solidus_taxjar/pull/177) Make nexus caching configurable
 
 ## v0.18.2
 

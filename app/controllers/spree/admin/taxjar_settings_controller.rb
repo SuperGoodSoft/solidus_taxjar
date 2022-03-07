@@ -21,7 +21,7 @@ module Spree
             Rails.cache.write(
               :nexus_regions,
               SuperGood::SolidusTaxjar.api.nexus_regions,
-              expires_in: 2.hours
+              expires_in: SuperGood::SolidusTaxjar.cache_duration
             )
             flash[:success] = "Updated with new Nexus Regions"
           rescue Taxjar::Error => exception

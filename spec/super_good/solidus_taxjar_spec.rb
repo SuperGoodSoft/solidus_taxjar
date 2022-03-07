@@ -43,6 +43,28 @@ RSpec.describe SuperGood::SolidusTaxjar do
       end
     end
 
+    describe ".cache_duration" do
+      subject { described_class.cache_duration }
+
+      it "returns the default cache duration" do
+        expect(subject).to eq(3.hours)
+      end
+
+      context "when set to another value" do
+        before do
+          described_class.cache_duration = 1.hour
+        end
+
+        it "returns the correct cache duration" do
+          expect(subject).to eq(1.hour)
+        end
+
+        after do
+          described_class.cache_duration = 3.hours
+        end
+      end
+    end
+
     describe ".discount_calculator" do
       subject { described_class.discount_calculator }
       it { is_expected.to eq SuperGood::SolidusTaxjar::DiscountCalculator }

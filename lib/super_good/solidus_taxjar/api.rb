@@ -73,7 +73,15 @@ module SuperGood
       end
 
       def create_refund_transaction_for(order)
+        unless OrderTransaction.latest_for(order)
+          raise NotImplementedError,
+            "No latest TaxJar order transaction for #{order.number}. "       \
+            "Backfilling TaxJar transaction orders from Solidus is not yet " \
+            "implemented."
+        end
+
         taxjar_order = show_latest_transaction_for(order)
+
         taxjar_client.create_refund ApiParams.refund_transaction_params(order, taxjar_order)
       end
 

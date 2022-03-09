@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.taxjar.com/v2/nexus/regions
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin macbook-pro.lan 21.2.0 Darwin Kernel Version 21.2.0:
+        Sun Nov 28 20:28:54 PST 2021; root:xnu-8019.61.5~1/RELEASE_X86_64 x86_64;
+        ruby 2.6.6-p146; OpenSSL 1.1.1o  3 May 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - 'Bearer '
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '97'
+      Connection:
+      - close
+      Date:
+      - Wed, 08 Jun 2022 17:59:03 GMT
+      X-Amzn-Requestid:
+      - c39f0f9a-59c0-4dbc-ab18-0967267ce4c9
+      X-Amz-Apigw-Id:
+      - Tah4KGMNoAMF7EA=
+      X-Amzn-Trace-Id:
+      - Root=1-62a0e367-16eb245001cfffd426391a6f
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 9f4bc08bf8fe4d53ba73713387d5ab3e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - HIO50-C2
+      X-Amz-Cf-Id:
+      - xj0CWkRJGrcK4-skFLACZdnKo5RPgzawqmoeubMQzaO_K7k8HScQ4g==
+    body:
+      encoding: UTF-8
+      string: '{"status":401,"error":"Unauthorized","detail":"Not authorized for route
+        ''GET /v2/nexus/regions''"}'
+    http_version:
+  recorded_at: Wed, 08 Jun 2022 17:59:03 GMT
+recorded_with: VCR 4.0.0

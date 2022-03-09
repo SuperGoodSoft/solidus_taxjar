@@ -112,6 +112,35 @@ SuperGood::SolidusTaxjar.tap do |config|
 end
 ```
 
+### Logging
+By default, all requests to TaxJar are logged to the Rails logger. URIs, HTTP method, and response codes will be logged at the `info` level, any further details (such as response body) are logged at the `debug` level.
+
+If you are interested in logs for full request responses, be sure to set your logger to the `debug` level:
+
+```ruby
+Rails.logger.level = 0 # debug
+```
+
+Or, if you want an alternate logger implementation, you can provide your own:
+
+```ruby
+SuperGood::SolidusTaxjar.tap do |config|
+  logger = Logger.new(STDOUT)
+  logger.log_level = :warn
+  config.logger = logger
+end
+```
+
+More details on the Rails Logger are available [here](https://guides.rubyonrails.org/debugging_rails_applications.html#the-logger).
+
+Logging can also be disabled all together:
+
+```ruby
+SuperGood::SolidusTaxjar.tap do |config|
+  config.logging_enabled = false
+end
+```
+
 ## Development
 
 Run `bin/setup` to install dependencies. Then, run `bundle exec rake` to run the

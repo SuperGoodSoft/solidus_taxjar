@@ -31,6 +31,7 @@ module SuperGood
       attr_accessor :taxable_address_check
       attr_accessor :taxable_order_check
       attr_accessor :test_mode
+      attr_writer :logger
 
       def configuration
         ::SuperGood::SolidusTaxjar::Configuration.default
@@ -46,6 +47,10 @@ module SuperGood
 
       def reporting
         ::SuperGood::SolidusTaxjar::Reporting.new
+      end
+
+      def logger
+        @logger || Rails.logger
       end
     end
 

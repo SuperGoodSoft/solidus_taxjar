@@ -27,6 +27,32 @@ RSpec.describe SuperGood::SolidusTaxjar do
     end
   end
 
+  describe ".logger" do
+    subject { described_class.logger }
+
+    let(:logger_double) { instance_double(Logger) }
+
+    context "logger is set" do
+      before do
+        described_class.logger = logger_double
+      end
+
+      after do
+        described_class.logger = nil
+      end
+
+      it "returns the logger" do
+        expect(subject).to be(logger_double)
+      end
+    end
+
+    context "no logger is set" do
+      it "returns the Rails logger" do
+        expect(subject).to be(Rails.logger)
+      end
+    end
+  end
+
   describe "configuration" do
     describe ".cache_key" do
       subject { described_class.cache_key.call(order) }

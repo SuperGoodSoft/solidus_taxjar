@@ -62,7 +62,7 @@ module SuperGood
     self.custom_order_params = ->(order) { {} }
     self.discount_calculator = ::SuperGood::SolidusTaxjar::DiscountCalculator
     self.exception_handler = ->(e) {
-      Rails.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
+      self.logger.error "An error occurred while fetching TaxJar tax rates - #{e}: #{e.message}"
     }
     self.job_queue = :default
     self.line_item_tax_label_maker = ->(taxjar_line_item, spree_line_item) { "Sales Tax" }

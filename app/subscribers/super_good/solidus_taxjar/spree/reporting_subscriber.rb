@@ -21,9 +21,8 @@ module SuperGood
           order = event.payload[:order]
 
           return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
-          return unless transaction_replaceable?(order)
 
-          if order.complete? && order.paid? && amount_changed?(order)
+          if transaction_replaceable?(order) && amount_changed?(order)
             SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(event.payload[:order])
           end
         end
@@ -36,7 +35,9 @@ module SuperGood
         end
 
         def transaction_replaceable?(order)
-          order.taxjar_order_transactions.present?
+          order.taxjar_order_transactions.present? &&
+            order.complete? &&
+              order.payment_state == "paid"
         end
       end
     end

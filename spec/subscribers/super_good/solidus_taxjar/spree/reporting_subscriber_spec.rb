@@ -36,7 +36,22 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         end
       end
 
-      context "when the order is paid" do
+      context "when the order's payment state is 'credit_owed'" do
+        let(:order) {
+          with_events_disabled {
+            create(order_factory, payment_state: "credit_owed")
+          }
+        }
+
+        it "does nothing" do
+          expect(reporting)
+            .not_to receive(:refund_and_create_new_transaction)
+
+          subject
+        end
+      end
+
+      context "when the order's payment state is 'paid'" do
         context "when a TaxJar transaction already exists on the order" do
           let!(:taxjar_transaction) { create(:taxjar_order_transaction, order: order) }
 
@@ -174,8 +189,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         end
       end
 
-      context "when the order is not paid" do
-        let(:order_factory) { :order_with_totals }
+      context "when the order's payment state is 'balance_due'" do
+        let(:order_factory) { :completed_order_with_pending_payment }
 
         it "does nothing" do
           expect(reporting).not_to receive(:show_or_create_transaction)

@@ -32,9 +32,8 @@ module Spree
       end
 
       def backfill_transactions
-        ::SuperGood::SolidusTaxjar::BackfillTransactions.new.call
-        flash[:success] = "Transactions Backfilled!"
-        redirect_back(fallback_location: edit_admin_taxjar_settings_path)
+        @backfilled_order_numbers = ::SuperGood::SolidusTaxjar::BackfillTransactions.new.call
+        flash[:success] = "Successfully backfilled transactions for #{@backfilled_order_numbers.count} orders."
       end
 
       private

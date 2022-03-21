@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'Admin TaxJar Settings', :type => :request do
+RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
   extend Spree::TestingSupport::AuthorizationHelpers::Request
   stub_authorization!
 
@@ -114,13 +114,23 @@ RSpec.describe 'Admin TaxJar Settings', :type => :request do
   describe "#backfill_transactions" do
     subject { post spree.admin_taxjar_settings_backfill_transactions_path }
 
-    it "shows a flash message" do
-      subject
-      expect(flash[:success]).to eq "Transactions Backfilled!"
+    let(:order) { create(:shipped_order) }
+
+    before do
+      create(:tax_rate, name: "Sales Tax")
+      # The order must be created **after** the TaxRate to have the correct totals
+      order
     end
 
-    it "redirects to the taxjar settings page" do
-      expect(subject).to redirect_to(spree.edit_admin_taxjar_settings_path)
+    it "shows a flash message" do
+      subject
+      expect(flash[:success]).to eq "Successfully backfilled transactions for 1 orders."
+    end
+
+    it "shows the backfilled orders" do
+      subject
+      expect(response.body).to include "Backfilled Orders"
+      expect(response.body).to include order.number
     end
   end
 end

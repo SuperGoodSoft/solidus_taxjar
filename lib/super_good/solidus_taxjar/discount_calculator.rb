@@ -6,7 +6,7 @@ module SuperGood
       end
 
       def discount
-        -line_item.promo_total
+        -1 * line_item.adjustments.select { |value| !value.tax? && value.eligible? }.sum(&:amount)
       end
 
       private

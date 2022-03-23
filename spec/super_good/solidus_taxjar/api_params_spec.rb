@@ -139,6 +139,20 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   describe ".order_params" do
     subject { described_class.order_params(order) }
 
+    before do
+      # The discount calculator relies on the line item adjustments existing in
+      # order to calculate the correct discount amount for TaxJar.
+      create(
+        :adjustment,
+        order: order,
+        adjustable: order.line_items.first,
+        amount: line_item_attributes[:promo_total],
+        source_type: "Spree::Promotion::Action::CreateItemAdjustments",
+        label: "Promo",
+        finalized: true # Prevents this adjustment from being recalculated.
+      )
+    end
+
     it "returns params for fetching the tax for the order" do
       expect(subject).to eq(
         customer_id: "12345",
@@ -268,6 +282,20 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
   describe ".transaction_params" do
     subject { described_class.transaction_params(order) }
+
+    before do
+      # The discount calculator relies on the line item adjustments existing in
+      # order to calculate the correct discount amount for TaxJar.
+      create(
+        :adjustment,
+        order: order,
+        adjustable: order.line_items.first,
+        amount: line_item_attributes[:promo_total],
+        source_type: "Spree::Promotion::Action::CreateItemAdjustments",
+        label: "Promo",
+        finalized: true # Prevents this adjustment from being recalculated.
+      )
+    end
 
     it "returns params for creating/updating an order transaction" do
       expect(subject).to eq({

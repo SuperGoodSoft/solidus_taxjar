@@ -174,14 +174,6 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
       end
 
       context "and there is tax" do
-        let!(:tax_rate) do
-          ::Spree::TaxRate.create!(
-            name: "Sales Tax",
-            amount: 0.5,
-            calculator: ::Spree::Calculator.new
-          )
-        end
-
         let(:breakdown) do
           instance_double ::Taxjar::Breakdown,
             line_items: [taxjar_line_item],
@@ -205,7 +197,7 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
           aggregate_failures do
             expect(item_tax.item_id).to eq 33
             expect(item_tax.label).to eq "Sales Tax"
-            expect(item_tax.tax_rate).to eq tax_rate
+            expect(item_tax.tax_rate).to be_a(Spree::TaxRate)
             expect(item_tax.amount).to eq 6.66
             expect(item_tax.included_in_price).to eq false
           end
@@ -265,19 +257,19 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
             aggregate_failures do
               expect(shipment_taxes[0].item_id).to eq 1
               expect(shipment_taxes[0].label).to eq "Sales Tax"
-              expect(shipment_taxes[0].tax_rate).to eq tax_rate
+              expect(shipment_taxes[0].tax_rate).to be_a(Spree::TaxRate)
               expect(shipment_taxes[0].amount).to eq 2.33
               expect(shipment_taxes[0].included_in_price).to eq false
 
               expect(shipment_taxes[1].item_id).to eq 2
               expect(shipment_taxes[1].label).to eq "Sales Tax"
-              expect(shipment_taxes[1].tax_rate).to eq tax_rate
+              expect(shipment_taxes[1].tax_rate).to be_a(Spree::TaxRate)
               expect(shipment_taxes[1].amount).to eq 4.33
               expect(shipment_taxes[1].included_in_price).to eq false
 
               expect(shipment_taxes[2].item_id).to eq 3
               expect(shipment_taxes[2].label).to eq "Sales Tax"
-              expect(shipment_taxes[2].tax_rate).to eq tax_rate
+              expect(shipment_taxes[2].tax_rate).to be_a(Spree::TaxRate)
               expect(shipment_taxes[2].amount).to eq 3.34
               expect(shipment_taxes[2].included_in_price).to eq false
             end

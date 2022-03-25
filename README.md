@@ -48,9 +48,7 @@ introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
     [Configuration](#configuration).
 
 1. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to
-  your TaxJar API key and make sure that you have a `Spree::TaxRate` with the name
-  "Sales Tax". This will be used as the source for the tax adjustments that
-  Solidus creates.
+  your TaxJar API key.
 
 ## Project Status
 

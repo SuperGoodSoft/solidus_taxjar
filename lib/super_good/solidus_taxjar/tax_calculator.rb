@@ -109,8 +109,14 @@ module SuperGood
         )
       end
 
+      # Tax adjustments require an associated Tax Rate. This tax rate is not
+      # used in the extension's calculations as the rates from the TaxJar API
+      # are used, so a placeholder rate and calculator is created.
       def tax_rate
-        ::Spree::TaxRate.find_by(name: "Sales Tax")
+        ::Spree::TaxRate.find_or_create_by!(name: "Solidus TaxJar Rate") do |tax_rate|
+          tax_rate.calculator = ::Spree::Calculator.new
+          tax_rate.amount = 0
+        end
       end
 
       def cache_key

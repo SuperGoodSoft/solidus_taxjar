@@ -34,6 +34,7 @@
 - [#174](https://github.com/SuperGoodSoft/solidus_taxjar/pull/174) Provide a link to Taxjar state settings
 - [#177](https://github.com/SuperGoodSoft/solidus_taxjar/pull/177) Make nexus caching configurable
 - [#169](https://github.com/SuperGoodSoft/solidus_taxjar/pull/169) Add basic backfill transaction functionality
+- [#181](https://github.com/SuperGoodSoft/solidus_taxjar/pull/181) Take all non-tax adjustment types into account when calculating a line item's discount
 
 ## v0.18.2
 

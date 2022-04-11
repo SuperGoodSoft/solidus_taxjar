@@ -2,24 +2,23 @@ require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   let(:order) do
-    Spree::Order.create!(
+    create(:order,
       additional_tax_total: BigDecimal("9.87"),
       item_total: BigDecimal("28.00"),
-      line_items: [line_item],
+      line_items_attributes: [line_item_attributes],
       number: "R111222333",
       ship_address: ship_address,
       store: store,
       total: order_total,
       shipments: [shipment],
-      user_id: 12345
-    ).tap do |order|
-      order.update! completed_at: DateTime.new(2018, 3, 6, 12, 10, 33)
-    end
+      user_id: 12345,
+      completed_at: DateTime.new(2018, 3, 6, 12, 10, 33))
   end
   let(:order_total) { BigDecimal("123.45") }
 
   let(:store) do
-    Spree::Store.create!(
+    create(
+      :store,
       cart_tax_country_iso: "US",
       code: "store",
       mail_from_address: "contact@example.com",
@@ -28,7 +27,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     )
   end
 
-  let(:ship_address) do
+  let!(:ship_address) do
     create(
       :address,
       address1: "475 N Beverly Dr",
@@ -42,18 +41,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:country_us) do
-    Spree::Country.create!(
-      iso3: "USA",
+    create(
+      :country,
       iso: "US",
-      iso_name: "UNITED STATES",
-      name: "United States",
-      numcode: 840,
       states_required: true
     )
   end
 
-  let(:line_item) do
-    Spree::LineItem.new(
+  let(:line_item_attributes) do
+    attributes_for(
+      :line_item,
       additional_tax_total: 4,
       price: 10,
       promo_total: -2,
@@ -63,7 +60,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:variant) do
-    Spree::Variant.create!(
+    create(
+      :variant,
       price: 10,
       product: product,
       sku: "G00D-PR0DUCT",
@@ -72,7 +70,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:option_value) do
-    Spree::OptionValue.create!(
+    create(
+      :option_value,
       name: "Red",
       presentation: "red",
       option_type: option_type
@@ -80,14 +79,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:option_type) do
-    Spree::OptionType.create!(
+    create(
+      :option_type,
       name: "Color",
       presentation: "color"
     )
   end
 
   let(:product) do
-    Spree::Product.create!(
+    create(
+      :product,
       master: master_variant,
       name: "Product Name",
       shipping_category: shipping_category,
@@ -96,12 +97,11 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     )
   end
 
-  let(:shipping_category) do
-    Spree::ShippingCategory.create!(name: "Default Category")
-  end
+  let(:shipping_category){ create(:shipping_category) }
 
   let(:tax_category) do
-    Spree::TaxCategory.create!(
+    create(
+      :tax_category,
       is_default: true,
       name: "Default",
       tax_code: "A_GEN_TAX"
@@ -109,25 +109,32 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   end
 
   let(:master_variant) do
-    Spree::Variant.new(
+    build(
+      :variant,
       is_master: true,
       price: 10
     )
   end
 
   let(:reimbursement) do
-    Spree::Reimbursement.new(
+    build(
+      :reimbursement,
       number: "RI123123123",
       order: order,
       return_items: [
-        Spree::ReturnItem.new(additional_tax_total: 0.33),
-        Spree::ReturnItem.new(additional_tax_total: 33.0)
+        build(:return_item, additional_tax_total: 0.33),
+        build(:return_item, additional_tax_total: 33.0)
       ],
       total: 333.33
     )
   end
 
-  let(:shipment) { Spree::Shipment.create!(cost: BigDecimal("3.01")) }
+  let(:shipment) { create(:shipment, cost: BigDecimal("3.01")) }
+
+  before do
+    create :state, state_code: "CA"
+    create :state, state_code: "NY"
+  end
 
   describe ".order_params" do
     subject { described_class.order_params(order) }
@@ -199,8 +206,9 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
 
     context "when the line item has zero quantity" do
-      let(:line_item) do
-        Spree::LineItem.new(
+      let(:line_item_attributes) do
+        attributes_for(
+          :line_item,
           additional_tax_total: 4,
           price: 10,
           promo_total: -2,
@@ -267,7 +275,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         customer_id: "12345",
         line_items: [{
           discount: 2,
-          id: line_item.id,
+          id: order.line_items.first.id,
           product_identifier: "G00D-PR0DUCT",
           description: "Product Name - color: red",
           product_tax_code: "A_GEN_TAX",
@@ -301,7 +309,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       it "sends the sales tax on the line items as zero" do
         expect(subject[:line_items]).to contain_exactly({
           discount: 2,
-          id: line_item.id,
+          id: order.line_items.first.id,
           product_identifier: "G00D-PR0DUCT",
           description: "Product Name - color: red",
           product_tax_code: "A_GEN_TAX",
@@ -313,8 +321,9 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
 
     context "when the line item has 0 quantity" do
-      let(:line_item) do
-        Spree::LineItem.new(
+      let(:line_item_attributes) do
+        attributes_for(
+          :line_item,
           additional_tax_total: 4,
           price: 10,
           promo_total: -2,
@@ -426,7 +435,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
 
     context "with an address without a state" do
-      let(:ship_address) do
+      let!(:ship_address) do
         create(
           :address,
           address1: "72 High St",
@@ -441,12 +450,9 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
 
       let(:country_uk) do
-        Spree::Country.create!(
-          iso3: "GBR",
+        create(
+          :country,
           iso: "GB",
-          iso_name: "UNITED KINGDOM",
-          name: "United Kingdom",
-          numcode: 826,
           states_required: false
         )
       end
@@ -463,7 +469,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
 
     context "an address with address2" do
-      let(:ship_address) do
+      let!(:ship_address) do
         create(
           :address,
           address1: "1 World Trade CTR",

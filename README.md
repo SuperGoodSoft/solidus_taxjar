@@ -84,6 +84,8 @@ Solidus < 2.11, so this extension provides a [compatibility layer](app/overrides
 breakdown for a given `Spree::Order`. The breakdown includes separate line items
 taxes and shipment taxes.
 
+This tax calculator will create a `Spree::TaxRate` that is required for tax adjustments. All other `Spree::TaxRate`s will be ignored in calculations. See [this wiki page](https://github.com/SuperGoodSoft/solidus_taxjar/wiki/How-Solidus-TaxJar-calculates-tax) for more details.
+
 ### TaxRateCalculator
 
 `SuperGood::SolidusTaxjar::TaxRateCalculator` allows calculating the tax rate

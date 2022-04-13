@@ -33,25 +33,25 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Wed, 08 Jun 2022 17:59:03 GMT
+      - Wed, 08 Jun 2022 18:20:40 GMT
       X-Amzn-Requestid:
-      - c39f0f9a-59c0-4dbc-ab18-0967267ce4c9
+      - 0b3781dc-df65-4fe4-aaca-145d9400569e
       X-Amz-Apigw-Id:
-      - Tah4KGMNoAMF7EA=
+      - TalCyEefoAMFg2w=
       X-Amzn-Trace-Id:
-      - Root=1-62a0e367-16eb245001cfffd426391a6f
+      - Root=1-62a0e878-5a6dab3576cc9d9e76883ff5
       X-Cache:
       - Error from cloudfront
       Via:
-      - 1.1 9f4bc08bf8fe4d53ba73713387d5ab3e.cloudfront.net (CloudFront)
+      - 1.1 e71753cf85369390852fdcb22bf59aa8.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - HIO50-C2
+      - YVR50-C1
       X-Amz-Cf-Id:
-      - xj0CWkRJGrcK4-skFLACZdnKo5RPgzawqmoeubMQzaO_K7k8HScQ4g==
+      - kZYIf6GcK_zeR17-tiCEkYhe9tWZ2uOrcXIIemTJIZr8HMwJCk221A==
     body:
       encoding: UTF-8
       string: '{"status":401,"error":"Unauthorized","detail":"Not authorized for route
         ''GET /v2/nexus/regions''"}'
     http_version:
-  recorded_at: Wed, 08 Jun 2022 17:59:03 GMT
+  recorded_at: Wed, 08 Jun 2022 18:20:40 GMT
 recorded_with: VCR 4.0.0

@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
+RSpec.describe 'Admin TaxJar Settings', :vcr, type: :request do
   extend Spree::TestingSupport::AuthorizationHelpers::Request
   stub_authorization!
   let(:dummy_api) { instance_double(SuperGood::SolidusTaxjar::Api) }
@@ -127,29 +127,11 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
   end
 
   describe "PUT #update" do
-    subject { put spree.admin_taxjar_settings_path params:{ super_good_solidus_taxjar_configuration:{"preferred_reporting_enabled"=>true} }}
+    subject { put spree.admin_taxjar_settings_path params: params }
 
-    let(:taxjar_configuration) { create :taxjar_configuration, preferred_reporting_enabled: false }
-
-    it "redirects back to TaxJar settings" do
-      subject
-      expect(response).to redirect_to "/admin/taxjar_settings"
-    end
-
-    it "shows a flash message" do
-      subject
-      expect(flash[:success]).to eq "TaxJar settings updated!"
-    end
-
-    it "updates the taxjar settings" do
-      expect { subject }.to change { taxjar_configuration.reload.preferred_reporting_enabled }.from(false).to(true)
-    end
-
-    context "update fails" do
-      before do
-        allow(SuperGood::SolidusTaxjar).to receive(:configuration).and_return(taxjar_configuration)
-        allow(taxjar_configuration).to receive(:update).and_return(false)
-      end
+    context "updating TaxJar settings" do
+      let(:taxjar_configuration) { create :taxjar_configuration, preferred_reporting_enabled: false }
+      let(:params) { {super_good_solidus_taxjar_configuration: {"preferred_reporting_enabled" => true}} }
 
       it "redirects back to TaxJar settings" do
         subject
@@ -158,7 +140,37 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
 
       it "shows a flash message" do
         subject
-        expect(flash[:alert]).to eq "Failed to update settings!"
+        expect(flash[:success]).to eq "TaxJar settings updated!"
+      end
+
+      it "updates the taxjar settings" do
+        expect { subject }.to change { taxjar_configuration.reload.preferred_reporting_enabled }.from(false).to(true)
+      end
+
+      context "update fails" do
+        before do
+          allow(SuperGood::SolidusTaxjar).to receive(:configuration).and_return(taxjar_configuration)
+          allow(taxjar_configuration).to receive(:update).and_return(false)
+        end
+
+        it "redirects back to TaxJar settings" do
+          subject
+          expect(response).to redirect_to "/admin/taxjar_settings"
+        end
+
+        it "shows a flash message" do
+          subject
+          expect(flash[:alert]).to eq "Failed to update settings!"
+        end
+      end
+    end
+
+    context "updating a tax category" do
+      let(:tax_category) { create(:tax_category, name: "Bibles", tax_code: "123") }
+      let(:params) { {tax_category: {name: "Bibles", tax_code: "123", id: tax_category.id}, tax_code_id: "81121"} }
+
+      it "updates the tax code" do
+        expect { subject }.to change { tax_category.reload.tax_code }.from("123").to("81121")
       end
     end
   end

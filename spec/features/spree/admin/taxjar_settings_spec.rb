@@ -5,6 +5,7 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
 
   background do
     create :store, default: true
+    create :tax_category, name: "Bibles", tax_code: "123"
   end
 
   describe "Taxjar settings tab" do
@@ -56,6 +57,15 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
         click_on "Sync Nexus Regions"
         expect(page).to have_content("Updated with new Nexus Regions")
         expect(page).to have_content("British Columbia")
+        within "[data-hook='admin_taxjar_tax_categories_sync']" do
+          expect(page).to have_content("123")
+        end
+        select2_no_label("Bibles (81121)", from: "Select New Tax Code")
+        click_on "Update Tax Category"
+        within "[data-hook='admin_taxjar_tax_categories_sync']" do
+          expect(page).to_not have_content("123")
+          expect(page).to have_content("Bibles (81121)")
+        end
       end
     end
 

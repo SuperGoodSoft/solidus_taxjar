@@ -1,0 +1,41 @@
+<fieldset>
+  <legend>Tax Categories</legend>
+  <p>Select TaxJar tax codes and apply them to your Solidus tax categories.</p>
+  <table data-hook="admin_taxjar_tax_categories_sync">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Tax Code</th>
+        <th class="align-right">TaxJar Tax Code</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% Spree::TaxCategory.all.each do |category| %>
+      <%= form_for category, url: admin_taxjar_settings_path, method: :put, local: true do |form| %>
+        <tr>
+          <td>
+            <%= category.name %>
+            <%= form.hidden_field(:name) %>
+          </td>
+          <td>
+            <%= category.tax_code %>
+            <%= form.hidden_field(:tax_code) %>
+            <%= form.hidden_field(:id) %>
+          </td>
+          <td class="align-right">
+            <%= select_tag "tax_code_id",
+                options_for_select(
+                  @tax_categories.map{|taxjar_tax_category|
+                    taxjar_tax_category_option(taxjar_tax_category.product_tax_code)
+                  },
+                  category.tax_code
+                ),
+                prompt: "Select New Tax Code",
+                class: "select2" %>
+            <%= form.submit %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</fieldset>

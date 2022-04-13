@@ -33,23 +33,23 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Wed, 30 Mar 2022 17:54:13 GMT
+      - Wed, 13 Apr 2022 18:18:06 GMT
       X-Amzn-Requestid:
-      - 5715a1ff-b606-4801-931f-7ab1f506781f
+      - 0fed9fb3-c829-4920-a5aa-ee53126e32bc
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - Pzzi8EKKIAMFsXw=
+      - QiAK2HHLIAMFdmw=
       X-Amzn-Trace-Id:
-      - Root=1-62449945-5a381da920c662a21fe79225
+      - Root=1-625713de-223745d12277ae534bf12c6b
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 b13f158bdf9805ca47e07c0c35870c12.cloudfront.net (CloudFront)
+      - 1.1 e11ee4e3208082d534c251b36bbee268.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA19-C3
       X-Amz-Cf-Id:
-      - 8ZmlCcrsPuFfXkAmScj3lkPR6mmebnh-nWBl534Hb7ujPcOPszn27w==
+      - Zm3KepiC7incrFRjJg-FewJjw4EpblpKOf6QTpZg-yaeWl2jdMinDQ==
     body:
       encoding: UTF-8
       string: '{"categories":[{"description":"Bibles","name":"Bibles","product_tax_code":"81121"},{"description":"Paper
@@ -2318,60 +2318,5 @@ http_interactions:
         to be Food & Grocery (not food for home consumption or food which requires
         further preparation to consume).","name":"Prepared Foods","product_tax_code":"41000"}]}'
     http_version:
-  recorded_at: Wed, 30 Mar 2022 17:54:14 GMT
-- request:
-    method: get
-    uri: https://api.taxjar.com/v2/nexus/regions
-    body:
-      encoding: UTF-8
-      string: ''
-    headers:
-      User-Agent:
-      - 'TaxJar/Ruby (Darwin MacBook-Pro.hitronhub.home 21.2.0 Darwin Kernel Version
-        21.2.0: Sun Nov 28 20:28:54 PST 2021; root:xnu-8019.61.5~1/RELEASE_X86_64
-        x86_64; ruby 2.6.6-p146; OpenSSL 1.1.1m  14 Dec 2021) taxjar-ruby/3.0.2'
-      Authorization:
-      - Bearer <BEARER_TOKEN>
-      X-Api-Version:
-      - '2020-08-07'
-      Plugin:
-      - supergoodsolidustaxjar
-      Connection:
-      - close
-      Host:
-      - api.taxjar.com
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '277'
-      Connection:
-      - close
-      Date:
-      - Wed, 30 Mar 2022 17:54:14 GMT
-      X-Amzn-Requestid:
-      - c76dd802-9f16-44a1-a968-aad509ffe14f
-      X-Amz-Apigw-Id:
-      - PzzjFHp7IAMFpWQ=
-      X-Amzn-Trace-Id:
-      - Root=1-62449946-784584c3523fdcc45555eb05
-      X-Cache:
-      - Miss from cloudfront
-      Via:
-      - 1.1 cd858042f70b416ca05e042acf3908a4.cloudfront.net (CloudFront)
-      X-Amz-Cf-Pop:
-      - SEA73-P1
-      X-Amz-Cf-Id:
-      - 3R47IHeqYFFQ8nOthLUzpu-UqCK7mymHVUKCgi1TxrZJAa5fAy2gdQ==
-    body:
-      encoding: UTF-8
-      string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
-        States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
-        States"}]}'
-    http_version:
-  recorded_at: Wed, 30 Mar 2022 17:54:14 GMT
+  recorded_at: Wed, 13 Apr 2022 18:18:07 GMT
 recorded_with: VCR 4.0.0

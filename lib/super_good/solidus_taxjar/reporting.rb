@@ -7,7 +7,10 @@ module SuperGood
 
       def report_transaction(order)
         begin
-          @api.show_latest_transaction_for(order)
+          transaction_response = @api.show_latest_transaction_for(order)
+          SuperGood::SolidusTaxjar::OrderTransaction.find_by!(
+            transaction_id: transaction_response.transaction_id
+          )
         rescue NotImplementedError
           # FIXME:
           # We can stop rescuing from `NotImplementedError` once we have
@@ -15,7 +18,10 @@ module SuperGood
           # TaxJar order transactions and
           # `SuperGood::SolidusTaxjar::OrderTransaction` records.
         rescue Taxjar::Error::NotFound
-          @api.create_transaction_for(order)
+          transaction_response = @api.create_transaction_for(order)
+          SuperGood::SolidusTaxjar::OrderTransaction.find_by!(
+            transaction_id: transaction_response.transaction_id
+          )
         end
       end
     end

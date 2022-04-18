@@ -29,8 +29,8 @@ RSpec.describe SuperGood::SolidusTaxjar::BackfillTransactions do
       end
     end
 
-    it "returns the numbers of the orders that have been pushed" do
-      expect(subject).to eq([shipped_order.number])
+    it "returns the associated transaction sync batch" do
+      expect(subject).to be_a(SuperGood::SolidusTaxjar::TransactionSyncBatch)
     end
 
     it "creates a log of each synced order in the database" do

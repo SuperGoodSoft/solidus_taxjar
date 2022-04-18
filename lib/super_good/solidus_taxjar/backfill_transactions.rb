@@ -6,7 +6,6 @@ module SuperGood
       end
 
       def call
-        backfilled_orders = []
         transaction_sync_batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.create!
 
         ::Spree::Order.complete.where(shipment_state: 'shipped').find_each do |order|
@@ -21,9 +20,9 @@ module SuperGood
           rescue Taxjar::Error => exception
             transaction_sync_log.update!(status: :error, error_message: exception.message)
           end
-          backfilled_orders.push(order.number)
         end
-        backfilled_orders
+
+        transaction_sync_batch
       end
 
       private

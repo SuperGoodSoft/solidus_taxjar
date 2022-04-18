@@ -6,7 +6,7 @@
 
 <h2>Backfilled Orders</h2>
 <ul>
-  <% @backfilled_order_numbers.each do |order_number| %>
-    <li><%= order_number %></li>
+  <% @transaction_sync_batch.transaction_sync_logs.find_each do |sync_log| %>
+    <li><%= sync_log.order.number %></li>
   <% end %>
 </ul>

@@ -11,7 +11,10 @@ module SuperGood
       end
 
       def show_or_create_transaction(order)
-        @api.show_latest_transaction_for(order) || @api.create_transaction_for(order)
+        transaction_response = @api.show_latest_transaction_for(order) || @api.create_transaction_for(order)
+        SuperGood::SolidusTaxjar::OrderTransaction.find_by!(
+          transaction_id: transaction_response.transaction_id
+        )
       end
     end
   end

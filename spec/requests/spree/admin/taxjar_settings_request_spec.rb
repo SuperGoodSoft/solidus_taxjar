@@ -124,7 +124,7 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
 
     it "shows a flash message" do
       subject
-      expect(flash[:success]).to eq "Successfully backfilled transactions for 1 orders."
+      expect(flash[:success]).to eq "Queued transaction backfill for 1 orders."
     end
 
     it "shows the backfilled orders" do

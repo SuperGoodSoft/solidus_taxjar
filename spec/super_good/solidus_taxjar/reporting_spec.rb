@@ -77,12 +77,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
             .and_raise(Taxjar::Error::NotFound)
 
           allow(dummy_api)
-            .to receive(:create_transaction_for) do
-              # Currently, the API method is responsible for creating the transaction object, so
-              # we also have to mock out that behavior. This will be removed in an upcoming refactor.
-              create :taxjar_order_transaction, transaction_id: test_transaction_id, transaction_date: test_transaction_date
-              taxjar_order_response_double
-            end
+            .to receive(:create_transaction_for)
+            .and_return(taxjar_order_response_double)
 
           subject
 

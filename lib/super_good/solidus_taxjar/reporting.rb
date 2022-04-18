@@ -19,8 +19,10 @@ module SuperGood
           # `SuperGood::SolidusTaxjar::OrderTransaction` records.
         rescue Taxjar::Error::NotFound
           transaction_response = @api.create_transaction_for(order)
-          SuperGood::SolidusTaxjar::OrderTransaction.find_by!(
-            transaction_id: transaction_response.transaction_id
+
+          order.taxjar_order_transactions.create!(
+            transaction_id: transaction_response.transaction_id,
+            transaction_date: transaction_response.transaction_date
           )
         end
       end

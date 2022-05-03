@@ -2,6 +2,7 @@
 
 ## master
 
+- [#185](https://github.com/SuperGoodSoft/solidus_taxjar/pull/185) Backfill transactions in batches
 - [#139](https://github.com/SuperGoodSoft/solidus_taxjar/pull/139) Refund and create a new order transaction when an order is recalculated
 - [#175](https://github.com/SuperGoodSoft/solidus_taxjar/pull/175) Add request logging to TaxJar API requests
 - [#138](https://github.com/SuperGoodSoft/solidus_taxjar/pull/138) Add admin UI for configuring reporting

@@ -19,25 +19,27 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
 
     let(:order) { create :order, completed_at: 1.days.ago }
 
-    it "refunds the transaction and creates a new one in TaxJar" do
-      expect(dummy_api)
-        .to receive(:create_refund_transaction_for)
-        .with(order)
-      expect(dummy_api)
-        .to receive(:create_transaction_for)
-        .with(order)
-
-      subject
-    end
-
-    it "creates a transaction for the order" do
+    before do
       allow(dummy_api)
         .to receive(:create_refund_transaction_for)
 
       allow(dummy_api)
         .to receive(:create_transaction_for)
         .and_return(taxjar_order_response_double)
+    end
 
+    it "refunds the transaction and creates a new one in TaxJar" do
+      subject
+
+      expect(dummy_api)
+        .to have_received(:create_refund_transaction_for)
+        .with(order)
+      expect(dummy_api)
+        .to have_received(:create_transaction_for)
+        .with(order)
+    end
+
+    it "creates and returns a transaction for the order" do
       expect(subject).to be_a(SuperGood::SolidusTaxjar::OrderTransaction)
       expect(subject.persisted?).to be_truthy
       expect(subject).to have_attributes(

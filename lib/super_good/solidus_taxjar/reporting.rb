@@ -6,7 +6,12 @@ module SuperGood
       end
 
       def refund_and_create_new_transaction(order)
-        @api.create_refund_transaction_for(order)
+        transaction_response = @api.create_refund_transaction_for(order)
+        latest_order_transaction = OrderTransaction.latest_for(order)
+        latest_order_transaction.create_refund_transaction!(
+          transaction_id: transaction_response.transaction_id,
+          transaction_date: transaction_response.transaction_date
+        )
         if transaction_response = @api.create_transaction_for(order)
           order.taxjar_order_transactions.create!(
             transaction_id: transaction_response.transaction_id,

@@ -3,6 +3,7 @@
 Spree::Core::Engine.routes.draw do
   namespace :admin do
     resource :taxjar_settings, only: [:edit, :update]
+    resources :transaction_sync_batches, only: [:index]
     get 'taxjar_settings/sync_nexus_regions', to: 'taxjar_settings#sync_nexus_regions'
     post 'taxjar_settings/backfill_transactions', to: 'taxjar_settings#backfill_transactions'
   end

@@ -1,0 +1,29 @@
+<%= render 'spree/admin/shared/taxes_tabs' %>
+
+<% content_for :page_title do %>
+  <%= "Transaction Sync Batches" %>
+<% end %>
+
+<table id="transaction_sync_batches">
+  <thead>
+    <tr>
+      <th>Batch ID</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Processed Orders</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @batches.each do |batch| %>
+      <tr>
+        <td><%= batch.id %></td>
+        <td><%= batch.created_at %></td>
+        <td><%= batch.updated_at %></td>
+        <td><%= batch.transaction_sync_logs.not_processing.count %>/<%= batch.transaction_sync_logs.count %></td>
+        <td><%= batch.status.capitalize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

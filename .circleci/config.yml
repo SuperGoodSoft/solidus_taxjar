@@ -1,5 +1,8 @@
 version: 2.1
 orbs:
+  # Browser tools are required for feature specs.
+  browser-tools: circleci/browser-tools@1.1
+
   # Always run tests agains the versions of Solidus defined in the
   # most recent version of the Orb.
   solidusio_extensions: solidusio/extensions@volatile
@@ -8,6 +11,7 @@ jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       - solidusio_extensions/run-tests-solidus-older
       - solidusio_extensions/run-tests-solidus-current
@@ -15,6 +19,7 @@ jobs:
   run-specs-with-master:
     executor: solidusio_extensions/postgres
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       - solidusio_extensions/run-tests-solidus-master
       - solidusio_extensions/store-test-results

@@ -11,6 +11,19 @@ require File.expand_path("dummy/config/environment.rb", __dir__).tap { |file|
 require "solidus_dev_support/rspec/feature_helper"
 require 'vcr'
 
+chrome_options = Selenium::WebDriver::Chrome::Options.new.tap do |options|
+  options.add_argument("--window-size=#{CAPYBARA_WINDOW_SIZE.join(',')}")
+  options.add_argument("--headless")
+  options.add_argument("--disable-gpu")
+end
+
+version = Capybara::Selenium::Driver.load_selenium
+options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options
+
+Capybara.register_driver :solidus_chrome_headless do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options_key => chrome_options)
+end
+
 factories = Dir["#{::SuperGoodSolidusTaxjar::Engine.root}/lib/super_good/solidus_taxjar/testing_support/factories/**/*_factory.rb"].sort
 factories.each { |f| require f }
 

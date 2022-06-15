@@ -7,5 +7,9 @@ Deface::Override.new(
 ) do
   <<-HTML
     <%= configurations_sidebar_menu_item "TaxJar Settings", edit_admin_taxjar_settings_path %>
+
+    <% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
+      <%= configurations_sidebar_menu_item "TaxJar Backfill", admin_transaction_sync_batches_path %>
+    <% end %>
   HTML
 end

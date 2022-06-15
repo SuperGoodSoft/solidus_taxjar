@@ -12,6 +12,7 @@
       <th>Updated at</th>
       <th>Processed Orders</th>
       <th>Status</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,9 @@
         <td><%= batch.updated_at %></td>
         <td><%= batch.transaction_sync_logs.not_processing.count %>/<%= batch.transaction_sync_logs.count %></td>
         <td><%= batch.status.capitalize %></td>
+        <td class='actions align-center'>
+          <%= link_to_edit_url admin_transaction_sync_batch_path(batch), title: "admin_transaction_sync_batch_show_#{dom_id(batch)}", no_text: true %>
+        </td>
       </tr>
     <% end %>
   </tbody>

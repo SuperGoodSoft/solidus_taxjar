@@ -122,15 +122,8 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
       order
     end
 
-    it "shows a flash message" do
-      subject
-      expect(flash[:success]).to eq "Queued transaction backfill for 1 orders."
-    end
-
     it "shows the backfilled orders" do
-      subject
-      expect(response.body).to include "Backfilled Orders"
-      expect(response.body).to include order.number
+      expect(subject).to redirect_to(spree.admin_transaction_sync_batch_path(SuperGood::SolidusTaxjar::TransactionSyncBatch.last))
     end
   end
 end

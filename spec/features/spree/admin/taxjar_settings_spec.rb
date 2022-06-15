@@ -42,7 +42,6 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
       scenario "the user backfills their transactions" do
         visit "/admin/taxjar_settings/edit"
         click_on "Backfill Transactions"
-        expect(page).to have_content("Queued transaction backfill for 1 orders.")
         expect(page).to have_content(order.number)
       end
     end

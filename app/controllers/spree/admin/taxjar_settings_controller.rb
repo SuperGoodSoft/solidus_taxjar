@@ -33,7 +33,7 @@ module Spree
 
       def backfill_transactions
         @transaction_sync_batch = ::SuperGood::SolidusTaxjar::BackfillTransactions.new.call
-        flash[:success] = "Queued transaction backfill for #{@transaction_sync_batch.transaction_sync_logs.count} orders."
+        redirect_to spree.admin_transaction_sync_batch_path(@transaction_sync_batch)
       end
 
       private

@@ -1,0 +1,193 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
+        - 419725"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.5.0 Darwin Kernel Version 21.5.0:
+        Tue Apr 26 21:08:29 PDT 2022; root:xnu-8020.121.3~4/RELEASE_ARM64_T8101 x86_64;
+        ruby 2.6.9-p207; OpenSSL 1.1.1n  15 Mar 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '162'
+      Connection:
+      - close
+      Date:
+      - Thu, 16 Jun 2022 21:39:38 GMT
+      X-Amzn-Requestid:
+      - f7a7bee9-e288-414e-a343-08197a7323d5
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - T1ZsPFuPoAMFpZQ=
+      X-Amzn-Trace-Id:
+      - Root=1-62aba31a-583cd667166bfbff75a43c30
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 ca66331b52971370c4e54619e8a952cc.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - IWCkhc_vkVph2cPS07nMXDpxM8fzTjC8PMdKG1-V5uwunQOzTIF7KA==
+    body:
+      encoding: UTF-8
+      string: '{"tax":{"amount_to_collect":0,"freight_taxable":true,"has_nexus":false,"order_total_amount":110.0,"rate":0,"shipping":100.0,"tax_source":null,"taxable_amount":0}}'
+    http_version:
+  recorded_at: Thu, 16 Jun 2022 21:39:38 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
+        - 419725"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.5.0 Darwin Kernel Version 21.5.0:
+        Tue Apr 26 21:08:29 PDT 2022; root:xnu-8020.121.3~4/RELEASE_ARM64_T8101 x86_64;
+        ruby 2.6.9-p207; OpenSSL 1.1.1n  15 Mar 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '162'
+      Connection:
+      - close
+      Date:
+      - Thu, 16 Jun 2022 21:39:39 GMT
+      X-Amzn-Requestid:
+      - 9db485a3-2de0-4397-bed7-e183cfca2911
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - T1ZsUGLzoAMFbRQ=
+      X-Amzn-Trace-Id:
+      - Root=1-62aba31b-63b4d7ef776d1e3a73c65021
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 d1d67b07408bba8c682597d8303642e2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - M6pi1kPNdhMXJBPNWweqeamItA0VSkIUpqkjY_E8v_zEs2iHS0Wfcg==
+    body:
+      encoding: UTF-8
+      string: '{"tax":{"amount_to_collect":0,"freight_taxable":true,"has_nexus":false,"order_total_amount":110.0,"rate":0,"shipping":100.0,"tax_source":null,"taxable_amount":0}}'
+    http_version:
+  recorded_at: Thu, 16 Jun 2022 21:39:39 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/transactions/orders
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":1,"quantity":1,"product_identifier":"SKU-1","description":"Product
+        #1 - 8231 - Master","product_tax_code":"TaxCode - 419725","unit_price":"10.0","discount":0,"sales_tax":"0.0"}],"transaction_id":"R941728705","transaction_date":"2022-06-16T21:39:39Z","amount":"110.0","shipping":"100.0","sales_tax":"0.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.5.0 Darwin Kernel Version 21.5.0:
+        Tue Apr 26 21:08:29 PDT 2022; root:xnu-8020.121.3~4/RELEASE_ARM64_T8101 x86_64;
+        ruby 2.6.9-p207; OpenSSL 1.1.1n  15 Mar 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '641'
+      Connection:
+      - close
+      Date:
+      - Thu, 16 Jun 2022 21:39:40 GMT
+      X-Amzn-Requestid:
+      - 811767ed-5cc6-449c-94cf-d8f9e1416a0b
+      X-Amzn-Remapped-Content-Length:
+      - '641'
+      X-Amzn-Remapped-Connection:
+      - keep-alive
+      X-Request-Id:
+      - Fvk3sv70sX_PPUNqhVNC
+      X-Api-Version:
+      - '2020-08-07'
+      X-Amz-Apigw-Id:
+      - T1ZsZH22oAMFmWQ=
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Amzn-Remapped-Server:
+      - Cowboy
+      X-Amzn-Remapped-Date:
+      - Thu, 16 Jun 2022 21:39:40 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 c21a0d27ceec21e266c9f962d0349438.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - PVMvJMqc0xPiOkOmygxtFdOPg1sgcnCdAmFxPvpTzWmBWARZSAEuOg==
+    body:
+      encoding: UTF-8
+      string: '{"order":{"user_id":261394,"transaction_reference_id":null,"transaction_id":"R941728705","transaction_date":"2022-06-16T21:39:39.000Z","to_zip":"11430","to_street":"A
+        Different Road","to_state":"NY","to_country":"US","to_city":"HERNDON","shipping":"100.0","sales_tax":"0.0","provider":"api","line_items":[{"unit_price":"10.0","sales_tax":"0.0","quantity":1,"product_tax_code":"TaxCode
+        - 419725","product_identifier":"SKU-1","id":0,"discount":"0.0","description":"Product
+        #1 - 8231 - Master"}],"from_zip":null,"from_street":null,"from_state":null,"from_country":"US","from_city":null,"exemption_type":null,"customer_id":"1","amount":"110.0"}}'
+    http_version:
+  recorded_at: Thu, 16 Jun 2022 21:39:39 GMT
+recorded_with: VCR 4.0.0

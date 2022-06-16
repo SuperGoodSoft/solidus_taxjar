@@ -31,11 +31,6 @@ module Spree
         redirect_back(fallback_location: spree.admin_taxjar_settings_path)
       end
 
-      def backfill_transactions
-        @transaction_sync_batch = ::SuperGood::SolidusTaxjar::BackfillTransactions.new.call
-        redirect_to spree.admin_transaction_sync_batch_path(@transaction_sync_batch)
-      end
-
       private
 
       def configuration_params

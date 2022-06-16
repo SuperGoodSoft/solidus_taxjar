@@ -110,20 +110,4 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, :type => :request do
       end
     end
   end
-
-  describe "#backfill_transactions" do
-    subject { post spree.admin_taxjar_settings_backfill_transactions_path }
-
-    let(:order) { create(:shipped_order) }
-
-    before do
-      create(:tax_rate, name: "Sales Tax")
-      # The order must be created **after** the TaxRate to have the correct totals
-      order
-    end
-
-    it "shows the backfilled orders" do
-      expect(subject).to redirect_to(spree.admin_transaction_sync_batch_path(SuperGood::SolidusTaxjar::TransactionSyncBatch.last))
-    end
-  end
 end

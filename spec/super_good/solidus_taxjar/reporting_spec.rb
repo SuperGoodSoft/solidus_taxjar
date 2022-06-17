@@ -122,6 +122,30 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
         end
       end
     end
+
+    context "when a partially completed refund exists in the database" do
+      before do
+        create :taxjar_refund_transaction, order_transaction: order_transaction_to_refund
+      end
+
+      it "skips creating the refund transaction and model" do
+        expect { subject }
+          .not_to change { SuperGood::SolidusTaxjar::RefundTransaction.count }
+
+        expect(dummy_api)
+          .not_to have_received(:create_refund_transaction_for)
+      end
+
+      it "creates a new order transaction" do
+        expect { subject }
+          .to change { SuperGood::SolidusTaxjar::OrderTransaction.count }
+          .from(1)
+          .to(2)
+
+        expect(dummy_api)
+          .to have_received(:create_transaction_for)
+      end
+    end
   end
 
   describe "#show_or_create_transaction" do

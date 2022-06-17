@@ -143,19 +143,6 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
               end
             end
 
-            it "creates a new TaxJar order transaction" do
-              allow(dummy_client)
-                .to receive(:create_order)
-                .and_return(new_dummy_response)
-
-              perform_enqueued_jobs do
-                expect { subject }
-                  .to change { order.taxjar_order_transactions.count }
-                  .from(1)
-                  .to(2)
-              end
-            end
-
             context "when reporting is disabled" do
               let(:reporting_enabled) { false }
 

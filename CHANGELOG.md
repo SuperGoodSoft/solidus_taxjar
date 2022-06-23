@@ -2,6 +2,7 @@
 
 ## master
 
+- [#190](https://github.com/SuperGoodSoft/solidus_taxjar/pull/190) Add transaction sync batch show page
 - [#188](https://github.com/SuperGoodSoft/solidus_taxjar/pull/188) Show transaction sync batches in user interface
 - [#185](https://github.com/SuperGoodSoft/solidus_taxjar/pull/185) Backfill transactions in batches
 - [#139](https://github.com/SuperGoodSoft/solidus_taxjar/pull/139) Refund and create a new order transaction when an order is recalculated

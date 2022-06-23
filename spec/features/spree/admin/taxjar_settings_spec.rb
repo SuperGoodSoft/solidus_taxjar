@@ -30,22 +30,6 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
       expect(page).to have_content("Transaction Sync")
     end
 
-    context "order is shipped" do
-      let(:order) { create :shipped_order }
-
-      before do
-        create(:tax_rate, name: "Sales Tax")
-        # The order must be created **after** the TaxRate to have the correct totals
-        order
-      end
-
-      scenario "the user backfills their transactions" do
-        visit "/admin/taxjar_settings/edit"
-        click_on "Backfill Transactions"
-        expect(page).to have_content(order.number)
-      end
-    end
-
     context "Taxjar reporting is enabled" do
       it "shows that reporting is enabled" do
         visit "/admin/taxjar_settings/edit"

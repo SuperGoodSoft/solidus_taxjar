@@ -3,6 +3,7 @@ module SuperGood
     module Spree
       module ReportingSubscriber
         include ::Spree::Event::Subscriber
+        include SolidusSupport::LegacyEventCompat::Subscriber
 
         if ::Spree::Event.method_defined?(:register)
           ::Spree::Event.register("shipment_shipped")

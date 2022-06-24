@@ -24,7 +24,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   let(:reporting_enabled) { true }
 
   describe "order_recalculated is fired" do
-    subject { ::Spree::Event.fire "order_recalculated", order: order }
+    subject do
+      SolidusSupport::LegacyEventCompat::Bus.publish(
+        :order_recalculated,
+        order: order
+      )
+    end
 
     context "when the order is completed" do
       context "when the order has not been shipped" do
@@ -197,7 +202,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   end
 
   describe "shipment_shipped is fired" do
-    subject { Spree::Event.fire "shipment_shipped", shipment: shipment }
+    subject do
+      SolidusSupport::LegacyEventCompat::Bus.publish(
+        :shipment_shipped,
+        shipment: shipment
+      )
+    end
 
     before do
       # Ignore other events that may be triggered by factories here.

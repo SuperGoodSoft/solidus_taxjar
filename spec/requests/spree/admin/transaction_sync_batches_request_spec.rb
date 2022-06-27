@@ -10,14 +10,20 @@ RSpec.describe Spree::Admin::TransactionSyncBatchesController, :vcr, :type => :r
     example.run
     ActionController::Base.allow_forgery_protection = original
   end
-  
+
   describe "#create" do
     subject { post spree.admin_transaction_sync_batches_path }
 
     let!(:order) { create(:shipped_order) }
 
     it "creates a batch with a log for the order" do
-      expect { subject }.to change { SuperGood::SolidusTaxjar::TransactionSyncBatch.count }.from(0).to(1)
+      perform_enqueued_jobs do
+        expect { subject }
+          .to change { SuperGood::SolidusTaxjar::TransactionSyncBatch.count }
+          .from(0)
+          .to(1)
+      end
+
       batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
       expect(batch.transaction_sync_logs.last.order).to eq order
     end

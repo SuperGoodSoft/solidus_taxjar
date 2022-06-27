@@ -23,7 +23,9 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       expect(page).to have_content("TaxJar Backfill")
       click_on "TaxJar Backfill"
       within ".header-actions" do
-        click_on "Backfill Transactions"
+        perform_enqueued_jobs do
+          click_on "Backfill Transactions"
+        end
       end
       expect(page).to have_content "Transaction Sync Batch 1"
       within "#transaction_sync_batch_logs" do
@@ -34,7 +36,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       end
     end
   end
-  
+
   feature "user has started a transaction backfill" do
     let!(:transaction_sync_batch) { create :transaction_sync_batch }
     let!(:second_transaction_sync_batch) { create :transaction_sync_batch, :with_logs }
@@ -94,7 +96,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
           within "td:nth-child(2)" do
             expect(page).to have_content(processing_transaction_sync_log.order.number)
           end
-          
+
           within "td:nth-child(3)" do
             expect(page).to have_content("-")
           end

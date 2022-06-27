@@ -4,9 +4,14 @@ module Spree
       helper_method :taxjar_tax_category_option
 
       def edit
-        @configuration = SuperGood::SolidusTaxjar.configuration
-        @nexus_regions = Rails.cache.fetch(:nexus_regions) || []
-        @tax_categories = cached_tax_categories
+        if ENV["TAXJAR_API_KEY"].blank?
+          flash[:error] = "You must provide a TaxJar API token to use this extension."
+          render "edit_no_api_key"
+        else
+          @configuration = SuperGood::SolidusTaxjar.configuration
+          @nexus_regions = Rails.cache.fetch(:nexus_regions) || []
+          @tax_categories = cached_tax_categories
+        end
       end
 
       def update

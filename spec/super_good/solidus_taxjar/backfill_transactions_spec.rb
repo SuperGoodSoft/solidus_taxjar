@@ -2,11 +2,10 @@ require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxjar::BackfillTransactions do
   describe "#call" do
-    subject { described_class.new(api: api_spy).call }
+    subject { described_class.new.call }
 
     let!(:shipped_order) { create :shipped_order }
     let(:reporting_mock) { instance_double ::SuperGood::SolidusTaxjar::Reporting }
-    let(:api_spy) { instance_spy(::SuperGood::SolidusTaxjar::Api) }
     let(:test_transaction_id) { "R1234-transaction" }
 
     around do |example|

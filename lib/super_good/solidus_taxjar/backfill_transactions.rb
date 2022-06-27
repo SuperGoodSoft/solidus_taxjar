@@ -1,10 +1,6 @@
 module SuperGood
   module SolidusTaxjar
     class BackfillTransactions
-      def initialize(api: SuperGood::SolidusTaxjar.api)
-        @api = api
-      end
-
       def call
         transaction_sync_batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.create!
 
@@ -24,10 +20,6 @@ module SuperGood
 
         transaction_sync_batch
       end
-
-      private
-
-      attr_reader :api
     end
   end
 end

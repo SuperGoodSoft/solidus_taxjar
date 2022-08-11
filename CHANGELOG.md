@@ -39,6 +39,7 @@
 - [#169](https://github.com/SuperGoodSoft/solidus_taxjar/pull/169) Add basic backfill transaction functionality
 - [#181](https://github.com/SuperGoodSoft/solidus_taxjar/pull/181) Take all non-tax adjustment types into account when calculating a line item's discount
 - [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182) Automatically create default Tax Rate
+- [#176](https://github.com/SuperGoodSoft/solidus_taxjar/pull/176) Create refund transaction database models when reporting refunds.
 
 ## Upgrading Instructions
 

@@ -25,7 +25,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
   describe "#refund_and_create_transaction" do
     subject { reporting.refund_and_create_new_transaction(order) }
 
-    let(:order) { create :order, completed_at: 1.days.ago, number: "R1234-old-transaction" }
+    let(:order) { create :order_with_totals, completed_at: 1.days.ago, number: "R1234-old-transaction" }
     let!(:order_transaction_to_refund) {
       create(
         :taxjar_order_transaction,
@@ -76,6 +76,42 @@ RSpec.describe SuperGood::SolidusTaxjar::Reporting do
         transaction_id: test_order_transaction_id,
         transaction_date: test_transaction_date
       )
+    end
+
+    context "when the refund is for the full amount of the order" do
+      let(:order) { create :order, completed_at: 1.days.ago, number: "R1234-old-transaction" }
+
+      it "refunds the transaction" do
+        subject
+
+        expect(dummy_api)
+          .to have_received(:create_refund_transaction_for)
+          .with(order)
+      end
+
+      it "doesn't create a new transaction in taxjar" do
+        subject
+
+        expect(dummy_api)
+          .not_to have_received(:create_transaction_for)
+      end
+
+      it "creates a refund transaction record" do
+        expect { subject }
+          .to change { SuperGood::SolidusTaxjar::RefundTransaction.count }
+          .from(0)
+          .to(1)
+
+        expect(SuperGood::SolidusTaxjar::RefundTransaction.last).to have_attributes(
+          transaction_id: test_refund_transaction_id,
+          transaction_date: test_transaction_date,
+          order_transaction: order_transaction_to_refund
+        )
+      end
+
+      it "returns nil" do
+        expect(subject).to be_nil
+      end
     end
 
     context "when Taxjar cannot create a refund transaction", :vcr do

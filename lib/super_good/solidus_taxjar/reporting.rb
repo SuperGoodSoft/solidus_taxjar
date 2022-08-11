@@ -14,6 +14,9 @@ module SuperGood
             transaction_date: transaction_response.transaction_date
           )
         end
+
+        return if order.total.zero?
+
         if transaction_response = @api.create_transaction_for(order)
           order.taxjar_order_transactions.create!(
             transaction_id: transaction_response.transaction_id,

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxjar::BackfillTransactions do
-  describe ".call" do
+  describe "#call" do
     subject { described_class.new(api: api_spy).call }
 
     let!(:shipped_order) { create :shipped_order }

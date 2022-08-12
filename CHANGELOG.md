@@ -40,7 +40,7 @@
 - [#181](https://github.com/SuperGoodSoft/solidus_taxjar/pull/181) Take all non-tax adjustment types into account when calculating a line item's discount
 - [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182) Automatically create default Tax Rate
 - [#176](https://github.com/SuperGoodSoft/solidus_taxjar/pull/176) Create refund transaction database models when reporting refunds.
-
+- [#192](https://github.com/SuperGoodSoft/solidus_taxjar/pull/192) Handle failures that occur in the middle of refunding a transaction.
 ## Upgrading Instructions
 
 * If you had previously configured a `Spree::TaxRate` with the name "Sales Tax", it can be deleted after upgrading, as a new `Spree::TaxRate` with the name "Solidus TaxJar Rate" will automatically be created. Alternatively, you can rename your existing `Spree::TaxRate` from "Sales Tax" to "Solidus TaxJar Rate". [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182)

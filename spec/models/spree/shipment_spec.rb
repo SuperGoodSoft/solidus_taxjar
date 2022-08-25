@@ -6,9 +6,13 @@ RSpec.describe Spree::Shipment do
     let(:order) { create :order_with_line_items }
 
     it 'fires the shipment_shipped event exactly once' do
-      stub_const('Spree::Event', class_spy(Spree::Event))
-
-      expect(Spree::Event).to receive(:fire).with('shipment_shipped', shipment: shipment).once
+      expect(SolidusSupport::LegacyEventCompat::Bus)
+        .to receive(:publish)
+        .with(
+          :shipment_shipped,
+          shipment: shipment
+        )
+        .once
 
       subject
     end

@@ -6,7 +6,11 @@ module SuperGood
       module Shipment
         module FireShipmentShippedEvent
           def after_ship
-            ::Spree::Event.fire 'shipment_shipped', shipment: self
+            SolidusSupport::LegacyEventCompat::Bus.publish(
+              :shipment_shipped,
+              shipment: self
+            )
+
             super
           end
 

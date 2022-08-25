@@ -42,6 +42,7 @@
 - [#176](https://github.com/SuperGoodSoft/solidus_taxjar/pull/176) Create refund transaction database models when reporting refunds.
 - [#192](https://github.com/SuperGoodSoft/solidus_taxjar/pull/192) Handle failures that occur in the middle of refunding a transaction.
 - [#194](https://github.com/SuperGoodSoft/solidus_taxjar/pull/194) Move the transaction backfill button to it's own unique page
+- [#198](https://github.com/SuperGoodSoft/solidus_taxjar/pull/198) Don't create zero dollar transactions when an order is fully refunded.
 
 ## Upgrading Instructions
 

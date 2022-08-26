@@ -27,7 +27,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
           click_on "Backfill Transactions"
         end
       end
-      expect(page).to have_content "Transaction Sync Batch 1"
+      expect(page).to have_content /Transaction Sync Batch \d/
       within "#transaction_sync_batch_logs" do
         expect(page).to have_content order.number
         within "tbody td:nth-child(4)" do

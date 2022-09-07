@@ -22,10 +22,8 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       click_on "Taxes"
       expect(page).to have_content("TaxJar Backfill")
       click_on "TaxJar Backfill"
-      within ".header-actions" do
-        perform_enqueued_jobs do
-          click_on "Backfill Transactions"
-        end
+      perform_enqueued_jobs do
+        click_on "Backfill Transactions"
       end
       expect(page).to have_content /Transaction Sync Batch \d/
       within ".content-wrapper table" do

@@ -28,4 +28,17 @@ RSpec.describe Spree::Admin::TransactionSyncBatchesController, :vcr, :type => :r
       expect(batch.transaction_sync_logs.last.order).to eq order
     end
   end
+
+  describe "#show" do
+    subject { get spree.admin_transaction_sync_batch_path(transaction_sync_batch) }
+
+    let(:error_message) { "Uh Oh" }
+    let(:transaction_sync_batch) { create :transaction_sync_batch, transaction_sync_logs: [transaction_sync_log] }
+    let(:transaction_sync_log) { build :transaction_sync_log, error_message: error_message }
+
+    it "renders the transaction sync log error message" do
+      subject
+      expect(response.body).to include(error_message)
+    end
+  end
 end

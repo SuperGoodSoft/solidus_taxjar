@@ -4,12 +4,8 @@
   <%= "Transaction Sync Batches" %>
 <% end %>
 
-<% content_for :page_actions do %>
-  <li>
-    <%= form_with url: admin_transaction_sync_batches_path, method: :post, local: true do %>
-      <%= submit_tag "Backfill Transactions", class: "btn btn-primary" %>
-    <% end %>
-  </li>
+<%= form_with url: admin_transaction_sync_batches_path, method: :post, local: true do %>
+  <%= submit_tag "Backfill Transactions", class: "btn btn-primary" %>
 <% end %>
 
 <table id="transaction_sync_batches">

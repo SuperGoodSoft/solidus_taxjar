@@ -76,5 +76,42 @@ RSpec.describe SuperGood::SolidusTaxjar::BackfillTransactionSyncBatchJob do
         expect(sync_log.order_transaction).to be_nil
       end
     end
+
+    context "batch has start date" do
+      let(:batch) { create :transaction_sync_batch, start_date: 2.days.ago.to_date }
+      let(:start_date) { 2.days.ago.to_date }
+
+      before do
+        old_order = create :shipped_order
+        old_order.update_column(:completed_at, 3.days.ago)
+
+        shipped_order.update_column(:completed_at, Date.today.end_of_day)
+      end
+
+      it "syncs orders in the date range" do
+        subject
+        expect(batch.orders).to contain_exactly(shipped_order)
+      end
+
+    end
+
+    context "batch has start and end date" do
+      let(:batch) { create :transaction_sync_batch, start_date: 3.days.ago.to_date, end_date: 2.days.ago.to_date } 
+
+      before do
+        old_order = create :shipped_order
+        old_order.update_column(:completed_at, 4.days.ago)
+
+        new_order = create :shipped_order
+        new_order.update_column(:completed_at, Date.today.end_of_day)
+
+        shipped_order.update_column(:completed_at, 2.days.ago)
+      end
+
+      it "syncs orders in the date range" do
+        subject
+        expect(batch.orders).to contain_exactly(shipped_order)
+      end
+    end
   end
 end

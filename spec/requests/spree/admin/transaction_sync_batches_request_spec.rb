@@ -16,16 +16,54 @@ RSpec.describe Spree::Admin::TransactionSyncBatchesController, :vcr, :type => :r
 
     let!(:order) { create(:shipped_order) }
 
-    it "creates a batch with a log for the order" do
+    it "creates a batch" do
       perform_enqueued_jobs do
         expect { subject }
           .to change { SuperGood::SolidusTaxjar::TransactionSyncBatch.count }
           .from(0)
           .to(1)
+        batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
+        expect(batch).to have_attributes({start_date: nil, end_date: nil})
+      end
+    end
+
+    it "creates a log in the batch with an order" do
+      perform_enqueued_jobs do
+        subject
+
+        batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
+        expect(batch.transaction_sync_logs.last.order).to eq order
+      end
+    end
+
+    context "user supplies a start date" do
+      subject { post spree.admin_transaction_sync_batches_path, params: {start_date: 1.day.ago.to_date.to_s} }
+
+      it "creates a batch" do
+        perform_enqueued_jobs do
+          expect { subject }
+            .to change { SuperGood::SolidusTaxjar::TransactionSyncBatch.count }
+            .from(0)
+            .to(1)
+          batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
+          expect(batch).to have_attributes({start_date: 1.day.ago.to_date, end_date: nil})
+        end
       end
 
-      batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
-      expect(batch.transaction_sync_logs.last.order).to eq order
+      context "user supplies start and end date" do
+        subject { post spree.admin_transaction_sync_batches_path, params: {start_date: 1.day.ago.to_date.to_s, end_date: Date.today.to_s} }
+
+        it "creates a batch" do
+          perform_enqueued_jobs do
+            expect { subject }
+              .to change { SuperGood::SolidusTaxjar::TransactionSyncBatch.count }
+              .from(0)
+              .to(1)
+            batch = SuperGood::SolidusTaxjar::TransactionSyncBatch.last
+            expect(batch).to have_attributes({start_date: 1.day.ago.to_date, end_date: Date.today})
+          end
+        end
+      end
     end
   end
 

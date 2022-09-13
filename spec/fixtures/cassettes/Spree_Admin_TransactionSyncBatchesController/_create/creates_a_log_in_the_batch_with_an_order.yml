@@ -1,0 +1,184 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"2","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":2,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
+        - 326373"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.6.0 Darwin Kernel Version 21.6.0:
+        Sat Jun 18 17:05:47 PDT 2022; root:xnu-8020.140.41~1/RELEASE_ARM64_T8101 arm64;
+        ruby 2.7.6-p219; OpenSSL 1.1.1q  5 Jul 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '73'
+      Connection:
+      - close
+      Date:
+      - Mon, 12 Sep 2022 22:39:07 GMT
+      X-Amzn-Requestid:
+      - c7d8b50d-af23-47ff-a5f5-8e0c6e985b96
+      X-Amz-Apigw-Id:
+      - YXk53GfPIAMFhMw=
+      X-Amzn-Trace-Id:
+      - Root=1-631fb50b-728d996440d9cd502c1184e5
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 9b21fd56256eda6d1379e32829c4c446.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - nhR9lv20DItHUf-9XsUqSP82aLlN5SqBgR05Tu2E37YOg_QU8dd6nw==
+    body:
+      encoding: UTF-8
+      string: '{"status":403,"error":"Forbidden","detail":"Not authorized for resource"}'
+    http_version:
+  recorded_at: Mon, 12 Sep 2022 22:39:07 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"2","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":2,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
+        - 326373"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.6.0 Darwin Kernel Version 21.6.0:
+        Sat Jun 18 17:05:47 PDT 2022; root:xnu-8020.140.41~1/RELEASE_ARM64_T8101 arm64;
+        ruby 2.7.6-p219; OpenSSL 1.1.1q  5 Jul 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '73'
+      Connection:
+      - close
+      Date:
+      - Mon, 12 Sep 2022 22:39:07 GMT
+      X-Amzn-Requestid:
+      - 8af301c0-b505-4c2c-abf8-e49ad1fcbce2
+      X-Amz-Apigw-Id:
+      - YXk55HpQIAMF7Ww=
+      X-Amzn-Trace-Id:
+      - Root=1-631fb50b-40124f845e0e03a504f2da66
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 f7283f3fe2c258cf54f8b7d3dd272e0e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - YLUQ3eeS9KjrqTVB_YnY5iYk9PjSP_X62QT9aYZf3dVjc1qYlfhaYg==
+    body:
+      encoding: UTF-8
+      string: '{"status":403,"error":"Forbidden","detail":"Not authorized for resource"}'
+    http_version:
+  recorded_at: Mon, 12 Sep 2022 22:39:07 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/transactions/orders
+    body:
+      encoding: UTF-8
+      string: '{"customer_id":"2","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"A
+        Different Road","line_items":[{"id":2,"quantity":1,"product_identifier":"SKU-2","description":"Product
+        #2 - 4137 - Master","product_tax_code":"TaxCode - 326373","unit_price":"10.0","discount":0,"sales_tax":"0.0"}],"transaction_id":"R347410616","transaction_date":"2022-09-12T22:39:07Z","amount":"110.0","shipping":"100.0","sales_tax":"0.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Nicks-Mac-mini.local 21.6.0 Darwin Kernel Version 21.6.0:
+        Sat Jun 18 17:05:47 PDT 2022; root:xnu-8020.140.41~1/RELEASE_ARM64_T8101 arm64;
+        ruby 2.7.6-p219; OpenSSL 1.1.1q  5 Jul 2022) taxjar-ruby/3.0.2'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '73'
+      Connection:
+      - close
+      Date:
+      - Mon, 12 Sep 2022 22:39:08 GMT
+      X-Amzn-Requestid:
+      - 7b831e80-3679-4216-b8d7-1c31ade8a41b
+      X-Amzn-Remapped-Content-Length:
+      - '73'
+      X-Amzn-Remapped-Connection:
+      - keep-alive
+      X-Request-Id:
+      - FxQ-A8LgSO_SXgQ32iRB
+      X-Amz-Apigw-Id:
+      - YXk58G_fIAMFa7A=
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Amzn-Remapped-Server:
+      - Cowboy
+      X-Amzn-Remapped-Date:
+      - Mon, 12 Sep 2022 22:39:08 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 bd6f70221217681265382902c6157c76.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - Jre5Z0nYUa4Cx-Ztw8FU3lb48c0EnQcDkVN4xabRy2p4JmlNK_l6fw==
+    body:
+      encoding: UTF-8
+      string: '{"status":403,"error":"Forbidden","detail":"Not authorized for resource"}'
+    http_version:
+  recorded_at: Mon, 12 Sep 2022 22:39:08 GMT
+recorded_with: VCR 4.0.0

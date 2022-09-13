@@ -4,8 +4,20 @@
   <%= "Transaction Sync Batches" %>
 <% end %>
 
-<%= form_with url: admin_transaction_sync_batches_path, method: :post, local: true do %>
-  <%= submit_tag "Backfill Transactions", class: "btn btn-primary" %>
+<%= form_with url: admin_transaction_sync_batches_path, method: :post, local: true do |f| %>
+  <div class="row" style="margin-bottom: 20px;">
+    <div class="col-3">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date %>
+    </div>
+    <div class="col-3">
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date %>
+    </div>
+    <div class="col-3" style="align-self: flex-end;">
+      <%= f.submit "Backfill Transactions", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
 
 <table id="transaction_sync_batches">

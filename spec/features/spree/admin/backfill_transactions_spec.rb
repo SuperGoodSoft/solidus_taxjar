@@ -14,6 +14,12 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
 
   feature "user has a shipped order" do
     let!(:order) { create :shipped_order }
+    let!(:excluded_order) { create :shipped_order }
+
+    before do
+      order.update_column(:completed_at, 1.day.ago)
+      excluded_order.update_column(:completed_at, 4.days.ago)
+    end
 
     scenario "starts a transaction backfill" do
       visit '/admin'
@@ -22,11 +28,15 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       click_on "Taxes"
       expect(page).to have_content("TaxJar Backfill")
       click_on "TaxJar Backfill"
+      fill_in "Start date", with: 2.days.ago.to_date
+      fill_in "End date", with: Date.today
       perform_enqueued_jobs do
         click_on "Backfill Transactions"
       end
       expect(page).to have_content /Transaction Sync Batch \d/
       within ".content-wrapper table" do
+        expect(page).to_not have_content excluded_order.number
+        expect(page).to_not have_content excluded_order.number
         expect(page).to have_content order.number
         within "tbody td:nth-child(4)" do
           expect(page).to have_content("Success")

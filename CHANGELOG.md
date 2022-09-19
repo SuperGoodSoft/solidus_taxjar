@@ -44,6 +44,7 @@
 - [#194](https://github.com/SuperGoodSoft/solidus_taxjar/pull/194) Move the transaction backfill button to it's own unique page
 - [#198](https://github.com/SuperGoodSoft/solidus_taxjar/pull/198) Don't create zero dollar transactions when an order is fully refunded.
 - [#195](https://github.com/SuperGoodSoft/solidus_taxjar/pull/195) Run transaction backfills asynchronously
+- [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Expand solidus gem into dependencies to support Solidus 3.2+
 
 ## Upgrading Instructions
 

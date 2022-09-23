@@ -47,6 +47,7 @@
 - [#195](https://github.com/SuperGoodSoft/solidus_taxjar/pull/195) Run transaction backfills asynchronously
 - [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Expand solidus gem into dependencies to support Solidus 3.2+
 - [#183](https://github.com/SuperGoodSoft/solidus_taxjar/pull/183) Add ability to fetch tax codes from TaxJar and assign to tax categories in admin
+- [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/199) Render error message when backfilling transactions fails
 
 ## Upgrading Instructions
 

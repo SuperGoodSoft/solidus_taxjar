@@ -5,8 +5,9 @@ module SuperGood
     class ReportTransactionJob < ApplicationJob
       queue_as { SuperGood::SolidusTaxjar.job_queue }
 
-      def perform(order)
+      def perform(order, transaction_sync_batch = nil)
         transaction_sync_log = SuperGood::SolidusTaxjar::TransactionSyncLog.create!(
+          transaction_sync_batch: transaction_sync_batch,
           order: order
         )
         begin

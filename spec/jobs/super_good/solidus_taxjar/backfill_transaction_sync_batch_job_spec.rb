@@ -2,7 +2,11 @@ require "spec_helper"
 
 RSpec.describe SuperGood::SolidusTaxjar::BackfillTransactionSyncBatchJob do
   describe "#perform" do
-    subject { described_class.new.perform(batch) }
+    subject do
+      perform_enqueued_jobs do
+        described_class.new.perform(batch)
+      end
+    end
 
     let!(:shipped_order) { create :shipped_order }
     let(:reporting_mock) { instance_double ::SuperGood::SolidusTaxjar::Reporting }

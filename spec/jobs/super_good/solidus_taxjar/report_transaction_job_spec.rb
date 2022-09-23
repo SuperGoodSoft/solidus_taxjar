@@ -34,6 +34,24 @@ RSpec.describe SuperGood::SolidusTaxjar::ReportTransactionJob do
         )
     end
 
+    context "when a transaction sync batch is passed" do
+      subject { described_class.perform_now(order, transaction_sync_batch) }
+
+      let(:transaction_sync_batch) { create :transaction_sync_batch }
+
+      it "creates a transaction sync log associated with the given batch" do
+        expect { subject }
+          .to change { ::SuperGood::SolidusTaxjar::TransactionSyncLog.count }
+          .from(0)
+          .to(1)
+
+        expect(::SuperGood::SolidusTaxjar::TransactionSyncLog.last)
+          .to have_attributes(
+            transaction_sync_batch: transaction_sync_batch
+          )
+      end
+    end
+
     context "when syncing to taxjar fails" do
       before do
         allow(mock_reporting)

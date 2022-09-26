@@ -3,5 +3,9 @@ FactoryBot.define do
     trait :reporting_enabled do
       preferred_reporting_enabled { true }
     end
+
+    trait :reporting_disabled do
+      preferred_reporting_enabled { false }
+    end
   end
 end

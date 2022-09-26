@@ -1,8 +1,30 @@
 
 <!-- insert_bottom "[id='order_tab_summary'] > .additional-info" -->
 
+<% content_for :head do %>
+  <style>
+    .pill-success {
+      background: #c8d8e8;
+    }
+  </style>
+<% end %>
+
 <% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
+  <% last_sync_log = @order.taxjar_transaction_sync_logs.order(:created_at).last %>
   <dt>Reported to TaxJar at:</dt>
-  <% last_sync_date = @order.taxjar_transaction_sync_logs.order(:created_at).last&.created_at %>
-  <dd> <%= last_sync_date ? pretty_time(last_sync_date) : "-" %></dd>
+  <dd> <%= last_sync_log ? pretty_time(last_sync_log.created_at) : "-" %></dd>
+  <dt>TaxJar Sync: </dt>
+  <dd>
+    <% last_sync_log_status = if last_sync_log
+        last_sync_log.status
+      else
+        SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled ?
+          "pending" :
+          "disabled"
+      end
+    %>
+    <span class="pill pill-<%= last_sync_log_status %>">
+      <%= last_sync_log_status.capitalize %>
+    </span>
+  </dd>
 <% end

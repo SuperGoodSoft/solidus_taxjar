@@ -6,6 +6,8 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: true do
   background do
     create :store, default: true
     create :taxjar_configuration, :reporting_enabled
+
+    allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
   end
 
   let!(:order) { create :order_ready_to_ship }
@@ -17,9 +19,9 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: true do
       click_on "Ship"
       expect(page).to have_content("Shipped package from")
     end
-    # Ensure that the order has actually been reported to TaxJar
-    # and a record has been made.
-    expect(order.reload.taxjar_order_transactions.count).to eq(1)
+
+    expect(page).to have_text("Reported to TaxJar at: #{Date.current.strftime("%B %d, %Y")}", normalize_ws: true)
+    expect(page).to have_text("TaxJar Sync: Success", normalize_ws: true)
   end
 
   def wait_for_order_information_to_load

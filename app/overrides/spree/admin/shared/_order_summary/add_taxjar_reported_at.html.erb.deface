@@ -1,0 +1,8 @@
+
+<!-- insert_bottom "[id='order_tab_summary'] > .additional-info" -->
+
+<% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
+  <dt>Reported to TaxJar at:</dt>
+  <% last_sync_date = @order.taxjar_transaction_sync_logs.order(:created_at).last&.created_at %>
+  <dd> <%= last_sync_date ? pretty_time(last_sync_date) : "-" %></dd>
+<% end

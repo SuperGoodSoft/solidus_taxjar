@@ -6,15 +6,15 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
   extend Spree::TestingSupport::AuthorizationHelpers::Request
   stub_authorization!
 
+  before do
+    allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
+  end
+
   describe "#edit" do
     subject { get spree.edit_admin_order_path(order) }
 
     let!(:order) { create(:shipped_order) }
     let(:reporting_enabled) { true }
-
-    before do
-      allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
-    end
 
     around do |example|
       begin
@@ -98,6 +98,17 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
         subject
         expect(response.body).not_to have_text("Reported to TaxJar at")
       end
+    end
+  end
+
+  describe "#taxjar_transactions" do
+    subject { get spree.taxjar_transactions_admin_order_path(order) }
+
+    let!(:order) { create(:shipped_order) }
+
+    it "renders the taxjar transactions page for the order" do
+      subject
+      expect(response.body).to have_content("TaxJar Sync History - Order #{order.number}")
     end
   end
 end

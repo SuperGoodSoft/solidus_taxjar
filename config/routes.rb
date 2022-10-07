@@ -7,5 +7,11 @@ Spree::Core::Engine.routes.draw do
     get 'taxjar_settings/sync_nexus_regions', to: 'taxjar_settings#sync_nexus_regions'
     get 'taxjar_settings/sync_tax_categories', to: 'taxjar_settings#sync_tax_categories'
     post 'taxjar_settings/backfill_transactions', to: 'taxjar_settings#backfill_transactions'
+
+    resources :orders do
+      member do
+        get :taxjar_transactions
+      end
+    end
   end
 end

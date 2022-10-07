@@ -1,3 +1,5 @@
 <% content_for :page_title do %>
   <%= "TaxJar Sync History - Order " + @order.number %>
 <% end %>
+
+<%= render 'spree/admin/shared/transaction_sync_log_table', transaction_sync_logs: @order.taxjar_transaction_sync_logs %>

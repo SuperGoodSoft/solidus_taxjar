@@ -28,7 +28,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
         end
       end
       expect(page).to have_content /Transaction Sync Batch \d/
-      within "#transaction_sync_batch_logs" do
+      within ".content-wrapper table" do
         expect(page).to have_content order.number
         within "tbody td:nth-child(4)" do
           expect(page).to have_content("Success")
@@ -87,7 +87,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
         find(".fa-edit").click
       end
 
-      within "#transaction_sync_batch_logs" do
+      within ".content-wrapper table" do
         within "tbody tr:first-child" do
           within "td:first-child" do
             expect(page).to have_content(processing_transaction_sync_log.id)

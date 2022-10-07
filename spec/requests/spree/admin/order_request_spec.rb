@@ -105,10 +105,20 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
     subject { get spree.taxjar_transactions_admin_order_path(order) }
 
     let!(:order) { create(:shipped_order) }
+    let(:order_transaction) { create :taxjar_order_transaction, transaction_id: "Test-123"}
+
+    before do
+      create :transaction_sync_log, order: order, order_transaction: order_transaction, status: :success
+    end
 
     it "renders the taxjar transactions page for the order" do
       subject
       expect(response.body).to have_content("TaxJar Sync History - Order #{order.number}")
+    end
+
+    it "renders the transaction sync logs" do
+      subject
+      expect(response.body).to have_text("#{order.number} Test-123 Success", normalize_ws: true)
     end
   end
 end

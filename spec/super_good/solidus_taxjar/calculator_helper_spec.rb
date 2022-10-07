@@ -57,4 +57,69 @@ RSpec.describe SuperGood::SolidusTaxjar::CalculatorHelper do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe "#taxable_address?" do
+    subject { TestProxy.taxable_address?(address) }
+
+    let(:configuration_class) { double }
+
+    before do
+      allow(SuperGood::SolidusTaxjar)
+        .to receive(:taxable_address_check)
+        .and_return(configuration_class)
+      allow(configuration_class).to receive(:call)
+        .and_return(taxable_address)
+    end
+
+    context "when taxable address check returns false" do
+      let(:taxable_address) { false }
+      let(:address) do
+        create :address, name: "Canada", country_iso_code: "CA"
+      end
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when taxable address check returns true" do
+      let(:taxable_address) { true }
+
+      context "with non-US address" do
+        let(:address) do
+          create :address, name: "Canada", country_iso_code: "CA"
+        end
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "with US address", :vcr do
+        let(:usa) { create :country, iso: "US", name: "United States" }
+
+        # This test expects a TaxJar account to have nexus in California.
+        #
+        context "when the address is within a nexus region" do
+          let(:address) {
+            create :address,
+              state: create(:state, abbr: "CA", country: usa, name: "Cali!"),
+              country: usa,
+              zipcode: "94704"
+          }
+
+          it { is_expected.to eq true }
+        end
+
+        # This test expects a TaxJar account to *not* have nexus in Alabama.
+        #
+        context "when the address is not within a nexus region" do
+          let(:address) {
+            create :address,
+              state: create(:state, abbr: "AL", country: usa, name: "Alabama"),
+              country: usa,
+              zipcode: "35006"
+          }
+
+          it { is_expected.to eq false }
+        end
+      end
+    end
+  end
 end

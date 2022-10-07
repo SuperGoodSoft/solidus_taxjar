@@ -21,7 +21,8 @@ module SuperGood
       end
 
       def taxable_address?(address)
-        SuperGood::SolidusTaxjar.taxable_address_check.call(address)
+        SuperGood::SolidusTaxjar.taxable_address_check.call(address) &&
+          address_in_nexus_region?(address)
       end
 
       def cache
@@ -46,6 +47,17 @@ module SuperGood
       # @return [Boolean] True if the "state" field is required for the country
       def state_required?(country)
         ["CA", "US"].include?(country&.iso)
+      end
+
+      private
+
+      def address_in_nexus_region?(address)
+        return true unless address&.country&.iso == "US"
+
+        ::SuperGood::SolidusTaxjar.api
+          .nexus_regions
+          .map(&:region_code)
+          .include?(address.state.abbr)
       end
     end
   end

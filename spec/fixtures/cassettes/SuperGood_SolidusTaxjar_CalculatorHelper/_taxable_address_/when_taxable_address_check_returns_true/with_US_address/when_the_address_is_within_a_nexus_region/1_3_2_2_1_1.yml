@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.taxjar.com/v2/nexus/regions
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin poison-ivy 21.6.0 Darwin Kernel Version 21.6.0: Mon Aug
+        22 20:17:10 PDT 2022; root:xnu-8020.140.49~2/RELEASE_X86_64 x86_64; ruby 2.7.5-p203;
+        OpenSSL 1.1.1q  5 Jul 2022) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '277'
+      Connection:
+      - close
+      Date:
+      - Fri, 25 Nov 2022 22:33:55 GMT
+      X-Amzn-Requestid:
+      - 6665b53c-40c3-401a-8373-4203f0adb1cf
+      X-Amz-Apigw-Id:
+      - cLdhHEHhoAMF_ag=
+      X-Amzn-Trace-Id:
+      - Root=1-638142d3-13c376eb32cc65a057315a7f
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 bb568be725e8f0bfefe1fb7412e5804a.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - YVR50-C1
+      X-Amz-Cf-Id:
+      - wPdG73shuV9FTpkClpRar3uJ6ZfF0qNkBqtmCKpdv--_fxPvk2smLA==
+    body:
+      encoding: UTF-8
+      string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
+        States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
+        States"}]}'
+    http_version:
+  recorded_at: Fri, 25 Nov 2022 22:33:55 GMT
+recorded_with: VCR 4.0.0

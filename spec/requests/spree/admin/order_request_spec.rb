@@ -36,6 +36,11 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
       expect(response.body).to have_text("TaxJar Sync: Pending", normalize_ws: true)
     end
 
+    it "displays a link to view the TaxJar Sync History" do
+      subject
+      expect(response.body).to have_link("TaxJar Sync History", href: spree.taxjar_transactions_admin_order_path(order))
+    end
+
     context "if the order has reported transactions" do
       let(:latest_sync_log_status) { :success }
 
@@ -113,7 +118,7 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
 
     it "renders the taxjar transactions page for the order" do
       subject
-      expect(response.body).to have_content("TaxJar Sync History - Order #{order.number}")
+      expect(response.body).to have_text(/TaxJar Sync History - #?#{order.number} - Orders/)
     end
 
     it "renders the transaction sync logs" do

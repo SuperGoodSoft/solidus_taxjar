@@ -1,0 +1,6 @@
+
+<!-- insert_bottom "[data-hook='admin_order_tabs']" -->
+
+<li class="<%= "active" if current == "TaxJar Sync History" %>" data-hook='admin_order_tabs_order_details'>
+  <%= link_to "TaxJar Sync History", spree.taxjar_transactions_admin_order_path(@order) %>
+</li>

@@ -49,6 +49,7 @@
 - [#183](https://github.com/SuperGoodSoft/solidus_taxjar/pull/183) Add ability to fetch tax codes from TaxJar and assign to tax categories in admin
 - [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Render error message when backfilling transactions fails
 - [#203](https://github.com/SuperGoodSoft/solidus_taxjar/pull/203) Remove outdated backfill button
+- [#202](https://github.com/SuperGoodSoft/solidus_taxjar/pull/202) Add TaxJar transaction sync status to order show page
 
 ## Upgrading Instructions
 

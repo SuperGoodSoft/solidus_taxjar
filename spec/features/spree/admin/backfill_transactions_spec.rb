@@ -7,11 +7,6 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
     create :store, default: true
   end
 
-  before do
-    allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
-  end
-
-
   feature "user has a shipped order" do
     let!(:order) { create :shipped_order }
 

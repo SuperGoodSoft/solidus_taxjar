@@ -6,14 +6,12 @@
 
 <%= render 'nexus_regions' %>
 <%= render 'tax_categories' %>
-<% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
-  <%= form_with model: @configuration, url: admin_taxjar_settings_path, method: :put, local: true do |form| %>
-    <%= render "spree/admin/shared/preference_fields/boolean",
-          attribute:  :preferred_reporting_enabled,
-          label: "Transaction Sync",
-          form: form
-    %>
-    <p>Sync orders and refund with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.</p>
-    <%= form.submit %>
-  <% end %>
+<%= form_with model: @configuration, url: admin_taxjar_settings_path, method: :put, local: true do |form| %>
+  <%= render "spree/admin/shared/preference_fields/boolean",
+        attribute:  :preferred_reporting_enabled,
+        label: "Transaction Sync",
+        form: form
+  %>
+  <p>Sync orders and refund with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.</p>
+  <%= form.submit %>
 <% end %>

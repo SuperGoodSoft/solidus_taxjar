@@ -12,10 +12,6 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
     let!(:order) { create(:shipped_order) }
     let(:reporting_enabled) { true }
 
-    before do
-      allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
-    end
-
     around do |example|
       begin
         old_value = SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
@@ -86,17 +82,6 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
           subject
           expect(response.body).to have_text("TaxJar Sync: #{latest_sync_log_status.capitalize}", normalize_ws: true)
         end
-      end
-    end
-
-    context "when the reporting UI is disabled" do
-      before do
-        allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(false)
-      end
-
-      it "does not show the reported at time" do
-        subject
-        expect(response.body).not_to have_text("Reported to TaxJar at")
       end
     end
   end

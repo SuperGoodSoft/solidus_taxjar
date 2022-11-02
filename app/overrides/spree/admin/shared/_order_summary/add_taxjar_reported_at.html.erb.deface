@@ -9,22 +9,20 @@
   </style>
 <% end %>
 
-<% if SuperGood::SolidusTaxjar.reporting_ui_enabled %>
-  <% last_sync_log = @order.taxjar_transaction_sync_logs.order(:created_at).last %>
-  <dt>Reported to TaxJar at:</dt>
-  <dd> <%= last_sync_log ? pretty_time(last_sync_log.created_at) : "-" %></dd>
-  <dt>TaxJar Sync: </dt>
-  <dd>
-    <% last_sync_log_status = if last_sync_log
-        last_sync_log.status
-      else
-        SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled ?
-          "pending" :
-          "disabled"
-      end
-    %>
-    <span class="pill pill-<%= last_sync_log_status %>">
-      <%= last_sync_log_status.capitalize %>
-    </span>
-  </dd>
-<% end
+<% last_sync_log = @order.taxjar_transaction_sync_logs.order(:created_at).last %>
+<dt>Reported to TaxJar at:</dt>
+<dd> <%= last_sync_log ? pretty_time(last_sync_log.created_at) : "-" %></dd>
+<dt>TaxJar Sync: </dt>
+<dd>
+  <% last_sync_log_status = if last_sync_log
+      last_sync_log.status
+    else
+      SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled ?
+        "pending" :
+        "disabled"
+    end
+  %>
+  <span class="pill pill-<%= last_sync_log_status %>">
+    <%= last_sync_log_status.capitalize %>
+  </span>
+</dd>

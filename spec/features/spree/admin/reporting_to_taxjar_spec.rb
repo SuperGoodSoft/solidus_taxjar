@@ -6,8 +6,6 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: true do
   background do
     create :store, default: true
     create :taxjar_configuration, :reporting_enabled
-
-    allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
   end
 
   let!(:order) { create :order_ready_to_ship }

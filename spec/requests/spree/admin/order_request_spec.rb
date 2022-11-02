@@ -93,17 +93,6 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
         end
       end
     end
-
-    context "when the reporting UI is disabled" do
-      before do
-        allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(false)
-      end
-
-      it "does not show the reported at time" do
-        subject
-        expect(response.body).not_to have_text("Reported to TaxJar at")
-      end
-    end
   end
 
   describe "#taxjar_transactions" do

@@ -14,7 +14,6 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("TAXJAR_API_KEY").and_return(api_token)
-      allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
     end
 
     scenario "the user navigates to the TaxJar Settings" do

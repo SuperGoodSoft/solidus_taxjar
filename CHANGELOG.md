@@ -51,6 +51,7 @@
 - [#203](https://github.com/SuperGoodSoft/solidus_taxjar/pull/203) Remove outdated backfill button
 - [#202](https://github.com/SuperGoodSoft/solidus_taxjar/pull/202) Add TaxJar transaction sync status to order show page
 - [#204](https://github.com/SuperGoodSoft/solidus_taxjar/pull/204) Add page to render an orders TaxJar transactions
+- [#201](https://github.com/SuperGoodSoft/solidus_taxjar/pull/201) Allow transaction backfills to be filtered by date range
 
 ## Upgrading Instructions
 

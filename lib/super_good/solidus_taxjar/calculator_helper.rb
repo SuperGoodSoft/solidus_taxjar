@@ -54,7 +54,8 @@ module SuperGood
       def address_in_nexus_region?(address)
         return true unless address&.country&.iso == "US"
 
-        ::SuperGood::SolidusTaxjar.api
+        ::SuperGood::SolidusTaxjar::CachedApi
+          .new
           .nexus_regions
           .map(&:region_code)
           .include?(address.state.abbr)

@@ -9,7 +9,7 @@ module Spree
           render "edit_no_api_key"
         else
           @configuration = SuperGood::SolidusTaxjar.configuration
-          @nexus_regions = Rails.cache.fetch(:nexus_regions) || []
+          @nexus_regions = cached_api.nexus_regions || []
           @tax_categories = cached_tax_categories
         end
       end
@@ -22,11 +22,7 @@ module Spree
 
       def sync_nexus_regions
         api_sync do
-          Rails.cache.write(
-            :nexus_regions,
-            SuperGood::SolidusTaxjar.api.nexus_regions,
-            expires_in: SuperGood::SolidusTaxjar.cache_duration
-          )
+          cached_api.nexus_regions(refresh: true)
           flash[:success] = "Updated with new Nexus Regions"
         end
       end
@@ -39,6 +35,10 @@ module Spree
       end
 
       private
+
+      def cached_api
+        SuperGood::SolidusTaxjar::CachedApi.new
+      end
 
       def configuration_params
         params.require(:super_good_solidus_taxjar_configuration).permit(:preferred_reporting_enabled)

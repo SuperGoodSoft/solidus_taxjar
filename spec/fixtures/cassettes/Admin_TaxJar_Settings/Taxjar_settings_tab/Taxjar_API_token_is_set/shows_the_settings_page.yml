@@ -2,15 +2,15 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.taxjar.com/v2/categories
+    uri: https://api.taxjar.com/v2/nexus/regions
     body:
       encoding: UTF-8
       string: ''
     headers:
       User-Agent:
-      - 'TaxJar/Ruby (Darwin MacBook-Pro.hitronhub.home 21.2.0 Darwin Kernel Version
-        21.2.0: Sun Nov 28 20:28:54 PST 2021; root:xnu-8019.61.5~1/RELEASE_X86_64
-        x86_64; ruby 2.6.6-p146; OpenSSL 1.1.1m  14 Dec 2021) taxjar-ruby/3.0.2'
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
       Authorization:
       - Bearer <BEARER_TOKEN>
       X-Api-Version:
@@ -29,30 +29,95 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '202081'
+      - '277'
       Connection:
       - close
       Date:
-      - Wed, 30 Mar 2022 17:54:13 GMT
+      - Fri, 13 Jan 2023 21:24:58 GMT
       X-Amzn-Requestid:
-      - 5715a1ff-b606-4801-931f-7ab1f506781f
-      Access-Control-Allow-Origin:
-      - https://developers.taxjar.com
+      - d7a20976-4605-4955-8b0a-e65672ef6d61
       X-Amz-Apigw-Id:
-      - Pzzi8EKKIAMFsXw=
+      - eszWvH2ZIAMFcwA=
       X-Amzn-Trace-Id:
-      - Root=1-62449945-5a381da920c662a21fe79225
+      - Root=1-63c1cc2a-774f22da6baf34de343f2ed5
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 b13f158bdf9805ca47e07c0c35870c12.cloudfront.net (CloudFront)
+      - 1.1 27fe6f224e0cfa3f3a446471ee256e56.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA73-P2
       X-Amz-Cf-Id:
-      - 8ZmlCcrsPuFfXkAmScj3lkPR6mmebnh-nWBl534Hb7ujPcOPszn27w==
+      - 63l1XOtq41ikKduJAtAXq0IkxAV2hS6drDFK90iKjjIkhRmdzqjygw==
     body:
       encoding: UTF-8
-      string: '{"categories":[{"description":"Bibles","name":"Bibles","product_tax_code":"81121"},{"description":"Paper
+      string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
+        States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
+        States"}]}'
+    http_version:
+  recorded_at: Fri, 13 Jan 2023 21:24:58 GMT
+- request:
+    method: get
+    uri: https://api.taxjar.com/v2/categories
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '202579'
+      Connection:
+      - close
+      Date:
+      - Fri, 13 Jan 2023 21:24:59 GMT
+      X-Amzn-Requestid:
+      - 15eda5b3-ad4d-4bd7-bf92-4dd93f7c253c
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - eszWwHdUIAMFuRA=
+      X-Amzn-Trace-Id:
+      - Root=1-63c1cc2b-0430f9ef2c6503ca34ddab26
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 3c974a460e97e56c6eb1e6a30797d9d6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - NA9E09XgPosB6j3aw5GvGDHjIQrQlpQ8Z7hJTLksbGXiOIsNe_03TQ==
+    body:
+      encoding: UTF-8
+      string: '{"categories":[{"description":"Topical foams, creams, gels, etc. that
+        prevent hair loss and promote hair regrowth.  These products contain a \"drug
+        facts\" panel or a statement of active ingredients.  This code is intended
+        for sales directly to end consumers that are NOT healthcare providers.","name":"Hair
+        Loss Products - Medicated","product_tax_code":"51182001A0001"},{"description":"Children''s
+        books including picture books, painting, drawing, and activity books.","name":"Children''s
+        Books","product_tax_code":"35010001"},{"description":"A separately stated
+        charge for a return or cancellation of merchandise where the entire original
+        sales price is refunded or credited to the customer.  The restocking fee is
+        normally charged to compensate the seller for costs related to returning the
+        merchandise to the seller’s inventory","name":"Restocking Fee","product_tax_code":"93151599A0000"},{"description":"Bibles","name":"Bibles","product_tax_code":"81121"},{"description":"Paper
         based items for household use designed to be disposed of after single use,
         including the the following...Facial tissue; Paper bags; Paper freezer wrap;
         Paper place mats; Paper plates and cups; Paper napkins; Paper straws; Paper
@@ -1259,11 +1324,7 @@ http_interactions:
         generally based on disinfectants, or on antimicrobial agents.  These products
         contain a \"drug facts\" panel or a statement of active ingredients.  This
         code is intended for sales directly to end consumers that are NOT healthcare
-        providers.","name":"Hand Sanitizers","product_tax_code":"53131626A0000"},{"description":"Topical
-        foams, creams, gels, etc that prevent hair loss and promote hair regrowth.  These
-        products contain a \"drug facts\" panel or a statement of active ingredients.  This
-        code is intended for sales directly to end consumers that are NOT healthcare
-        providers.","name":"Hair Loss Products","product_tax_code":"51182001A0001"},{"description":"A
+        providers.","name":"Hand Sanitizers","product_tax_code":"53131626A0000"},{"description":"A
         collection of mixed supplies and equipment that is used to give medical treatment,
         often housed in durable plastic boxes, fabric pouches or in wall mounted cabinets.  Exempt
         or low rated qualifying medicinal items (eg. OTC drugs) make up 51% or more
@@ -1286,7 +1347,7 @@ http_interactions:
         providers.","name":"Feminine Cleansing Solutions - Medicated","product_tax_code":"53131615A0002"},{"description":"Vaginal
         cleaning products include douches and wipes. This code is intended for sales
         directly to end consumers that are NOT healthcare providers.","name":"Feminine
-        Cleansing Solutions","product_tax_code":"53131615A0001"},{"description":"Single
+        Cleansing Solutions - Unmedicated","product_tax_code":"53131615A0001"},{"description":"Single
         use disposable gloves (latex, nitrile, vinyl, etc) that while appropriate
         for multiple uses,  have an application in a first aid or medical setting.  This
         code is intended for sales directly to end consumers that are NOT healthcare
@@ -1721,11 +1782,10 @@ http_interactions:
         content bundle - Delivered electronically with less than permanent rights
         of usage and streamed","name":"Electronic content bundle - Delivered electronically
         with less than permanent rights of usage and streamed","product_tax_code":"55111500A9220"},{"description":"Clothing
-        - Welding masks","name":"Clothing - Welding masks","product_tax_code":"46181703A0001"},{"description":"Clothing
-        - Protective wear dispenser","name":"Clothing - Protective wear dispenser","product_tax_code":"46181553A0001"},{"description":"Clothing
+        - Welding masks","name":"Clothing - Welding masks","product_tax_code":"46181703A0001"},{"description":"Protective
+        wear dispenser","name":"Protective wear dispenser","product_tax_code":"46181553A0001"},{"description":"Clothing
         - Anti cut gloves","name":"Clothing - Anti cut gloves","product_tax_code":"46181536A0001"},{"description":"Clothing
-        - Reflective apparel or accessories","name":"Clothing - Reflective apparel
-        or accessories","product_tax_code":"46181531A0001"},{"description":"Clothing
+        - Reflective apparel","name":"Clothing - Reflective apparel","product_tax_code":"46181531A0001"},{"description":"Clothing
         - Heat resistant clothing","name":"Clothing - Heat resistant clothing","product_tax_code":"46181518A0001"},{"description":"Clothing
         - Cleanroom apparel","name":"Clothing - Cleanroom apparel","product_tax_code":"46181512A0001"},{"description":"Clothing
         - Hazardous material protective apparel","name":"Clothing - Hazardous material
@@ -2062,14 +2122,14 @@ http_interactions:
         with the food comprising between 50% and 75% of the overall value of the bundle.","name":"Food/TPP
         Bundle - with Food between 50% and 75%","product_tax_code":"50193400A0002"},{"description":"Food/TPP
         Bundle - with Food less than 50%","name":"Food/TPP Bundle - with Food less
-        than 50%","product_tax_code":"50193400A0006"},{"description":"Ready to drink
-        beverages, not containing milk, formulated and labled for their nutritional
-        value, such as increased caloric or protein intake and containing natrual
-        or artificial sweeteners.","name":"Nutritional Supplement/protein drinks,
-        shakes - contains no milk","product_tax_code":"50501703A0000"},{"description":"Ready
-        to drink beverages, containing milk, formulated and labled for their nutritional
-        value, such as increased caloric or protein intake.","name":"Nutritional Supplement/protein
-        drinks, shakes - contains milk","product_tax_code":"50501703A0001"},{"description":"Powdered
+        than 50%","product_tax_code":"50193400A0006"},{"description":"Ready-to-drink
+        beverages not containing milk, formulated and labeled for their nutritional
+        value, such as increased caloric or protein intake, containing natural or
+        artificial sweeteners.","name":"Nutritional Supplements, Protein Drinks, Shakes
+        - Contains No Milk","product_tax_code":"50501703A0000"},{"description":"Ready-to-drink
+        beverages containing milk, formulated and labeled for their nutritional value,
+        such as increased caloric or protein intake.","name":"Nutritional Supplements,
+        Protein Drinks, Shakes - Contains Milk","product_tax_code":"50501703A0001"},{"description":"Powdered
         mixes to be reconstituted into a drinkable beverage using water.","name":"Powdered
         Drink Mixes - to be mixed with water","product_tax_code":"50202311A0000"},{"description":"Powdered
         mixes to be reconstituted into a drinkable beverage using milk or a milk substitute.","name":"Powdered
@@ -2318,7 +2378,7 @@ http_interactions:
         to be Food & Grocery (not food for home consumption or food which requires
         further preparation to consume).","name":"Prepared Foods","product_tax_code":"41000"}]}'
     http_version:
-  recorded_at: Wed, 30 Mar 2022 17:54:14 GMT
+  recorded_at: Fri, 13 Jan 2023 21:24:59 GMT
 - request:
     method: get
     uri: https://api.taxjar.com/v2/nexus/regions
@@ -2327,9 +2387,9 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - 'TaxJar/Ruby (Darwin MacBook-Pro.hitronhub.home 21.2.0 Darwin Kernel Version
-        21.2.0: Sun Nov 28 20:28:54 PST 2021; root:xnu-8019.61.5~1/RELEASE_X86_64
-        x86_64; ruby 2.6.6-p146; OpenSSL 1.1.1m  14 Dec 2021) taxjar-ruby/3.0.2'
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
       Authorization:
       - Bearer <BEARER_TOKEN>
       X-Api-Version:
@@ -2352,26 +2412,26 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Wed, 30 Mar 2022 17:54:14 GMT
+      - Fri, 13 Jan 2023 21:25:00 GMT
       X-Amzn-Requestid:
-      - c76dd802-9f16-44a1-a968-aad509ffe14f
+      - 16ae3cbc-a892-4c47-b55f-d19ad68b75ca
       X-Amz-Apigw-Id:
-      - PzzjFHp7IAMFpWQ=
+      - eszW5GnRoAMFRFQ=
       X-Amzn-Trace-Id:
-      - Root=1-62449946-784584c3523fdcc45555eb05
+      - Root=1-63c1cc2b-2e57a1876f3a6d5d08859599
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 cd858042f70b416ca05e042acf3908a4.cloudfront.net (CloudFront)
+      - 1.1 7f06047c304d80ea094816a27c933914.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA73-P2
       X-Amz-Cf-Id:
-      - 3R47IHeqYFFQ8nOthLUzpu-UqCK7mymHVUKCgi1TxrZJAa5fAy2gdQ==
+      - 8PM1psjBh3Awqs73FVv7p8MT5242Ln5uTq9LuYqYxBJB_HH9Q_dZHA==
     body:
       encoding: UTF-8
       string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
         States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
         States"}]}'
     http_version:
-  recorded_at: Wed, 30 Mar 2022 17:54:14 GMT
+  recorded_at: Fri, 13 Jan 2023 21:25:00 GMT
 recorded_with: VCR 4.0.0

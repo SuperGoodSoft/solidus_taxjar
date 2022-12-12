@@ -1,18 +1,16 @@
 ---
 http_interactions:
 - request:
-    method: post
-    uri: https://api.taxjar.com/v2/taxes
+    method: get
+    uri: https://api.taxjar.com/v2/nexus/regions
     body:
       encoding: UTF-8
-      string: '{"to_country":"US","to_zip":"91761","to_city":"Ontario","to_state":"CA","to_street":"450
-        Helen Ave","line_items":[{"id":9999,"quantity":1,"unit_price":"19.99","discount":"-0.0","product_tax_code":"TaxCode
-        - 932150"}],"shipping":"10.0"}'
+      string: ''
     headers:
       User-Agent:
-      - 'TaxJar/Ruby (Darwin Noahs-MacBook-Pro.local 20.6.0 Darwin Kernel Version
-        20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64
-        x86_64; ruby 2.6.7-p197; OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.2'
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
       Authorization:
       - Bearer <BEARER_TOKEN>
       X-Api-Version:
@@ -21,8 +19,6 @@ http_interactions:
       - supergoodsolidustaxjar
       Connection:
       - close
-      Content-Type:
-      - application/json; charset=UTF-8
       Host:
       - api.taxjar.com
   response:
@@ -33,46 +29,45 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '1116'
+      - '277'
       Connection:
       - close
       Date:
-      - Mon, 29 Nov 2021 22:11:40 GMT
+      - Fri, 13 Jan 2023 21:34:50 GMT
       X-Amzn-Requestid:
-      - da26345e-3a30-4899-bdd9-c72c61f63ee6
-      Access-Control-Allow-Origin:
-      - https://developers.taxjar.com
+      - f60829e9-36a8-4f40-9dee-a368d82de13d
       X-Amz-Apigw-Id:
-      - Jll0iHA6oAMF4gw=
+      - es0zKFmtIAMFjbw=
       X-Amzn-Trace-Id:
-      - Root=1-61a5501c-0fad5b964c4a5d3b2b806fe8
+      - Root=1-63c1ce7a-280139da14dea40106834708
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 5fe5f2a3903f1378941d92eceaf3fa17.cloudfront.net (CloudFront)
+      - 1.1 1352c0a623ff0601dd16439f3f225f70.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA73-P2
       X-Amz-Cf-Id:
-      - uhCTR6Uy_1mhVxkM3S6DVtyPE-3V7A70nb8KOOzdBcV0R3urhN8N8Q==
+      - i0HVeMZ0i1Wm4rncjsWx_babYhLsQqvQNMrANRIYcA1Z3pZEvfippQ==
     body:
       encoding: UTF-8
-      string: '{"tax":{"amount_to_collect":1.55,"breakdown":{"city_tax_collectable":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_tax_collectable":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"line_items":[{"city_amount":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_amount":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"id":"9999","special_district_amount":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_amount":1.25,"state_sales_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99}],"special_district_tax_collectable":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_tax_collectable":1.25,"state_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99},"freight_taxable":false,"has_nexus":true,"jurisdictions":{"city":"ONTARIO","country":"US","county":"SAN
-        BERNARDINO COUNTY","state":"CA"},"order_total_amount":29.99,"rate":0.0775,"shipping":10.0,"tax_source":"destination","taxable_amount":19.99}}'
+      string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
+        States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
+        States"}]}'
     http_version:
-  recorded_at: Mon, 29 Nov 2021 22:11:40 GMT
+  recorded_at: Fri, 13 Jan 2023 21:34:50 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
     body:
       encoding: UTF-8
       string: '{"to_country":"US","to_zip":"91761","to_city":"Ontario","to_state":"CA","to_street":"450
-        Helen Ave","line_items":[{"id":9999,"quantity":1,"unit_price":"19.99","discount":"-0.0","product_tax_code":"TaxCode
-        - 932150"}],"shipping":"10.0"}'
+        Helen Ave","line_items":[{"id":9999,"quantity":1,"unit_price":"19.99","discount":0,"product_tax_code":"TaxCode
+        - 905833"}],"shipping":"10.0"}'
     headers:
       User-Agent:
-      - 'TaxJar/Ruby (Darwin Noahs-MacBook-Pro.local 20.6.0 Darwin Kernel Version
-        20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64
-        x86_64; ruby 2.6.7-p197; OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.2'
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
       Authorization:
       - Bearer <BEARER_TOKEN>
       X-Api-Version:
@@ -93,46 +88,46 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '1116'
+      - '1119'
       Connection:
       - close
       Date:
-      - Mon, 29 Nov 2021 22:11:41 GMT
+      - Fri, 13 Jan 2023 21:34:50 GMT
       X-Amzn-Requestid:
-      - 88eab03b-0b7f-4e73-86df-c709b88b7ced
+      - e8da26cc-860c-4835-abd9-e6bf7868708c
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - Jll0oGTnIAMFdCQ=
+      - es0zNFvUIAMFh3A=
       X-Amzn-Trace-Id:
-      - Root=1-61a5501d-7656be6f7fc77f157a7d2596
+      - Root=1-63c1ce7a-72160c7c5c8d952233564118
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 b8c4a4ca04bb1976e020396d211bc8dd.cloudfront.net (CloudFront)
+      - 1.1 e77661e211afe9242e85e573f12d5534.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA73-P2
       X-Amz-Cf-Id:
-      - WsHBNnVVzhZm0tI-pHr-mDrhBZ-j-WPRxCSaJilbnwEsbaAxJ9_Stw==
+      - BHko5sMypWaSrpijYRJl0IrRu9I134UK3_a_XF46a45fLpalTlnMfw==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":1.55,"breakdown":{"city_tax_collectable":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_tax_collectable":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"line_items":[{"city_amount":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_amount":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"id":"9999","special_district_amount":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_amount":1.25,"state_sales_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99}],"special_district_tax_collectable":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_tax_collectable":1.25,"state_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99},"freight_taxable":false,"has_nexus":true,"jurisdictions":{"city":"ONTARIO","country":"US","county":"SAN
         BERNARDINO COUNTY","state":"CA"},"order_total_amount":29.99,"rate":0.0775,"shipping":10.0,"tax_source":"destination","taxable_amount":19.99}}'
     http_version:
-  recorded_at: Mon, 29 Nov 2021 22:11:41 GMT
+  recorded_at: Fri, 13 Jan 2023 21:34:50 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
     body:
       encoding: UTF-8
       string: '{"to_country":"US","to_zip":"91761","to_city":"Ontario","to_state":"CA","to_street":"450
-        Helen Ave","line_items":[{"id":9999"quantity":1,"unit_price":"19.99","discount":"-0.0","product_tax_code":"TaxCode
-        - 932150"}],"shipping":"10.0"}'
+        Helen Ave","line_items":[{"id":9999,"quantity":1,"unit_price":"19.99","discount":0,"product_tax_code":"TaxCode
+        - 905833"}],"shipping":"10.0"}'
     headers:
       User-Agent:
-      - 'TaxJar/Ruby (Darwin Noahs-MacBook-Pro.local 20.6.0 Darwin Kernel Version
-        20.6.0: Mon Aug 30 06:12:21 PDT 2021; root:xnu-7195.141.6~3/RELEASE_X86_64
-        x86_64; ruby 2.6.7-p197; OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.2'
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
       Authorization:
       - Bearer <BEARER_TOKEN>
       X-Api-Version:
@@ -153,31 +148,91 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '1116'
+      - '1119'
       Connection:
       - close
       Date:
-      - Mon, 29 Nov 2021 22:11:41 GMT
+      - Fri, 13 Jan 2023 21:34:53 GMT
       X-Amzn-Requestid:
-      - '02825732-0cc9-4c6e-b6f2-6ed67ce73efb'
+      - dc59c0ab-de1d-4ba6-9b88-980c282538eb
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - Jll0qFw2oAMF6yQ=
+      - es0ztGN3IAMF4rA=
       X-Amzn-Trace-Id:
-      - Root=1-61a5501d-0d2efc797598bbdd7e11fd1c
+      - Root=1-63c1ce7d-6786c16372c07ea932bd000b
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 001e7070d795018d01b93988b9723743.cloudfront.net (CloudFront)
+      - 1.1 d2575afea3774df33dcf5e5ff475025e.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - SEA73-P1
+      - SEA73-P2
       X-Amz-Cf-Id:
-      - 1UlaoHOP27gYr51iEpT3AIqXoIHRSxfTXYr2v17hkkM_nTmi5GWUWw==
+      - NfbQJW7dr8W8FJV6QXglXvql6d-h59GF-yr80Gn_NZf9oSkJMio1hA==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":1.55,"breakdown":{"city_tax_collectable":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_tax_collectable":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"line_items":[{"city_amount":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_amount":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"id":"9999","special_district_amount":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_amount":1.25,"state_sales_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99}],"special_district_tax_collectable":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_tax_collectable":1.25,"state_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99},"freight_taxable":false,"has_nexus":true,"jurisdictions":{"city":"ONTARIO","country":"US","county":"SAN
         BERNARDINO COUNTY","state":"CA"},"order_total_amount":29.99,"rate":0.0775,"shipping":10.0,"tax_source":"destination","taxable_amount":19.99}}'
     http_version:
-  recorded_at: Mon, 29 Nov 2021 22:11:41 GMT
+  recorded_at: Fri, 13 Jan 2023 21:34:53 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: UTF-8
+      string: '{"to_country":"US","to_zip":"91761","to_city":"Ontario","to_state":"CA","to_street":"450
+        Helen Ave","line_items":[{"id":9999,"quantity":1,"unit_price":"19.99","discount":0,"product_tax_code":"TaxCode
+        - 905833"}],"shipping":"10.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin agis.local 21.4.0 Darwin Kernel Version 21.4.0: Fri Mar
+        18 00:45:05 PDT 2022; root:xnu-8020.101.4~15/RELEASE_X86_64 x86_64; ruby 2.7.4-p191;
+        OpenSSL 1.1.1k  25 Mar 2021) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1119'
+      Connection:
+      - close
+      Date:
+      - Fri, 13 Jan 2023 21:34:55 GMT
+      X-Amzn-Requestid:
+      - 8ce4c165-d701-47d2-907b-2e36bc6383af
+      Access-Control-Allow-Origin:
+      - https://developers.taxjar.com
+      X-Amz-Apigw-Id:
+      - es00AGi3oAMF4pg=
+      X-Amzn-Trace-Id:
+      - Root=1-63c1ce7f-1bbd41033ceb249970c92796
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 79880188a81becf1687ba18c0e064230.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - LLnovL838I_3fj_BbvKrFAs5ZWjT8vPNtDDQ_-m2CGNkm9kIU8rWEg==
+    body:
+      encoding: UTF-8
+      string: '{"tax":{"amount_to_collect":1.55,"breakdown":{"city_tax_collectable":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_tax_collectable":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"line_items":[{"city_amount":0.0,"city_tax_rate":0.0,"city_taxable_amount":0.0,"combined_tax_rate":0.0775,"county_amount":0.2,"county_tax_rate":0.01,"county_taxable_amount":19.99,"id":"9999","special_district_amount":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_amount":1.25,"state_sales_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99}],"special_district_tax_collectable":0.1,"special_district_taxable_amount":19.99,"special_tax_rate":0.005,"state_tax_collectable":1.25,"state_tax_rate":0.0625,"state_taxable_amount":19.99,"tax_collectable":1.55,"taxable_amount":19.99},"freight_taxable":false,"has_nexus":true,"jurisdictions":{"city":"ONTARIO","country":"US","county":"SAN
+        BERNARDINO COUNTY","state":"CA"},"order_total_amount":29.99,"rate":0.0775,"shipping":10.0,"tax_source":"destination","taxable_amount":19.99}}'
+    http_version:
+  recorded_at: Fri, 13 Jan 2023 21:34:55 GMT
 recorded_with: VCR 4.0.0

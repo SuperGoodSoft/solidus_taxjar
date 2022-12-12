@@ -128,6 +128,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
           context "when the TaxJar transaction is not up-to-date" do
             before do
+              allow(dummy_client).to receive(:nexus_regions)
               allow(dummy_client).to receive(:tax_for_order)
 
               with_events_disabled {

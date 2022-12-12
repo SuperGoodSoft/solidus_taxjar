@@ -53,10 +53,11 @@ RSpec.feature 'Admin TaxJar Settings', js: true, vcr: true do
         expect(page).to have_content "Transaction Sync"
         expect(page).to have_content("Nexus Regions")
         expect(page).to have_link("Go to TaxJar to configure states", href: "https://app.taxjar.com/account#states")
-        expect(page).not_to have_content("British Columbia")
+
+        # We press the button to see the page refresh successfully.
         click_on "Sync Nexus Regions"
         expect(page).to have_content("Updated with new Nexus Regions")
-        expect(page).to have_content("British Columbia")
+
         within "[data-hook='admin_taxjar_tax_categories_sync']" do
           expect(page).to have_content("123")
         end

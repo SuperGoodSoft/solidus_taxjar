@@ -134,7 +134,13 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
       end
 
       before do
-        allow(dummy_api).to receive(:tax_for).with(order).and_raise("A bad thing happened.")
+        allow(calculator)
+          .to receive(:taxable_address?).with(address)
+          .and_return(true)
+        allow(dummy_api)
+          .to receive(:tax_for)
+          .with(order)
+          .and_raise("A bad thing happened.")
       end
 
       it "calls the configured error handler" do
@@ -187,6 +193,12 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
 
         let(:shipping_tax_breakdown) { nil }
 
+        before do
+          allow(calculator)
+            .to receive(:taxable_address?).with(address)
+            .and_return(true)
+        end
+
         it "returns the taxes" do
           expect(subject.order_id).to eq order.id
           expect(subject.shipment_taxes).to be_empty
@@ -219,8 +231,8 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxCalculator do
 
         context "but the taxable address check returns false" do
           before do
-            allow(SuperGood::SolidusTaxjar.taxable_address_check)
-              .to receive(:call).with(address)
+            allow(calculator)
+              .to receive(:taxable_address?).with(address)
               .and_return(false)
           end
 

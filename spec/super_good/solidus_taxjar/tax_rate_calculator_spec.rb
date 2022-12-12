@@ -63,8 +63,8 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
 
       context "when the address is not taxable" do
         before do
-          allow(SuperGood::SolidusTaxjar.taxable_address_check)
-            .to receive(:call).with(address)
+          allow(calculator)
+            .to receive(:taxable_address?).with(address)
             .and_return(false)
         end
 
@@ -75,6 +75,9 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
         let(:tax_rate) { 0.03 }
 
         before do
+          allow(calculator)
+            .to receive(:taxable_address?).with(address)
+            .and_return(true)
           allow(dummy_api).to receive(:tax_rate_for) { tax_rate }
         end
 
@@ -88,6 +91,9 @@ RSpec.describe ::SuperGood::SolidusTaxjar::TaxRateCalculator do
       let(:address) { complete_address }
 
       before do
+        allow(calculator)
+          .to receive(:taxable_address?).with(address)
+          .and_return(true)
         allow(dummy_api).to receive(:tax_rate_for).and_raise("A bad thing happened.")
       end
 

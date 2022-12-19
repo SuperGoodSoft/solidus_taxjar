@@ -91,6 +91,19 @@ endpoint of the tax calculator in order to provide the most coherent and
 reliable results. TaxJar support recommends using this endpoint for live
 calculations.
 
+### Order-level Adjustments are Unsupported
+
+Although Solidus supports order-level adjustments, **TaxJar does not support
+order-level adjustments**. Currently, this extension does not make any
+assumptions about how order-level adjustments should be reported to TaxJar.
+After enabling the extension, any attempts to create an order-level adjustment
+will result in an error being raised by default.
+
+**If you need to support order-level adjustments, you'll need to configure the
+`discount_calculator` setting to handle them.** See
+[Configuration](#configuration) for more more information about configuring the
+extension.
+
 ## Configuration
 
 Developers can configure the extension in a Rails initializer file. All of the

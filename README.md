@@ -56,14 +56,20 @@ or on the official Solidus Slack as `@Jared Norman`.
 
 ## Features
 
-The extension provides currently two high level `calculator` classes that wrap
-the low-level Ruby taxjar gem API calls:
+This extension provides two high level `calculator` classes that wrap the
+low-level Ruby `taxjar` gem API calls:
 
 * tax calculator
 * tax rate calculator
 
 The extension requires the `order_recalculated` event which is not supported on
 Solidus < 2.11, so this extension provides a [compatibility layer](app/overrides/super_good/solidus_taxjar/spree/order_updater/fire_recalculated_event.rb).
+
+This extension also supports:
+
+* syncing orders to TaxJar's reporting dashboard
+* syncing nexus regions as configured in the connected TaxJar account
+* connecting your Solidus store's tax categories to TaxJar's tax categories (U.S. tax codes)
 
 ### TaxCalculator
 

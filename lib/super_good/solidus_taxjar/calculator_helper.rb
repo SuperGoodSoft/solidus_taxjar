@@ -51,6 +51,8 @@ module SuperGood
 
       private
 
+      # Nexus regions are only a concept for US states. For non-US addresses
+      # we always want to defer to the configuration in TaxJar.
       def address_in_nexus_region?(address)
         return true unless address&.country&.iso == "US"
 

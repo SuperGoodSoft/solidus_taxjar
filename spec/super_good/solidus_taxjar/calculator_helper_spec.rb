@@ -24,12 +24,18 @@ RSpec.describe SuperGood::SolidusTaxjar::CalculatorHelper do
     end
 
     context "with a missing state in CA" do
-      let(:address) { build :address, country_iso_code: "CA", state: nil }
+      let(:address) { build :address, country_iso_code: "CA" }
+
+      before { address.state = nil }
+
       it { is_expected.to eq(true) }
     end
 
     context "with a missing state in US" do
-      let(:address) { build :address, country_iso_code: "US", state: nil }
+      let(:address) { build :address, country_iso_code: "US" }
+
+      before { address.state = nil }
+
       it { is_expected.to eq(true) }
     end
 

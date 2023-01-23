@@ -34,10 +34,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
     context "when the order is completed" do
       context "when the order has not been shipped" do
         it "does nothing" do
-          expect(reporting)
-            .not_to receive(:refund_and_create_new_transaction)
-
           subject
+
+          assert_no_enqueued_jobs
         end
       end
 
@@ -49,10 +48,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         }
 
         it "does nothing" do
-          expect(reporting)
-            .not_to receive(:refund_and_create_new_transaction)
-
           subject
+
+          assert_no_enqueued_jobs
         end
       end
 
@@ -108,20 +106,18 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
           context "when the TaxJar transaction is up-to-date" do
             it "does nothing" do
-              expect(reporting)
-                .not_to receive(:refund_and_create_new_transaction)
-
               subject
+
+              assert_no_enqueued_jobs
             end
 
             context "when reporting is disabled" do
               let(:reporting_enabled) { false }
 
               it "does nothing" do
-                expect(reporting)
-                  .not_to receive(:refund_and_create_new_transaction)
-
                 subject
+
+                assert_no_enqueued_jobs
               end
             end
           end
@@ -153,10 +149,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
               let(:reporting_enabled) { false }
 
               it "does nothing" do
-                expect(reporting)
-                  .not_to receive(:refund_and_create_new_transaction)
-
                 subject
+
+                assert_no_enqueued_jobs
               end
             end
           end
@@ -164,10 +159,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
         context "when a TaxJar transaction does not exist on the order" do
           it "does nothing" do
-            expect(reporting)
-              .not_to receive(:refund_and_create_new_transaction)
-
             subject
+
+            assert_no_enqueued_jobs
           end
 
           it(
@@ -186,8 +180,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         let(:order_factory) { :completed_order_with_pending_payment }
 
         it "does nothing" do
-          expect(reporting).not_to receive(:show_or_create_transaction)
           subject
+
+          assert_no_enqueued_jobs
         end
       end
     end
@@ -196,8 +191,9 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
       let(:order_factory) { :order_with_totals }
 
       it "does nothing" do
-        expect(reporting).not_to receive(:show_or_create_transaction)
         subject
+
+        assert_no_enqueued_jobs
       end
     end
   end

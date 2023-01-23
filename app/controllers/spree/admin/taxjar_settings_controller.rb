@@ -41,7 +41,10 @@ module Spree
       end
 
       def configuration_params
-        params.require(:super_good_solidus_taxjar_configuration).permit(:preferred_reporting_enabled)
+        params_hash = params.require(:super_good_solidus_taxjar_configuration).permit(:preferred_reporting_enabled, :preferred_reporting_enabled_at_integer)
+        {
+          preferred_reporting_enabled_at_integer: params_hash[:preferred_reporting_enabled] == "1" ? DateTime.now.to_i : nil
+        }
       end
 
       def tax_category_params

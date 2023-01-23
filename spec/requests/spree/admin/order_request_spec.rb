@@ -6,23 +6,25 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
   extend Spree::TestingSupport::AuthorizationHelpers::Request
   stub_authorization!
 
-  before do
-    allow(SuperGood::SolidusTaxjar).to receive(:reporting_ui_enabled).and_return(true)
-  end
-
   describe "#edit" do
     subject { get spree.edit_admin_order_path(order) }
 
     let!(:order) { create(:shipped_order) }
-    let(:reporting_enabled) { true }
+    let(:reporting_enabled_at) { 1.day.ago.to_i }
 
     around do |example|
       begin
-        old_value = SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
-        SuperGood::SolidusTaxjar.configuration.update!(preferred_reporting_enabled: reporting_enabled)
+        old_value = SuperGood::SolidusTaxjar
+          .configuration
+          .preferred_reporting_enabled_at_integer
+        SuperGood::SolidusTaxjar.configuration.update!(
+          preferred_reporting_enabled_at_integer: reporting_enabled_at
+        )
         example.run
       ensure
-        SuperGood::SolidusTaxjar.configuration.update!(preferred_reporting_enabled: old_value)
+        SuperGood::SolidusTaxjar.configuration.update!(
+          preferred_reporting_enabled_at_integer: old_value
+        )
       end
     end
 
@@ -67,7 +69,7 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
     end
 
     context "when transaction syncing is turned off" do
-      let(:reporting_enabled) { false }
+      let(:reporting_enabled_at) { nil }
 
       it "displays a 'disabled' status" do
         subject

@@ -130,8 +130,8 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, type: :request do
     subject { put spree.admin_taxjar_settings_path params: params }
 
     context "updating TaxJar settings" do
-      let(:taxjar_configuration) { create :taxjar_configuration, preferred_reporting_enabled: false }
-      let(:params) { {super_good_solidus_taxjar_configuration: {"preferred_reporting_enabled" => true}} }
+      let(:taxjar_configuration) { create :taxjar_configuration, :reporting_disabled }
+      let(:params) { {super_good_solidus_taxjar_configuration: {"preferred_reporting_enabled" => "1"}} }
 
       it "redirects back to TaxJar settings" do
         subject
@@ -143,8 +143,29 @@ RSpec.describe 'Admin TaxJar Settings', :vcr, type: :request do
         expect(flash[:success]).to eq "TaxJar settings updated!"
       end
 
-      it "updates the taxjar settings" do
-        expect { subject }.to change { taxjar_configuration.reload.preferred_reporting_enabled }.from(false).to(true)
+      it "enables reporting" do
+        expect { subject }
+          .to change { taxjar_configuration.reload.preferred_reporting_enabled }
+            .from(false)
+            .to(true)
+          .and change { taxjar_configuration.reload.preferred_reporting_enabled_at_integer }
+            .from(nil)
+            .to(kind_of(Integer))
+      end
+
+      context "reporting is enabled" do
+        let(:taxjar_configuration) { create :taxjar_configuration, :reporting_enabled }
+        let(:params) { {super_good_solidus_taxjar_configuration: {"preferred_reporting_enabled" => "0"}} }
+
+        it "disables reporting" do
+          expect { subject }
+            .to change { taxjar_configuration.reload.preferred_reporting_enabled }
+              .from(true)
+              .to(false)
+            .and change { taxjar_configuration.reload.preferred_reporting_enabled_at_integer }
+              .from(kind_of(Integer))
+              .to(nil)
+        end
       end
 
       context "update fails" do

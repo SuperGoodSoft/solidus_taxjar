@@ -1,11 +1,14 @@
 # Changelog
 
-## master
+All notable changes to this project will be documented in this file.
 
-- [#250](https://github.com/SuperGoodSoft/solidus_taxjar/pull/250) Improve error handling for `ReportTransactionJob`
-- [#249](https://github.com/SuperGoodSoft/solidus_taxjar/pull/249) Don't depend on `webdrivers` gem
-- [#244](https://github.com/SuperGoodSoft/solidus_taxjar/pull/244) Let admins manually retry syncing TaxJar transactions
-- [#193](https://github.com/SuperGoodSoft/solidus_taxjar/pull/193) Bump version requirement for `solidus_support` to ">= 0.9.0", and as a result drop support for Rails 5.2.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## Unreleased
+
+### Added
+
 - [#190](https://github.com/SuperGoodSoft/solidus_taxjar/pull/190) Add transaction sync batch show page
 - [#188](https://github.com/SuperGoodSoft/solidus_taxjar/pull/188) Show transaction sync batches in user interface
 - [#185](https://github.com/SuperGoodSoft/solidus_taxjar/pull/185) Backfill transactions in batches
@@ -15,23 +18,16 @@
 - [#158](https://github.com/SuperGoodSoft/solidus_taxjar/pull/158) Update sandbox bin stub for `solidus@3`
 - [#88](https://github.com/SuperGoodSoft/solidus_taxjar/pull/88) Fire `shipment_shipped` event when any shipment on an order ships.
 - [#81](https://github.com/SuperGoodSoft/solidus_taxjar/pull/81) Add install generator
-- [#95](https://github.com/SuperGoodSoft/solidus_taxjar/pull/95) Only require "state" for Canadian and US addresses
 - [#98](https://github.com/SuperGoodSoft/solidus_taxjar/pull/98) Add generator for TaxJar transaction IDs
 - [#103](https://github.com/SuperGoodSoft/solidus_taxjar/pull/103) Add `reporting_enabled` configuration option
 - [#97](https://github.com/SuperGoodSoft/solidus_taxjar/pull/97) Add public API method to request the latest transaction associated with a solidus order.
 - [#100](https://github.com/SuperGoodSoft/solidus_taxjar/pull/100) Add public API method to post a taxjar refund transaction for a solidus order.
 - [#102](https://github.com/SuperGoodSoft/solidus_taxjar/pull/102) Add description to transaction line item params
-- [#107](https://github.com/SuperGoodSoft/solidus_taxjar/pull/107) Fix rails-engine binstub to point to correct engine entry point
 - [#108](https://github.com/SuperGoodSoft/solidus_taxjar/pull/108) Add new model associated with a `Spree::Order` to represent taxjar order creation transactions
-- [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
 - [#114](https://github.com/SuperGoodSoft/solidus_taxjar/pull/114) Add new model associated with a `SuperGood::SolidusTaxjar::OrderTransaction` to represent taxjar refund creation transactions
 - [#116](https://github.com/SuperGoodSoft/solidus_taxjar/pull/116) Update the `OrderTransaction` model to record the transaction date.
-- [#120](https://github.com/SuperGoodSoft/solidus_taxjar/pull/120) Change default `SOLIDUS_BRANCH` and `RAILS_VERSION`
 - [#109](https://github.com/SuperGoodSoft/solidus_taxjar/pull/109) Save `OrderTransaction` after API call to TaxJar
-- [#119](https://github.com/SuperGoodSoft/solidus_taxjar/pull/119) Move the install generator into the correct path so that it will be installed in the dummy app.
 - [#111](https://github.com/SuperGoodSoft/solidus_taxjar/pull/111) Create a new taxjar transaction when a shipment is shipped.
-- [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Only run tests against solidus 2.11. This also represents the drop of official support for solidus 2.9 and 2.10.
-- [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Run tests against the most up to date versions of solidus.
 - [#141](https://github.com/SuperGoodSoft/solidus_taxjar/pull/141) Handle unimplemented reporting features
 - [#129](https://github.com/SuperGoodSoft/solidus_taxjar/pull/129) Report transaction asynchronously when a shipment is shipped.
 - [#127](https://github.com/SuperGoodSoft/solidus_taxjar/pull/127) Add acceptance test for calculating taxes with the extension.
@@ -41,20 +37,25 @@
 - [#174](https://github.com/SuperGoodSoft/solidus_taxjar/pull/174) Provide a link to Taxjar state settings
 - [#177](https://github.com/SuperGoodSoft/solidus_taxjar/pull/177) Make nexus caching configurable
 - [#169](https://github.com/SuperGoodSoft/solidus_taxjar/pull/169) Add basic backfill transaction functionality
-- [#181](https://github.com/SuperGoodSoft/solidus_taxjar/pull/181) Take all non-tax adjustment types into account when calculating a line item's discount
-- [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182) Automatically create default Tax Rate
 - [#176](https://github.com/SuperGoodSoft/solidus_taxjar/pull/176) Create refund transaction database models when reporting refunds.
 - [#192](https://github.com/SuperGoodSoft/solidus_taxjar/pull/192) Handle failures that occur in the middle of refunding a transaction.
 - [#194](https://github.com/SuperGoodSoft/solidus_taxjar/pull/194) Move the transaction backfill button to it's own unique page
 - [#198](https://github.com/SuperGoodSoft/solidus_taxjar/pull/198) Don't create zero dollar transactions when an order is fully refunded.
 - [#195](https://github.com/SuperGoodSoft/solidus_taxjar/pull/195) Run transaction backfills asynchronously
-- [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Expand solidus gem into dependencies to support Solidus 3.2+
+- [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Expand `solidus` gem into dependencies to support Solidus 3.2+
 - [#183](https://github.com/SuperGoodSoft/solidus_taxjar/pull/183) Add ability to fetch tax codes from TaxJar and assign to tax categories in admin
 - [#200](https://github.com/SuperGoodSoft/solidus_taxjar/pull/200) Render error message when backfilling transactions fails
 - [#203](https://github.com/SuperGoodSoft/solidus_taxjar/pull/203) Remove outdated backfill button
 - [#202](https://github.com/SuperGoodSoft/solidus_taxjar/pull/202) Add TaxJar transaction sync status to order show page
 - [#204](https://github.com/SuperGoodSoft/solidus_taxjar/pull/204) Add page to render an orders TaxJar transactions
 - [#201](https://github.com/SuperGoodSoft/solidus_taxjar/pull/201) Allow transaction backfills to be filtered by date range
+- [#244](https://github.com/SuperGoodSoft/solidus_taxjar/pull/244) Let admins manually retry syncing failed TaxJar transactions
+
+### Changed
+
+- [#95](https://github.com/SuperGoodSoft/solidus_taxjar/pull/95) Only require "state" for Canadian and US addresses
+- [#181](https://github.com/SuperGoodSoft/solidus_taxjar/pull/181) Take all non-tax adjustment types into account when calculating a line item's discount
+- [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182) Automatically create default Tax Rate
 - [#205](https://github.com/SuperGoodSoft/solidus_taxjar/pull/205) Use nexus regions for taxable address checks
 - [#218](https://github.com/SuperGoodSoft/solidus_taxjar/pull/218) Removed `order_recalculated` event backport
 - [#216](https://github.com/SuperGoodSoft/solidus_taxjar/pull/216) Add `deface` as a dependency.
@@ -67,9 +68,33 @@
 - [#225](https://github.com/SuperGoodSoft/solidus_taxjar/pull/225) Create sync logs for replace transaction jobs
 - [#231](https://github.com/SuperGoodSoft/solidus_taxjar/pull/231) Load Solidus factories using new conventions
 
-## Upgrading Instructions
+### Removed
 
-* If you had previously configured a `Spree::TaxRate` with the name "Sales Tax", it can be deleted after upgrading, as a new `Spree::TaxRate` with the name "Solidus TaxJar Rate" will automatically be created. Alternatively, you can rename your existing `Spree::TaxRate` from "Sales Tax" to "Solidus TaxJar Rate". [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182)
+- [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Only run tests against Solidus 2.11. This also represents the drop of official support for Solidus 2.9 and 2.10.
+- [#193](https://github.com/SuperGoodSoft/solidus_taxjar/pull/193) Bump version requirement for `solidus_support` to ">= 0.9.0", and as a result drop support for Rails 5.2.
+
+### Fixed
+
+- [#107](https://github.com/SuperGoodSoft/solidus_taxjar/pull/107) Fix rails-engine binstub to point to correct engine entry point
+- [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
+- [#119](https://github.com/SuperGoodSoft/solidus_taxjar/pull/119) Move the install generator into the correct path so that it will be installed in the dummy app.
+- [#250](https://github.com/SuperGoodSoft/solidus_taxjar/pull/250) Improve error handling for `ReportTransactionJob`
+
+### Development Changes
+
+These changes only affect the development of this extension.
+
+- [#120](https://github.com/SuperGoodSoft/solidus_taxjar/pull/120) Change default `SOLIDUS_BRANCH` and `RAILS_VERSION`
+- [#137](https://github.com/SuperGoodSoft/solidus_taxjar/pull/137) Run tests against the most up to date versions of Solidus
+- [#249](https://github.com/SuperGoodSoft/solidus_taxjar/pull/249) Don't depend on `webdrivers` gem
+
+### Upgrading from 0.18.x to 1.0.0
+
+If you had previously configured a `Spree::TaxRate` with the name "Sales Tax",
+it can be deleted after upgrading, as a new `Spree::TaxRate` with the name
+"Solidus TaxJar Rate" will automatically be created. Alternatively, you can
+rename your existing `Spree::TaxRate` from "Sales Tax" to "Solidus TaxJar
+Rate". [#182](https://github.com/SuperGoodSoft/solidus_taxjar/pull/182)
 
 ## v0.18.2
 

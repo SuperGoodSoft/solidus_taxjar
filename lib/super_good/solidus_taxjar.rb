@@ -1,5 +1,6 @@
 require "solidus_core"
 require "solidus_support"
+require "deface"
 require "taxjar"
 require "super_good/solidus_taxjar/overrides/request_override"
 

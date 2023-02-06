@@ -15,16 +15,23 @@ module SuperGood
         def report_transaction(event)
           return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
 
-          SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(event.payload[:shipment].order)
+          order = event.payload[:shipment].order
+
+          return if completed_before_reporting_enabled?(order)
+
+          SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
         end
 
         def replace_transaction(event)
-          order = event.payload[:order]
-
           return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
 
+          order = event.payload[:order]
+
+          return if completed_before_reporting_enabled?(order)
+          return unless order.completed? && order.shipped?
+
           if transaction_replaceable?(order) && amount_changed?(order)
-            SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(event.payload[:order])
+            SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)
           end
         end
 
@@ -35,10 +42,15 @@ module SuperGood
             (order.total - order.additional_tax_total)
         end
 
+        def completed_before_reporting_enabled?(order)
+          configuration = SuperGood::SolidusTaxjar.configuration
+
+          configuration.preferred_reporting_enabled &&
+            configuration.preferred_reporting_enabled_at > order.completed_at
+        end
+
         def transaction_replaceable?(order)
-          order.taxjar_order_transactions.present? &&
-            order.complete? &&
-              order.payment_state == "paid"
+          order.taxjar_order_transactions.present? && order.payment_state == "paid"
         end
       end
     end

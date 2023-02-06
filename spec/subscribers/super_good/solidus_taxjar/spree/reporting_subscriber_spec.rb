@@ -242,6 +242,20 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
     context "when the order was completed before reporting was enabled" do
       let(:reporting_enabled_at) { 1.hour.ago }
+      let(:exception_handler) { double }
+
+      before do
+        allow(exception_handler).to receive(:call)
+      end
+
+      around do |example|
+        original_handler = SuperGood::SolidusTaxjar.exception_handler
+        SuperGood::SolidusTaxjar.exception_handler = exception_handler
+        SuperGood::SolidusTaxjar.test_mode = true
+        example.call
+        SuperGood::SolidusTaxjar.test_mode = false
+        SuperGood::SolidusTaxjar.exception_handler = original_handler
+      end
 
       it "doesn't queue to report the transaction" do
         subject
@@ -253,6 +267,11 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         expect { subject }.to change { order.taxjar_transaction_sync_logs.count }.from(0).to(1)
         expect(order.taxjar_transaction_sync_logs.last.status).to eq "error"
         expect(order.taxjar_transaction_sync_logs.last.error_message).to include "Order cannot be synced because it was completed before TaxJar reporting was enabled"
+      end
+
+      it "calls the exception handler" do
+        subject
+        expect(exception_handler).to have_received(:call).with(RuntimeError.new("Order cannot be synced because it was completed before TaxJar reporting was enabled"))
       end
     end
   end

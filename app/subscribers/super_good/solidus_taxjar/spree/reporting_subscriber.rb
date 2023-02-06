@@ -21,6 +21,7 @@ module SuperGood
 
           if completed_before_reporting_enabled?(order)
             order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
+            SuperGood::SolidusTaxjar.exception_handler.call(RuntimeError.new(ORDER_TOO_OLD_MESSAGE))
             return
           end
 
@@ -36,6 +37,7 @@ module SuperGood
 
           if completed_before_reporting_enabled?(order)
             order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
+            SuperGood::SolidusTaxjar.exception_handler.call(RuntimeError.new(ORDER_TOO_OLD_MESSAGE))
             return
           end
 

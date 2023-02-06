@@ -119,6 +119,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
                 assert_no_enqueued_jobs
               end
+
+              it "creates a sync log" do
+                expect { subject }.to change { order.taxjar_transaction_sync_logs.count }.from(0).to(1)
+                expect(order.taxjar_transaction_sync_logs.last.status).to eq "error"
+                expect(order.taxjar_transaction_sync_logs.last.error_message).to include "Order cannot be synced because it was completed before TaxJar reporting was enabled"
+              end
             end
           end
 
@@ -152,6 +158,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
                 subject
 
                 assert_no_enqueued_jobs
+              end
+
+              it "creates a sync log" do
+                expect { subject }.to change { order.taxjar_transaction_sync_logs.count }.from(0).to(1)
+                expect(order.taxjar_transaction_sync_logs.last.status).to eq "error"
+                expect(order.taxjar_transaction_sync_logs.last.error_message).to include "Order cannot be synced because it was completed before TaxJar reporting was enabled"
               end
             end
           end
@@ -235,6 +247,12 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
         subject
 
         assert_no_enqueued_jobs
+      end
+
+      it "creates a sync log" do
+        expect { subject }.to change { order.taxjar_transaction_sync_logs.count }.from(0).to(1)
+        expect(order.taxjar_transaction_sync_logs.last.status).to eq "error"
+        expect(order.taxjar_transaction_sync_logs.last.error_message).to include "Order cannot be synced because it was completed before TaxJar reporting was enabled"
       end
     end
   end

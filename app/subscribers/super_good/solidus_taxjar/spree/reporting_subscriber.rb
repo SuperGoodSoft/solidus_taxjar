@@ -5,6 +5,8 @@ module SuperGood
         include ::Spree::Event::Subscriber
         include SolidusSupport::LegacyEventCompat::Subscriber
 
+        ORDER_TOO_OLD_MESSAGE = "Order cannot be synced because it was completed before TaxJar reporting was enabled"
+
         if ::Spree::Event.method_defined?(:register)
           ::Spree::Event.register("shipment_shipped")
         end
@@ -17,7 +19,10 @@ module SuperGood
 
           order = event.payload[:shipment].order
 
-          return if completed_before_reporting_enabled?(order)
+          if completed_before_reporting_enabled?(order)
+            order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
+            return
+          end
 
           SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
         end
@@ -27,8 +32,12 @@ module SuperGood
 
           order = event.payload[:order]
 
-          return if completed_before_reporting_enabled?(order)
           return unless order.completed? && order.shipped?
+
+          if completed_before_reporting_enabled?(order)
+            order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
+            return
+          end
 
           if transaction_replaceable?(order) && amount_changed?(order)
             SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)

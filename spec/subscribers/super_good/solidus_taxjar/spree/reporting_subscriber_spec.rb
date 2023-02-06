@@ -14,14 +14,14 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   end
 
   before do
-    create(:taxjar_configuration, preferred_reporting_enabled: reporting_enabled)
+    create(:taxjar_configuration, preferred_reporting_enabled_at_integer: reporting_enabled_at.to_i)
   end
 
   let(:order_factory) { :order_ready_to_ship }
   let(:order) { with_events_disabled { create order_factory } }
 
   let(:reporting) { instance_spy ::SuperGood::SolidusTaxjar::Reporting }
-  let(:reporting_enabled) { true }
+  let(:reporting_enabled_at) { 1.hour.from_now }
 
   describe "order_recalculated is fired" do
     subject do
@@ -111,8 +111,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
               assert_no_enqueued_jobs
             end
 
-            context "when reporting is disabled" do
-              let(:reporting_enabled) { false }
+            context "when the order was completed before reporting was enabled" do
+              let(:reporting_enabled_at) { 1.hour.ago }
 
               it "does nothing" do
                 subject
@@ -145,8 +145,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
               end
             end
 
-            context "when reporting is disabled" do
-              let(:reporting_enabled) { false }
+            context "when the order was completed before reporting was enabled" do
+              let(:reporting_enabled_at) { 1.hour.ago }
 
               it "does nothing" do
                 subject
@@ -213,7 +213,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
     let(:shipment) { create(:shipment, state: 'ready', order: order) }
     let(:order) {
-      with_events_disabled { create :order_with_line_items }
+      with_events_disabled { create :completed_order_with_totals }
     }
     let(:reporting) { instance_spy(::SuperGood::SolidusTaxjar::Reporting) }
 
@@ -228,8 +228,8 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
       end
     end
 
-    context "reporting is disabled" do
-      let(:reporting_enabled) { false }
+    context "when the order was completed before reporting was enabled" do
+      let(:reporting_enabled_at) { 1.hour.ago }
 
       it "doesn't queue to report the transaction" do
         subject

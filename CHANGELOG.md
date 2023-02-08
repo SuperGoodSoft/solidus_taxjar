@@ -53,6 +53,7 @@
 - [#204](https://github.com/SuperGoodSoft/solidus_taxjar/pull/204) Add page to render an orders TaxJar transactions
 - [#201](https://github.com/SuperGoodSoft/solidus_taxjar/pull/201) Allow transaction backfills to be filtered by date range
 - [#205](https://github.com/SuperGoodSoft/solidus_taxjar/pull/205) Use nexus regions for taxable address checks
+- [#218](https://github.com/SuperGoodSoft/solidus_taxjar/pull/218) Removed `order_recalculated` event backport
 
 ## Upgrading Instructions
 

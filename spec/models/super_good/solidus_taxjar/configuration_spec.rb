@@ -20,11 +20,19 @@ RSpec.describe SuperGood::SolidusTaxjar::Configuration do
       expect(subject).to be_falsey
     end
 
-    context "reporting_enabled_at is set" do
+    context "reporting_enabled_at is set in the past" do
       let(:taxjar_configuration) { create(:taxjar_configuration, preferred_reporting_enabled_at_integer: DateTime.now.to_i) }
 
       it "is true" do
         expect(subject).to be_truthy
+      end
+    end
+
+    context "reporting_enabled_at is set in the future" do
+      let(:taxjar_configuration) { create(:taxjar_configuration, preferred_reporting_enabled_at_integer: (DateTime.now + 1.day).to_i) }
+
+      it "is false" do
+        expect(subject).to be_falsy
       end
     end
   end

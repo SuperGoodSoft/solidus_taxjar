@@ -9,7 +9,8 @@ module SuperGood
       preference :reporting_enabled_at_integer, :integer, default: nil
 
       def preferred_reporting_enabled
-        preferred_reporting_enabled_at_integer.present?
+        preferred_reporting_enabled_at_integer.present? &&
+          DateTime.current.after?(preferred_reporting_enabled_at)
       end
 
       def preferred_reporting_enabled_at

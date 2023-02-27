@@ -6,11 +6,24 @@
 extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/)
 for tax calculations.
 
-This is not a fork of [spree_taxjar](https://github.com/vinsol-spree-contrib/spree_taxjar),
-like [solidus_taxjar](https://github.com/boomerdigital/solidus_taxjar). Instead
-of using a custom calculator, `SuperGood::SolidusTaxjar` uses the new
-configurable tax system [by @adammathys](https://github.com/solidusio/solidus/pull/1892)
-introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
+This is not a fork of [`spree_taxjar`][spree_taxjar] like Boomer Digital's
+[`solidus_taxjar`][boomer_taxjar] extension. Instead of using a custom
+calculator, `SuperGood::SolidusTaxjar` uses the new configurable tax system [by
+@adammathys](https://github.com/solidusio/solidus/pull/1892) introduced in
+Solidus v2.4. This maps better to how the TaxJar API itself works.
+
+[boomer_taxjar]: https://github.com/boomerdigital/solidus_taxjar
+[spree_taxjar]: https://github.com/vinsol-spree-contrib/spree_taxjar
+
+## Documentation
+
+**If you're a developer**, any information you need about this Solidus extension
+should be referenced in this file or in the source code of the extension.
+
+**If you're not a developer**, see [the wiki][wiki] for additional documentation
+about using the Solidus TaxJar extension after it has been installed.
+
+[wiki]: https://github.com/supergoodsoft/solidus_taxjar/wiki
 
 ## Installation
 
@@ -26,18 +39,38 @@ introduced in Solidus v2.4. This maps better to how the TaxJar API itself works.
     bundle
     ```
 
-1. Next, configure Solidus to use this gem by running the install generator:
+2. Next, configure Solidus to use this gem by running the install generator:
 
     ```sh
     bundle exec rails generate super_good:solidus_taxjar:install
     ```
 
-1. Also, configure your own [exception handler](#exception-handling).
+3. Also, configure your own [exception handler](#exception-handling).
 
-1. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to
-  your TaxJar API key.
+4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to
+   your TaxJar API key.
+
+### Warning: Installing on production
+
+Before you install this extension in your production environment, **we strongly
+recommend that you install and configure a supported ActiveJob backend**.
+
+By default, ActiveJob performs jobs in memory. The order reporting backfill
+functionality of this extension may enqueue *a lot* of jobs if you have hundreds
+or thousands of historical orders to report.
+
+Using this extension without a backend like Sidekiq, Resque, or Delayed Job,
+**may cause your application to crash with out-of-memory errors**. For more
+information, read the Rails Guides's [Active Jobs Basics][active-job-basics]
+article. You may find the [Job Execution][active-job-execution] section
+particularly helpful.
+
+[active-job-basics]: https://edgeguides.rubyonrails.org/active_job_basics.html
+[active-job-execution]: https://edgeguides.rubyonrails.org/active_job_basics.html#job-execution
 
 ## Project Status
+
+<!-- FIXME: Modify the following paragraph for the v1.0 release. -->
 
 This extension is under active development and not yet at a v1.0 release, but
 it's currently being used in production by multiple Solidus stores.

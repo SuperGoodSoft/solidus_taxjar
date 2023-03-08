@@ -17,11 +17,11 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
     create(:taxjar_configuration, preferred_reporting_enabled_at_integer: reporting_enabled_at.to_i)
   end
 
-  let(:order_factory) { :order_ready_to_ship }
+  let(:order_factory) { :shipped_order }
   let(:order) { with_events_disabled { create order_factory } }
 
   let(:reporting) { instance_spy ::SuperGood::SolidusTaxjar::Reporting }
-  let(:reporting_enabled_at) { 1.hour.from_now }
+  let(:reporting_enabled_at) { 1.hour.ago }
 
   describe "order_recalculated is fired" do
     subject do
@@ -112,12 +112,15 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
             end
 
             context "when the order was completed before reporting was enabled" do
-              let(:reporting_enabled_at) { 1.hour.ago }
+              before do
+                order.update_column(:completed_at, 2.hours.ago)
+              end
 
               it "does nothing" do
-                subject
-
-                assert_no_enqueued_jobs
+                expect { subject }.not_to change(
+                  ActiveJob::Base.queue_adapter.enqueued_jobs,
+                  :count
+                )
               end
 
               it "creates a sync log" do
@@ -152,12 +155,15 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
             end
 
             context "when the order was completed before reporting was enabled" do
-              let(:reporting_enabled_at) { 1.hour.ago }
+              before do
+                order.update_column(:completed_at, 2.hours.ago)
+              end
 
               it "does nothing" do
-                subject
-
-                assert_no_enqueued_jobs
+                expect { subject }.not_to change(
+                  ActiveJob::Base.queue_adapter.enqueued_jobs,
+                  :count
+                )
               end
 
               it "creates a sync log" do
@@ -246,6 +252,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
 
       before do
         allow(exception_handler).to receive(:call)
+        order.update_column(:completed_at, 2.hours.ago)
       end
 
       around do |example|

@@ -101,7 +101,8 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
     subject { get spree.taxjar_transactions_admin_order_path(order) }
 
     let!(:order) { create(:shipped_order) }
-    let(:order_transaction) { create :taxjar_order_transaction, transaction_id: "Test-123"}
+    let(:order_transaction) { create :taxjar_order_transaction, transaction_id: "Test-123", refund_transaction: refund_transaction}
+    let(:refund_transaction) { create :taxjar_refund_transaction, transaction_id: "Test-123-refund"}
 
     before do
       create :transaction_sync_log, order: order, order_transaction: order_transaction, status: :success
@@ -114,7 +115,7 @@ RSpec.describe Spree::Admin::OrdersController, :type => :request do
 
     it "renders the transaction sync logs" do
       subject
-      expect(response.body).to have_text("#{order.number} Test-123 Success", normalize_ws: true)
+      expect(response.body).to have_text("#{order.number} Test-123 Test-123-refund Success", normalize_ws: true)
     end
   end
 end

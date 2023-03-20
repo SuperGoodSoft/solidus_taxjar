@@ -10,7 +10,6 @@ module SuperGood
 
         SuperGood::SolidusTaxjar::TransactionSyncLog.create!(
           order: order,
-          refund_transaction: order_transaction.refund_transaction,
           order_transaction: order_transaction,
           status: :success
         )

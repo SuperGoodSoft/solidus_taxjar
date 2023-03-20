@@ -3,7 +3,8 @@
     <tr>
       <th>Log ID</th>
       <th>Order</th>
-      <th>TaxJar Transaction ID</th>
+      <th>TaxJar Order Transaction ID</th>
+      <th>TaxJar Refund Transaction ID</th>
       <th>Status</th>
       <th>Error Message</th>
       <th>Created at</th>
@@ -16,6 +17,7 @@
         <td><%= log.id %></td>
         <td><%= link_to log.order.number, spree.edit_admin_order_path(log.order) %></td>
         <td><%= log.order_transaction&.transaction_id || "-" %></td>
+        <td><%= log.refund_transaction&.transaction_id || "-" %></td>
         <td><%= log.status.capitalize %></td>
         <td style="white-space: pre-wrap; width: 150px; overflow-wrap: anywhere;"><%= log.error_message %></td>
         <td><%= log.created_at %></td>

@@ -14,6 +14,13 @@ module SuperGood
           order_transaction: order_transaction,
           status: :success
         )
+
+      rescue Taxjar::Error => exception
+        SuperGood::SolidusTaxjar::TransactionSyncLog.create!(
+          order: order,
+          status: :error,
+          error_message: exception.message
+        )
       end
     end
   end

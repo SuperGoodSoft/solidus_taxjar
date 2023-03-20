@@ -6,7 +6,14 @@ module SuperGood
       queue_as { SuperGood::SolidusTaxjar.job_queue }
 
       def perform(order)
-        SuperGood::SolidusTaxjar.reporting.refund_and_create_new_transaction(order)
+        order_transaction = SuperGood::SolidusTaxjar.reporting.refund_and_create_new_transaction(order)
+
+        SuperGood::SolidusTaxjar::TransactionSyncLog.create!(
+          order: order,
+          refund_transaction: order_transaction.refund_transaction,
+          order_transaction: order_transaction,
+          status: :success
+        )
       end
     end
   end

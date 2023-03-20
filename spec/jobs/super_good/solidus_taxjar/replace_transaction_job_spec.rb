@@ -70,5 +70,26 @@ RSpec.describe SuperGood::SolidusTaxjar::ReplaceTransactionJob do
           )
       end
     end
+
+    context "when replacing the transaction throws an error" do
+      before do
+        allow(mock_reporting)
+          .to receive(:refund_and_create_new_transaction)
+          .and_raise(Taxjar::Error.new("something bad"))
+      end
+
+      it "creates a transaction sync log with the error message" do
+        expect { perform_enqueued_jobs {subject} }
+          .to change { ::SuperGood::SolidusTaxjar::TransactionSyncLog.count }
+          .from(0)
+          .to(1)
+
+        expect(::SuperGood::SolidusTaxjar::TransactionSyncLog.last)
+          .to have_attributes(
+            status: "error",
+            error_message: "something bad"
+          )
+      end
+    end
   end
 end

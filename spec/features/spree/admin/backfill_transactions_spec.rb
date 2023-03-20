@@ -33,7 +33,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
         expect(page).to_not have_content excluded_order.number
         expect(page).to_not have_content excluded_order.number
         expect(page).to have_content order.number
-        within "tbody td:nth-child(4)" do
+        within "tbody td:nth-child(5)" do
           expect(page).to have_content("Success")
         end
       end
@@ -104,7 +104,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
             expect(page).to have_content("-")
           end
 
-          within "td:nth-child(4)" do
+          within "td:nth-child(5)" do
             expect(page).to have_content("Processing")
           end
 
@@ -125,7 +125,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
             expect(page).to have_content(success_transaction_sync_log.order_transaction.transaction_id)
           end
 
-          within "td:nth-child(4)" do
+          within "td:nth-child(5)" do
             expect(page).to have_content("Success")
           end
 

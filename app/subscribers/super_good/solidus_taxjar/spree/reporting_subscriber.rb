@@ -4,8 +4,7 @@ module SuperGood
       module ReportingSubscriber
         include ::Spree::Event::Subscriber
         include SolidusSupport::LegacyEventCompat::Subscriber
-
-        ORDER_TOO_OLD_MESSAGE = "Order cannot be synced because it was completed before TaxJar reporting was enabled"
+        include SuperGood::SolidusTaxjar::Reportable
 
         if ::Spree::Event.method_defined?(:register)
           ::Spree::Event.register("shipment_shipped")
@@ -15,34 +14,22 @@ module SuperGood
         event_action :replace_transaction, event_name: :order_recalculated
 
         def report_transaction(event)
-          return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
-
           order = event.payload[:shipment].order
 
-          if completed_before_reporting_enabled?(order)
-            order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
-            SuperGood::SolidusTaxjar.exception_handler.call(RuntimeError.new(ORDER_TOO_OLD_MESSAGE))
-            return
+          with_reportable(order) do
+            SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
           end
-
-          SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
         end
 
         def replace_transaction(event)
-          return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
-
           order = event.payload[:order]
 
           return unless order.completed? && order.shipped?
 
-          if completed_before_reporting_enabled?(order)
-            order.taxjar_transaction_sync_logs.create!(status: :error, error_message: ORDER_TOO_OLD_MESSAGE)
-            SuperGood::SolidusTaxjar.exception_handler.call(RuntimeError.new(ORDER_TOO_OLD_MESSAGE))
-            return
-          end
-
-          if transaction_replaceable?(order) && amount_changed?(order)
-            SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)
+          with_reportable(order) do
+            if transaction_replaceable?(order) && amount_changed?(order)
+              SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)
+            end
           end
         end
 
@@ -53,13 +40,6 @@ module SuperGood
           # from refunds.
           SuperGood::SolidusTaxjar.api.show_latest_transaction_for(order).amount !=
             (order.payment_total - order.additional_tax_total)
-        end
-
-        def completed_before_reporting_enabled?(order)
-          configuration = SuperGood::SolidusTaxjar.configuration
-
-          configuration.preferred_reporting_enabled &&
-            configuration.preferred_reporting_enabled_at > order.completed_at
         end
 
         def transaction_replaceable?(order)

@@ -49,8 +49,10 @@ module SuperGood
         private
 
         def amount_changed?(order)
+          # We use `order.payment_total` to ensure we capture any total changes
+          # from refunds.
           SuperGood::SolidusTaxjar.api.show_latest_transaction_for(order).amount !=
-            (order.total - order.additional_tax_total)
+            (order.payment_total - order.additional_tax_total)
         end
 
         def completed_before_reporting_enabled?(order)

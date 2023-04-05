@@ -135,15 +135,14 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
             before do
               allow(dummy_client).to receive(:nexus_regions)
               allow(dummy_client).to receive(:tax_for_order)
-
               with_events_disabled {
-                # We want to ensure that the order is completed, paid, and that
-                # the `ReportingSubscriber#amount_changed?` method returns true.
-                order.line_items.first.update!(price: 33)
+                customer_return = create :customer_return_with_accepted_items, shipped_order: order
+                reimbursement = create :reimbursement, customer_return: customer_return, total: 10
+                create :refund, reimbursement: reimbursement, payment: order.payments.first, amount: 10
                 order.recalculate
-                order.payments.first.update!(amount: order.total)
               }
             end
+
 
             it "enqueue a job to refund and create a new transaction" do
               assert_enqueued_with(

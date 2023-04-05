@@ -13,7 +13,7 @@ require 'vcr'
 
 chrome_options = Selenium::WebDriver::Chrome::Options.new.tap do |options|
   options.add_argument("--window-size=#{CAPYBARA_WINDOW_SIZE.join(',')}")
-  options.add_argument("--headless")
+  options.add_argument("--headless") unless ENV["HEADED"]
   options.add_argument("--disable-gpu")
 end
 

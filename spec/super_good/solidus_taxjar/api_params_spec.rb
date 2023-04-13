@@ -12,9 +12,11 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       total: order_total,
       shipments: [shipment],
       user_id: 12345,
-      completed_at: DateTime.new(2018, 3, 6, 12, 10, 33))
+      completed_at: DateTime.new(2018, 3, 6, 12, 10, 33),
+      payment_total: payment_total)
   end
   let(:order_total) { BigDecimal("123.45") }
+  let(:payment_total) { BigDecimal("110.45") }
 
   let(:store) do
     create(
@@ -299,7 +301,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
     it "returns params for creating/updating an order transaction" do
       expect(subject).to eq({
-        amount: BigDecimal("113.58"),
+        amount: BigDecimal("100.58"),
         customer_id: "12345",
         line_items: [{
           discount: 2,
@@ -325,6 +327,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
     context "when the order is adjusted to 0" do
       let(:order_total) { BigDecimal("0") }
+      let(:payment_total) { BigDecimal("0") }
 
       it "sends the order total as zero" do
         expect(subject[:amount]).to be_zero
@@ -362,7 +365,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
       it "excludes the line item" do
         expect(subject).to eq({
-          amount: BigDecimal("113.58"),
+          amount: BigDecimal("100.58"),
           customer_id: "12345",
           line_items: [],
           sales_tax: BigDecimal("9.87"),

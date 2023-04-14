@@ -8,7 +8,10 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: { allow_unused_http_i
     create :taxjar_configuration, :reporting_enabled
   end
 
-  let!(:order) { create :order_ready_to_ship }
+  let!(:order) do
+    # FIXME: This factory is bad!
+    create(:order_ready_to_ship).tap { |o| o.touch(:completed_at) }
+  end
 
   scenario "shipping a complete and paid order" do
     visit spree.edit_admin_order_path(order)

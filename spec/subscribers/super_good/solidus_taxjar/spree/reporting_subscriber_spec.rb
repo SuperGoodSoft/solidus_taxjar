@@ -223,12 +223,13 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
       )
     end
 
-    before do
-      # Ignore other events that may be triggered by factories here.
-      allow(Spree::Event).to receive(:fire).with("order_recalculated")
-    end
-
-    let(:shipment) { create(:shipment, state: 'ready', order: order) }
+    let(:shipment) {
+      with_events_disabled do
+        create(:shipment, state: 'shipped', order: order).tap { |shipment|
+          shipment.order.recalculate
+        }
+      end
+    }
     let(:order) {
       with_events_disabled { create :completed_order_with_totals }
     }

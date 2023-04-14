@@ -29,7 +29,9 @@ module SuperGood
       private
 
       def order_reportable?(order)
-        SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
+        return SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled &&
+          order.completed? &&
+          order.shipped?
       end
 
       def completed_before_reporting_enabled?(order)

@@ -24,8 +24,6 @@ module SuperGood
         def replace_transaction(event)
           order = event.payload[:order]
 
-          return unless order.completed? && order.shipped?
-
           with_reportable(order) do
             if transaction_replaceable?(order) && amount_changed?(order)
               SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)

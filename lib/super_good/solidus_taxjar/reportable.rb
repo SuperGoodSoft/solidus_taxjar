@@ -26,6 +26,16 @@ module SuperGood
         yield
       end
 
+      # @returns [Boolean] true if the transaction has been previously reported
+      #   to TaxJar, the order is currently in `paid` state and there is a
+      #   difference between the total (before tax) on the order in Solidus
+      #   and the transaction amount on TaxJar.
+      def transaction_replaceable?(order)
+        order.taxjar_order_transactions.present? &&
+          order.payment_state == "paid" &&
+          amount_changed?(order)
+      end
+
       private
 
       def order_reportable?(order)
@@ -39,6 +49,13 @@ module SuperGood
 
         configuration.preferred_reporting_enabled &&
           configuration.preferred_reporting_enabled_at > order.completed_at
+      end
+
+      def amount_changed?(order)
+        # We use `order.payment_total` to ensure we capture any total changes
+        # from refunds.
+        SuperGood::SolidusTaxjar.api.show_latest_transaction_for(order).amount !=
+          (order.payment_total - order.additional_tax_total)
       end
     end
   end

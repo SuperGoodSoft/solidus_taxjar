@@ -25,23 +25,10 @@ module SuperGood
           order = event.payload[:order]
 
           with_reportable(order) do
-            if transaction_replaceable?(order) && amount_changed?(order)
+            if transaction_replaceable?(order)
               SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)
             end
           end
-        end
-
-        private
-
-        def amount_changed?(order)
-          # We use `order.payment_total` to ensure we capture any total changes
-          # from refunds.
-          SuperGood::SolidusTaxjar.api.show_latest_transaction_for(order).amount !=
-            (order.payment_total - order.additional_tax_total)
-        end
-
-        def transaction_replaceable?(order)
-          order.taxjar_order_transactions.present? && order.payment_state == "paid"
         end
       end
     end

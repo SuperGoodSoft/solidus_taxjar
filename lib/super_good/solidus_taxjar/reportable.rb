@@ -26,6 +26,14 @@ module SuperGood
         yield
       end
 
+      def with_replaceable(order, &block)
+        with_reportable(order) do
+          return unless transaction_replaceable?(order)
+
+          yield
+        end
+      end
+
       # @returns [Boolean] true if the transaction has been previously reported
       #   to TaxJar, the order is currently in `paid` state and there is a
       #   difference between the total (before tax) on the order in Solidus

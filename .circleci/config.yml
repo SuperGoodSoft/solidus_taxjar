@@ -17,7 +17,9 @@ jobs:
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
   run-specs-with-master:
-    executor: solidusio_extensions/postgres
+    executor:
+      name: solidusio_extensions/postgres
+      ruby_version: "3.0"
     steps:
       - browser-tools/install-browser-tools
       - checkout

@@ -310,6 +310,15 @@ and `SOLIDUS_BRANCH` environment variables, respectively. See the
 The database vendor can also be changed from the default (`sqlite3`) by setting
 the `DB` environment variable.
 
+### Testing the extension
+
+When testing your application's integration with this extension you may use its factories.
+You can load Solidus core factories along with this extension's factories using this statement:
+
+```ruby
+SolidusDevSupport::TestingSupport::Factories.load_for(SuperGoodSolidusTaxjar::Engine)
+```
+
 ## Releasing a New Version
 
 1. Update the `master` header in changelog to the version that you're releasing.

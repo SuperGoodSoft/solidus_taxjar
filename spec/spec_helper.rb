@@ -24,17 +24,7 @@ Capybara.register_driver :solidus_chrome_headless do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options_key => chrome_options)
 end
 
-# This was pulled from `solidus_dev_support` and the glob was updated to allow
-# for a deeper namespacing of our factories folder
-# `lib/solidus_dev_support/testing_support/factories.rb`.
-paths = ::SuperGoodSolidusTaxjar::Engine.root.glob('lib/**/testing_support/factories')
-
-FactoryBot.definition_file_paths = [
-  Spree::TestingSupport::FactoryBot.definition_file_paths,
-  paths,
-].flatten
-
-FactoryBot.reload
+SolidusDevSupport::TestingSupport::Factories.load_for(SuperGoodSolidusTaxjar::Engine)
 
 require "support/solidus_events_helper"
 

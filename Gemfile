@@ -10,7 +10,9 @@ git "https://github.com/solidusio/solidus.git", branch: branch do
   gem "solidus_sample"
 end
 
-if (branch == 'main') || (branch >= 'v3.2')
+if (branch == 'main') || (branch >= 'v4.0')
+  gem "solidus_frontend", github: "solidusio/solidus_frontend", branch: 'main'
+elsif (branch >= 'v3.2') && (branch < 'v4.0')
   gem "solidus_frontend", github: "solidusio/solidus_frontend", branch: branch
 else
   gem "solidus_frontend", github: "solidusio/solidus", branch: branch

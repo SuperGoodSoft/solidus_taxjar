@@ -16,12 +16,12 @@ jobs:
       - solidusio_extensions/run-tests-solidus-older
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
-  run-specs-with-master:
+  run-specs-with-main:
     executor: solidusio_extensions/postgres
     steps:
       - browser-tools/install-browser-tools
       - checkout
-      - solidusio_extensions/run-tests-solidus-master
+      - solidusio_extensions/run-tests-solidus-main
       - solidusio_extensions/store-test-results
 
 
@@ -29,9 +29,9 @@ workflows:
   "Run specs on supported Solidus versions":
     jobs:
       - run-specs-with-postgres
-  "Run specs on Solidus master":
+  "Run specs on Solidus main":
     jobs:
-      - run-specs-with-master
+      - run-specs-with-main
   "Weekly run specs against master":
     triggers:
       - schedule:
@@ -41,4 +41,4 @@ workflows:
               only:
                 - master
     jobs:
-      - run-specs-with-master
+      - run-specs-with-main

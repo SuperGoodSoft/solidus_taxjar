@@ -8,30 +8,44 @@ orbs:
   solidusio_extensions: solidusio/extensions@volatile
 
 jobs:
-  run-specs-with-postgres:
-    executor: solidusio_extensions/postgres
+  run-specs-solidus-current:
+    executor:
+      name: solidusio_extensions/postgres
+      ruby_version: "3.0"
     steps:
       - checkout
       - browser-tools/install-browser-tools
       - solidusio_extensions/run-tests-solidus-older
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
-  run-specs-with-main:
-    executor: solidusio_extensions/postgres
+  run-specs-solidus-older:
+    executor:
+      name: solidusio_extensions/postgres
+      ruby_version: "2.7"
+    steps:
+      - checkout
+      - browser-tools/install-browser-tools
+      - solidusio_extensions/run-tests-solidus-older
+      - solidusio_extensions/store-test-results
+  run-specs-solidus-main:
+    executor:
+      name: solidusio_extensions/postgres
+      ruby_version: "3.1"
     steps:
       - browser-tools/install-browser-tools
       - checkout
       - solidusio_extensions/run-tests-solidus-main
       - solidusio_extensions/store-test-results
-
-
 workflows:
-  "Run specs on supported Solidus versions":
+  "Run specs on current Solidus versions":
     jobs:
-      - run-specs-with-postgres
+      - run-specs-solidus-current
+  "Run specs on older Solidus versions":
+    jobs:
+      - run-specs-solidus-older
   "Run specs on Solidus main":
     jobs:
-      - run-specs-with-main
+      - run-specs-solidus-main
   "Weekly run specs against master":
     triggers:
       - schedule:
@@ -41,4 +55,4 @@ workflows:
               only:
                 - master
     jobs:
-      - run-specs-with-main
+      - run-specs-solidus-main

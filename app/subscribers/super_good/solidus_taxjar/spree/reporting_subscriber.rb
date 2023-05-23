@@ -31,7 +31,7 @@ module SuperGood
         def replace_transaction(event)
           return unless SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled
 
-          order = event.payload[:order]
+          order = event.payload[:order].reload
 
           return unless order.completed? && order.shipped?
 

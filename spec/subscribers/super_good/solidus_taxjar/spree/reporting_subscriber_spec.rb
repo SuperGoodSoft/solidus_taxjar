@@ -273,12 +273,21 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
       it "creates a sync log" do
         expect { subject }.to change { order.taxjar_transaction_sync_logs.count }.from(0).to(1)
         expect(order.taxjar_transaction_sync_logs.last.status).to eq "error"
-        expect(order.taxjar_transaction_sync_logs.last.error_message).to include "Order cannot be synced because it was completed before TaxJar reporting was enabled"
+        expect(order.taxjar_transaction_sync_logs.last.error_message)
+          .to include(
+            "Order cannot be synced because it was completed before " \
+            "TaxJar reporting was enabled"
+          )
       end
 
       it "calls the exception handler" do
         subject
-        expect(exception_handler).to have_received(:call).with(RuntimeError.new("Order cannot be synced because it was completed before TaxJar reporting was enabled"))
+        expect(exception_handler).to have_received(:call)
+          .with(
+            RuntimeError.new(
+              "Order cannot be synced because it was completed before TaxJar " \
+              "reporting was enabled")
+          )
       end
     end
   end

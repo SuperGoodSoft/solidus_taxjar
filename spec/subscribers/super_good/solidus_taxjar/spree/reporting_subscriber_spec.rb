@@ -1,6 +1,10 @@
 require "spec_helper"
 
-RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
+# These tests will excercise either the `ReportinSubscriber` or the
+# `LegacyReportingSubscriber` depending on the version of Solidus they are
+# run against. The loading of the correct subscriber is handled by the
+# initializer added by this extension's install generator.
+RSpec.describe "ReportingSubscriber" do
   # We only want to trigger the real event action behaviour as our spec
   # `subject`s.
   def with_events_disabled(&block)

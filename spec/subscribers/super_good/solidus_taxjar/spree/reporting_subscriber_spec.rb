@@ -4,11 +4,19 @@ RSpec.describe SuperGood::SolidusTaxjar::Spree::ReportingSubscriber do
   # We only want to trigger the real event action behaviour as our spec
   # `subject`s.
   def with_events_disabled(&block)
-    allow(Spree::Event).to receive(:fire).and_return(nil)
+    if SolidusSupport::LegacyEventCompat.using_legacy?
+      allow(Spree::Event).to receive(:fire).and_return(nil)
+    else
+      allow(Spree::Bus).to receive(:publish).and_return(nil)
+    end
 
     object = yield block
 
-    allow(Spree::Event).to receive(:fire).and_call_original
+    if SolidusSupport::LegacyEventCompat.using_legacy?
+      allow(Spree::Event).to receive(:fire).and_call_original
+    else
+      allow(Spree::Bus).to receive(:publish).and_call_original
+    end
 
     object
   end

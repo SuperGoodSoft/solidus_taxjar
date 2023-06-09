@@ -25,10 +25,31 @@ module SuperGood
           append_to_file(omnes_initializer_path, <<~INIT)
             Rails.application.config.to_prepare do
               ::Spree::Bus.register(:shipment_shipped)
-              SuperGood::SolidusTaxjar::Spree::ReportingSubscriber.omnes_subscriber.subscribe_to(Spree::Bus)
+
+              if SolidusSupport::LegacyEventCompat.using_legacy?
+                require 'super_good/solidus_taxjar/spree/legacy_reporting_subscriber.rb'
+                SuperGood::SolidusTaxjar::Spree::LegacyReportingSubscriber.omnes_subscriber.subscribe_to(Spree::Bus)
+              else
+                require 'super_good/solidus_taxjar/spree/reporting_subscriber.rb'
+                SuperGood::SolidusTaxjar::Spree::ReportingSubscriber.new.subscribe_to(Spree::Bus)
+              end
             end
           INIT
+        end
 
+        def create_legacy_events_initializer_file
+          return unless Gem::Requirement.new('< 3.2')
+            .satisfied_by?(::Spree.solidus_gem_version)
+
+          initializer_path = "config/initializers/solidus_taxjar_legacy_events.rb"
+
+          create_file(initializer_path) unless File.exist?(initializer_path)
+          append_to_file(initializer_path, <<~INIT)
+            Rails.application.config.to_prepare do
+              require 'super_good/solidus_taxjar/spree/legacy_reporting_subscriber.rb'
+              SuperGood::SolidusTaxjar::Spree::LegacyReportingSubscriber.activate
+            end
+          INIT
         end
 
         def add_migrations

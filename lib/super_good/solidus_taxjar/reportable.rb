@@ -4,7 +4,11 @@ module SuperGood
       ORDER_TOO_OLD_MESSAGE = "Order cannot be synced because it was completed before TaxJar reporting was enabled"
 
       def self.included(base)
-        base.extend base
+        # Omnes subscribers are classes, whereas the legacy event system uses
+        # modules for subscribers. The type check ensures this is forwards
+        # compatible and can be removed when we drop support for the legacy
+        # event system.
+        base.extend(base) unless base.is_a?(Class)
       end
 
       def with_reportable(order, &block)

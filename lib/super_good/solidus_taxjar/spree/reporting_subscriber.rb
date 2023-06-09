@@ -1,17 +1,12 @@
 module SuperGood
   module SolidusTaxjar
     module Spree
-      module ReportingSubscriber
-        include ::Spree::Event::Subscriber
-        include SolidusSupport::LegacyEventCompat::Subscriber
+      class ReportingSubscriber
+        include Omnes::Subscriber
         include SuperGood::SolidusTaxjar::Reportable
 
-        if ::Spree::Event.method_defined?(:register)
-          ::Spree::Event.register("shipment_shipped")
-        end
-
-        event_action :report_transaction, event_name: :shipment_shipped
-        event_action :replace_transaction, event_name: :order_recalculated
+        handle :shipment_shipped, with: :report_transaction
+        handle :order_recalculated, with: :replace_transaction
 
         def report_transaction(event)
           order = event.payload[:shipment].order

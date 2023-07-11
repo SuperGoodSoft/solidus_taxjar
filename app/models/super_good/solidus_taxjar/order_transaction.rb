@@ -9,7 +9,7 @@ module SuperGood
       validates_presence_of :transaction_date
 
       def self.latest_for(order)
-        where(order: order).order(transaction_date: :desc).limit(1).first
+        where(order: order).order(transaction_date: :desc, created_at: :desc).limit(1).first
       end
     end
   end

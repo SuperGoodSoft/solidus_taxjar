@@ -7,7 +7,7 @@ module SuperGood
         def create_initializer_file
           solidus_initializer_path = "config/initializers/solidus.rb"
 
-          create_file(solidus_initializer_path) unless File.exists?(solidus_initializer_path)
+          create_file(solidus_initializer_path) unless File.exist?(solidus_initializer_path)
           append_to_file(solidus_initializer_path, <<~INIT)
             Spree.config do |config|
               config.tax_calculator_class = SuperGood::SolidusTaxjar::TaxCalculator
@@ -21,7 +21,7 @@ module SuperGood
 
           omnes_initializer_path = "config/initializers/omnes.rb"
 
-          create_file(omnes_initializer_path) unless File.exists?(omnes_initializer_path )
+          create_file(omnes_initializer_path) unless File.exist?(omnes_initializer_path)
           append_to_file(omnes_initializer_path, <<~INIT)
             Rails.application.config.to_prepare do
               ::Spree::Bus.register(:shipment_shipped)

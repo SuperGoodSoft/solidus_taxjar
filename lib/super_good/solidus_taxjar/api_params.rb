@@ -146,7 +146,8 @@ module SuperGood
           # The API appears to error when sent line items with no quantity...
           # but why would you do that anyway.
           line_items.reject do |line_item|
-            line_item.quantity.zero?
+            line_item.quantity.zero? ||
+              !line_item.inventory_units.where.not(state: ['returned', 'canceled']).exists?
           end
         end
 

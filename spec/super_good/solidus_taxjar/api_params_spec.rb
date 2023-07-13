@@ -221,6 +221,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
     end
 
+    context "when some line items have been returned" do
+      before do
+        order.line_items.first.inventory_units.update_all(state: "returned")
+      end
+
+      it "excludes returned line items" do
+        expect(subject).to match(hash_including({ line_items: [] }))
+      end
+    end
+
     context "when the line item has zero quantity" do
       let(:line_item_attributes) do
         attributes_for(
@@ -390,6 +400,16 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
       it "uses the specified transaction_id" do
         expect(subject).to include(transaction_id: "R0123456789")
+      end
+    end
+
+    context "when some line items have been returned" do
+      before do
+        order.line_items.first.inventory_units.update_all(state: "returned")
+      end
+
+      it "excludes returned line items" do
+        expect(subject).to match(hash_including({ line_items: [] }))
       end
     end
   end

@@ -21,7 +21,7 @@ jobs:
   run-specs-solidus-older:
     executor:
       name: solidusio_extensions/postgres
-      ruby_version: "2.7"
+      ruby_version: "3.0"
     steps:
       - checkout
       - browser-tools/install-browser-tools

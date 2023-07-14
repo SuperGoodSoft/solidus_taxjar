@@ -231,6 +231,17 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
     end
 
+    context "part of a line item has been returned" do
+      before do
+        order.line_items.first.inventory_units.first.update(state: "returned")
+        order.line_items.first.inventory_units.second.update(state: "canceled")
+      end
+
+      it "adjusts the line item quanity" do
+        expect(subject).to match(hash_including({ line_items: [hash_including({quantity:1})] }))
+      end
+    end
+
     context "when the line item has zero quantity" do
       let(:line_item_attributes) do
         attributes_for(
@@ -410,6 +421,17 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
       it "excludes returned line items" do
         expect(subject).to match(hash_including({ line_items: [] }))
+      end
+    end
+
+    context "part of a line item has been returned" do
+      before do
+        order.line_items.first.inventory_units.first.update(state: "returned")
+        order.line_items.first.inventory_units.second.update(state: "canceled")
+      end
+
+      it "adjusts the line item quanity" do
+        expect(subject).to match(hash_including({ line_items: [hash_including({quantity:1})] }))
       end
     end
   end

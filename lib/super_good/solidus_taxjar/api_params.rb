@@ -116,7 +116,7 @@ module SuperGood
             line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
-                quantity: line_item.quantity,
+                quantity: line_item.inventory_units.where.not(state: ['returned', 'canceled']).count,
                 unit_price: line_item.price,
                 discount: discount(line_item),
                 product_tax_code: line_item.tax_category&.tax_code
@@ -130,7 +130,7 @@ module SuperGood
             line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
-                quantity: line_item.quantity,
+                quantity: line_item.inventory_units.where.not(state: ['returned', 'canceled']).count,
                 product_identifier: line_item.sku,
                 description: line_item.variant.descriptive_name,
                 product_tax_code: line_item.tax_category&.tax_code,

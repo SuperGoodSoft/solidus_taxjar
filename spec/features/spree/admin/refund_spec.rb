@@ -43,6 +43,10 @@ RSpec.feature 'Refunding an order', js: true do
     select "Original payment", from: "reimbursement[return_items_attributes][0][override_reimbursement_type_id]"
     click_on "Update"
 
+    # The current recorded cassette for this line has an incorrect value, but
+    # VCR never let's us know because we're only matching on URL and method. We
+    # expect to to see amount=$140 in the first reporting request, but we wee
+    # amount=$130.
     perform_enqueued_jobs do
       click_on "Reimburse"
     end

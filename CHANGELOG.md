@@ -59,6 +59,7 @@
 - [#227](https://github.com/SuperGoodSoft/solidus_taxjar/pull/227) Fix reporting for orders with refunds
 - [#226](https://github.com/SuperGoodSoft/solidus_taxjar/pull/226) Refactor reporting subscriber logic
 - [#238](https://github.com/SuperGoodSoft/solidus_taxjar/pull/238) Drop support for loading of reporting subscriber for Solidus < 2.11
+- [#237](https://github.com/SuperGoodSoft/solidus_taxjar/pull/237) Sort order transactions by `created_at`
 
 ## Upgrading Instructions
 

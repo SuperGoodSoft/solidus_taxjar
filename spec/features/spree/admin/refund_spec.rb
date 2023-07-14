@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.feature 'Refunding an order', js: true do
   stub_authorization!
 
-  let(:order) { create(:shipped_order, line_items_count: 3) }
+  let(:order) { create(:shipped_order, line_items_count: 3, number: "R525233498") }
 
   before do
     country = create(:country, states_required: true)

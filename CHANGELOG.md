@@ -57,6 +57,7 @@
 - [#216](https://github.com/SuperGoodSoft/solidus_taxjar/pull/216) Add `deface` as a dependency.
 - [#217](https://github.com/SuperGoodSoft/solidus_taxjar/pull/217) Handle updates to orders that have not been reported
 - [#227](https://github.com/SuperGoodSoft/solidus_taxjar/pull/227) Fix reporting for orders with refunds
+- [#226](https://github.com/SuperGoodSoft/solidus_taxjar/pull/226) Refactor reporting subscriber logic
 
 ## Upgrading Instructions
 

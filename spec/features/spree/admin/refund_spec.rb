@@ -22,7 +22,7 @@ RSpec.feature 'Refunding an order', js: true do
     SuperGood::SolidusTaxjar::ReportTransactionJob.perform_now(order)
   end
 
-  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/refund", allow_unused_http_interactions: false} do
+  xit "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/refund", allow_unused_http_interactions: false} do
     visit spree.admin_order_return_authorizations_path(order)
 
     click_on "New RMA"

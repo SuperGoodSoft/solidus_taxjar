@@ -22,7 +22,7 @@ RSpec.feature 'Refunding an order', js: true do
     SuperGood::SolidusTaxjar::ReportTransactionJob.perform_now(order)
   end
 
-  xit "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/refund", allow_unused_http_interactions: false} do
+  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/refund", allow_unused_http_interactions: false} do
     visit spree.admin_order_return_authorizations_path(order)
 
     click_on "New RMA"
@@ -43,10 +43,12 @@ RSpec.feature 'Refunding an order', js: true do
     select "Original payment", from: "reimbursement[return_items_attributes][0][override_reimbursement_type_id]"
     click_on "Update"
 
-    perform_enqueued_jobs do
-      click_on "Reimburse"
-    end
+    click_on "Reimburse"
 
+    page.server.wait_for_pending_requests
+
+    perform_enqueued_jobs
+    
     expect(find(".reimbursement-refund-amount")).to have_content("$10.89")
   end
 end

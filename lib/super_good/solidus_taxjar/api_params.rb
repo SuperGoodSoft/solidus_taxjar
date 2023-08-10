@@ -116,7 +116,7 @@ module SuperGood
             line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
-                quantity: line_item.inventory_units.where.not(state: ['returned', 'canceled']).count,
+                quantity: not_canceled_or_retured_inventory_units(line_item).count,
                 unit_price: line_item.price,
                 discount: discount(line_item),
                 product_tax_code: line_item.tax_category&.tax_code
@@ -130,7 +130,7 @@ module SuperGood
             line_items: valid_line_items(line_items).map do |line_item|
               {
                 id: line_item.id,
-                quantity: line_item.inventory_units.where.not(state: ['returned', 'canceled']).count,
+                quantity: not_canceled_or_retured_inventory_units(line_item).count,
                 product_identifier: line_item.sku,
                 description: line_item.variant.descriptive_name,
                 product_tax_code: line_item.tax_category&.tax_code,
@@ -147,7 +147,7 @@ module SuperGood
           # but why would you do that anyway.
           line_items.reject do |line_item|
             line_item.quantity.zero? ||
-              !line_item.inventory_units.where.not(state: ['returned', 'canceled']).exists?
+              !not_canceled_or_retured_inventory_units(line_item).exists?
           end
         end
 
@@ -169,6 +169,10 @@ module SuperGood
           return 0 if line_item.order.total.zero?
 
           line_item.additional_tax_total
+        end
+
+        def not_canceled_or_retured_inventory_units(line_item)
+          line_item.inventory_units.where.not(state: ['returned', 'canceled'])
         end
       end
     end

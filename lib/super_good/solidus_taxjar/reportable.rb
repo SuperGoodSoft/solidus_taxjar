@@ -38,7 +38,15 @@ module SuperGood
         end
       end
 
-      # @returns [Boolean] true if the transaction has been previously reported
+      # @return [Boolean] true if the TaxJar reporting is currently enabled
+      #   and the order meets all the other requirements for reporting.
+      def order_reportable?(order)
+        return SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled &&
+          order.completed? &&
+          order.shipped?
+      end
+
+      # @return [Boolean] true if the transaction has been previously reported
       #   to TaxJar, the order is currently in `paid` state and there is a
       #   difference between the total (before tax) on the order in Solidus
       #   and the transaction amount on TaxJar.
@@ -49,12 +57,6 @@ module SuperGood
       end
 
       private
-
-      def order_reportable?(order)
-        return SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled &&
-          order.completed? &&
-          order.shipped?
-      end
 
       def completed_before_reporting_enabled?(order)
         configuration = SuperGood::SolidusTaxjar.configuration

@@ -1,18 +1,19 @@
-<table>
+<table id="transaction_sync_logs" class="index">
   <thead>
     <tr>
       <th>Log ID</th>
-      <th>Order</th>
-      <th>TaxJar Order Transaction ID</th>
-      <th>TaxJar Refund Transaction ID</th>
-      <th>Status</th>
-      <th>Error Message</th>
-      <th>Created at</th>
-      <th>Updated at</th>
+      <th class="wrap-text">Order</th>
+      <th class="wrap-text">Txn ID</th>
+      <th class="wrap-text">Refund Txn ID</th>
+      <th class="wrap-text">Status</th>
+      <th class="wrap-text">Error</th>
+      <th class="wrap-text">Created at</th>
+      <th class="wrap-text">Updated at</th>
+      <th class="wrap-text"></th>
     </tr>
   </thead>
   <tbody>
-    <% transaction_sync_logs.each do |log| %>
+    <% transaction_sync_logs.each.with_index(1) do |log, index| %>
       <tr>
         <td><%= log.id %></td>
         <td><%= link_to log.order.number, spree.edit_admin_order_path(log.order) %></td>
@@ -22,6 +23,12 @@
         <td style="white-space: pre-wrap; width: 150px; overflow-wrap: anywhere;"><%= log.error_message %></td>
         <td><%= log.created_at %></td>
         <td><%= log.updated_at %></td>
+        <td class="actions">
+          <% # If the latest log is an error show a retry. %>
+          <% if log.error? && transaction_sync_logs.count == index %>
+            <%= link_to_with_icon('repeat', "Retry", admin_order_taxjar_transaction_retry_path(log.order), {method: :post}) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

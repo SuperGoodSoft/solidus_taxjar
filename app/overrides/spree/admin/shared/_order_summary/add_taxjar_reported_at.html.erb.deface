@@ -9,9 +9,10 @@
   </style>
 <% end %>
 
+<% last_success_sync_log = @order.taxjar_transaction_sync_logs.success.order(:created_at).last %>
 <% last_sync_log = @order.taxjar_transaction_sync_logs.order(:created_at).last %>
 <dt>Reported to TaxJar at:</dt>
-<dd> <%= last_sync_log ? pretty_time(last_sync_log.created_at) : "-" %></dd>
+<dd> <%= last_success_sync_log ? pretty_time(last_success_sync_log.created_at) : "-" %></dd>
 <dt>TaxJar Sync: </dt>
 <dd>
   <% last_sync_log_status = if last_sync_log
@@ -26,3 +27,4 @@
     <%= last_sync_log_status.capitalize %>
   </span>
 </dd>
+<dt><%= link_to("TaxJar Sync History", spree.taxjar_transactions_admin_order_path(@order)) %></dt>

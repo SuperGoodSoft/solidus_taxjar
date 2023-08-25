@@ -9,6 +9,7 @@ module SuperGood
             inverse_of: :order
 
           base.has_many :taxjar_transaction_sync_logs,
+            -> { order(:created_at) },
             class_name: "SuperGood::SolidusTaxjar::TransactionSyncLog",
             inverse_of: :order
         end

@@ -12,6 +12,8 @@ Spree::Core::Engine.routes.draw do
       member do
         get :taxjar_transactions
       end
+
+      post 'taxjar_transaction/retry', to: "taxjar_transactions#retry"
     end
   end
 end

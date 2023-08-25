@@ -35,8 +35,6 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: { allow_unused_http_i
     end
 
     scenario "retry of a previously failed transaction sync" do
-      pending "retry feature is implemented"
-
       visit spree.edit_admin_order_path(order)
 
       perform_enqueued_jobs do
@@ -46,9 +44,22 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: { allow_unused_http_i
       end
 
       within("#order_tab_summary") do
+        expect(page).to have_text("Reported to TaxJar at: -", normalize_ws: true)
         expect(page).to have_text("TaxJar Sync: Error", normalize_ws: true)
-        expect(page).to have_text("Retry")
+
+        click_on "TaxJar Sync History"
       end
+
+      within("#content-header") do
+        expect(page).to have_content("TaxJar Sync History")
+      end
+
+      within('#transaction_sync_logs') do
+        expect(page).to have_content("Retry")
+        click_on "Retry"
+      end
+
+      expect(page).to have_content("Queued transaction sync job")
     end
   end
 

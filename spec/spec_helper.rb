@@ -62,6 +62,8 @@ VCR.configure do |config|
   end
   config.ignore_hosts(
     "chromedriver.storage.googleapis.com",
+    "googlechromelabs.github.io",
+    "edgedl.me.gvt1.com",
     *driver_urls
   )
   config.filter_sensitive_data('<BEARER_TOKEN>') { |interaction|

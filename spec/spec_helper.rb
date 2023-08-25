@@ -36,11 +36,10 @@ FactoryBot.definition_file_paths = [
 
 FactoryBot.reload
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
+require "support/solidus_events_helper"
 
 RSpec.configure do |config|
+  config.include SolidusEventsHelper
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 

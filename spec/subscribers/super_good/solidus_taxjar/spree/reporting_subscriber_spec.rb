@@ -1,30 +1,10 @@
 require "spec_helper"
 
-# These tests will excercise either the `ReportinSubscriber` or the
+# These tests will excercise either the `ReportingSubscriber` or the
 # `LegacyReportingSubscriber` depending on the version of Solidus they are
 # run against. The loading of the correct subscriber is handled by the
 # initializer added by this extension's install generator.
 RSpec.describe "ReportingSubscriber" do
-  # We only want to trigger the real event action behaviour as our spec
-  # `subject`s.
-  def with_events_disabled(&block)
-    if SolidusSupport::LegacyEventCompat.using_legacy?
-      allow(Spree::Event).to receive(:fire).and_return(nil)
-    else
-      allow(Spree::Bus).to receive(:publish).and_return(nil)
-    end
-
-    object = yield block
-
-    if SolidusSupport::LegacyEventCompat.using_legacy?
-      allow(Spree::Event).to receive(:fire).and_call_original
-    else
-      allow(Spree::Bus).to receive(:publish).and_call_original
-    end
-
-    object
-  end
-
   before do
     create(:taxjar_configuration, preferred_reporting_enabled_at_integer: reporting_enabled_at.to_i)
   end

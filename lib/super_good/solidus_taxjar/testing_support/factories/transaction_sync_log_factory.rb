@@ -9,5 +9,10 @@ FactoryBot.define do
         log.order_transaction = build(:taxjar_order_transaction, order: log.order)
       end
     end
+
+    trait :error do
+      status { "error" }
+      error_message { "Sync failed" }
+    end
   end
 end

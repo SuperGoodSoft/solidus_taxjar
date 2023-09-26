@@ -49,6 +49,26 @@ RSpec.describe SuperGood::SolidusTaxjar::Reportable do
 
           it { is_expected.to be_truthy }
 
+          context "when the order has a failed transaction sync log and no order transactions" do
+            before do
+              create :transaction_sync_log, :error, order: order
+            end
+
+            it { is_expected.to be_truthy }
+          end
+
+          context "when the order has a failed transaction sync log, and an existing order transaction" do
+            before do
+              create :transaction_sync_log, :error, order: order
+              create :taxjar_order_transaction, order: order
+            end
+
+            it "is expected to be falsey" do
+              pending 'the `with_reportable` method is updated to not run when a transaction should be replaced'
+              expect(subject).to be_falsey
+            end
+          end
+
           context "when the order was completed before reporting was enabled" do
             before do
               allow(SuperGood::SolidusTaxjar.exception_handler)

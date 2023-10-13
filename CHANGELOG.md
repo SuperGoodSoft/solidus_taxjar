@@ -2,6 +2,7 @@
 
 ## master
 
+- [#244](https://github.com/SuperGoodSoft/solidus_taxjar/pull/244) Let admins manually retry syncing TaxJar transactions
 - [#193](https://github.com/SuperGoodSoft/solidus_taxjar/pull/193) Bump version requirement for `solidus_support` to ">= 0.9.0", and as a result drop support for Rails 5.2.
 - [#190](https://github.com/SuperGoodSoft/solidus_taxjar/pull/190) Add transaction sync batch show page
 - [#188](https://github.com/SuperGoodSoft/solidus_taxjar/pull/188) Show transaction sync batches in user interface

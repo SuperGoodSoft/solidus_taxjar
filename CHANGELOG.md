@@ -63,6 +63,7 @@
 - [#237](https://github.com/SuperGoodSoft/solidus_taxjar/pull/237) Sort order transactions by `created_at`
 - [#236](https://github.com/SuperGoodSoft/solidus_taxjar/pull/236) Don't send cancelled or returned line items
 - [#225](https://github.com/SuperGoodSoft/solidus_taxjar/pull/225) Create sync logs for replace transaction jobs
+- [#231](https://github.com/SuperGoodSoft/solidus_taxjar/pull/231) Load Solidus factories using new conventions
 
 ## Upgrading Instructions
 

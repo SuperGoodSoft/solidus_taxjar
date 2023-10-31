@@ -10,19 +10,15 @@ module SuperGood
           ::Spree::Event.register("shipment_shipped")
         end
 
-        event_action :report_transaction, event_name: :shipment_shipped
-        event_action :replace_transaction, event_name: :order_recalculated
+        event_action :report_or_replace_transaction, event_name: :order_recalculated
 
-        def report_transaction(event)
-          order = event.payload[:shipment].order
+        def report_or_replace_transaction(event)
+          order = event.payload[:order]
 
           with_reportable(order) do
             SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
+            return
           end
-        end
-
-        def replace_transaction(event)
-          order = event.payload[:order]
 
           with_replaceable(order) do
             SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)

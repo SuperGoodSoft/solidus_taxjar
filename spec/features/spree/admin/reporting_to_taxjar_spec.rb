@@ -145,7 +145,6 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: { allow_unused_http_i
 
       page.refresh
 
-      pending("fix for reporting instead of replacing")
 
       expect(page).to have_text("TaxJar Sync: Success", normalize_ws: true)
     end

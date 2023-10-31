@@ -49,6 +49,14 @@ RSpec.describe SuperGood::SolidusTaxjar::Reportable do
 
           it { is_expected.to be_truthy }
 
+          context "the order is not paid" do
+            before do
+              order.update_columns(payment_state: :balance_due)
+            end
+
+            it { is_expected.to be_falsey }
+          end
+
           context "when the order has a failed transaction sync log and no order transactions" do
             before do
               create :transaction_sync_log, :error, order: order

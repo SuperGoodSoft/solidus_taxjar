@@ -35,7 +35,11 @@ RSpec.feature 'Reporting orders to TaxJar', js: true, vcr: { allow_unused_http_i
       create(
         :order_ready_to_ship,
         ship_address: invalid_address
-      ).tap { |o| o.touch(:completed_at) }
+      ).tap do |order|
+        order.touch(:completed_at)
+        order.recalculate
+        order.payments.first.update!(amount: 110)
+      end
     end
 
     scenario "retry of a previously failed transaction sync" do

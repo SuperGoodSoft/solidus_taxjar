@@ -5,19 +5,15 @@ module SuperGood
         include Omnes::Subscriber
         include SuperGood::SolidusTaxjar::Reportable
 
-        handle :shipment_shipped, with: :report_transaction
-        handle :order_recalculated, with: :replace_transaction
+        handle :order_recalculated, with: :report_or_replace_transaction
 
-        def report_transaction(event)
-          order = event.payload[:shipment].order
+        def report_or_replace_transaction(event)
+          order = event.payload[:order]
 
           with_reportable(order) do
             SuperGood::SolidusTaxjar::ReportTransactionJob.perform_later(order)
+            return
           end
-        end
-
-        def replace_transaction(event)
-          order = event.payload[:order]
 
           with_replaceable(order) do
             SuperGood::SolidusTaxjar::ReplaceTransactionJob.perform_later(order)

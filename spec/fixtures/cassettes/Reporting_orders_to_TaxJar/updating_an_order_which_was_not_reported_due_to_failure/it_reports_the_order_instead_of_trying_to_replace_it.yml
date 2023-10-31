@@ -33,28 +33,28 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:29 GMT
+      - Fri, 15 Dec 2023 18:36:41 GMT
       X-Amzn-Requestid:
-      - '07188813-7653-4e31-8715-bc09aba3e552'
+      - 2bc4afa1-8013-4064-b9fb-b626a682f0a7
       X-Amz-Apigw-Id:
-      - P_1YdGq6oAMEh4g=
+      - P_1tBG_goAMEa7Q=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c35-670952253df21244049dcbff
+      - Root=1-657c9cb9-58f0c7b53f5019f005267137
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 d1d67b07408bba8c682597d8303642e2.cloudfront.net (CloudFront)
+      - 1.1 a8e5d5aeee6eacca5c379e5059b1f68c.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - PbrXcoeYkIVnRpTxcZ91rFsF8ymw3f2NBfVh0z4KSxYvehgwpBrsoQ==
+      - eSpB1fiJ6eL6AIt-3LWZ3VaDaRm2UZDHs4kduFUIqog1q4KqdOhmdw==
     body:
       encoding: UTF-8
       string: '{"regions":[{"region_code":"BC","region":"British Columbia","country_code":"CA","country":"Canada"},{"region_code":"CA","region":"California","country_code":"US","country":"United
         States"},{"region_code":"NY","region":"New York","country_code":"US","country":"United
         States"}]}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:29 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:41 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -62,7 +62,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -92,27 +92,27 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:30 GMT
+      - Fri, 15 Dec 2023 18:36:41 GMT
       X-Amzn-Requestid:
-      - c0d66dfc-0116-42e2-9b8d-4cb22d74a37f
+      - b18991cd-a60d-4170-8c85-0d33bfc9f8f3
       X-Amz-Apigw-Id:
-      - P_1YfEkEoAMEMAw=
+      - P_1tEFPooAMErhg=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c36-72f59251321722750ca1fc4c
+      - Root=1-657c9cb9-3fe9057c6ef709b37f395bad
       X-Cache:
       - Error from cloudfront
       Via:
-      - 1.1 f62c9ca47e35df5c65764381977823a6.cloudfront.net (CloudFront)
+      - 1.1 d2575afea3774df33dcf5e5ff475025e.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - yiT-kFgM4b7304dV5ytswEAYZagxvjfoq-KN4zmjx8_DolC7DTcIOg==
+      - EHxEWIwBfT1DGoLRELLFNSLo3W1CoCDO_-7v_wvNZnoPu1bHP6Gwfg==
     body:
       encoding: UTF-8
       string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
         within to_state NY"}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:29 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:41 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -120,7 +120,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -150,141 +150,13 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:30 GMT
+      - Fri, 15 Dec 2023 18:36:41 GMT
       X-Amzn-Requestid:
-      - ff8c901e-0e4c-4a44-b49b-079686e1e4f2
+      - a3e66767-bb0a-4539-81c0-23b06aa02e48
       X-Amz-Apigw-Id:
-      - P_1YhGv9IAMElSQ=
+      - P_1tGGzjIAMEAcQ=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c36-75dfbd374d47eb0728cbb266
-      X-Cache:
-      - Error from cloudfront
-      Via:
-      - 1.1 9b21fd56256eda6d1379e32829c4c446.cloudfront.net (CloudFront)
-      X-Amz-Cf-Pop:
-      - SEA73-P2
-      X-Amz-Cf-Id:
-      - GU1FZ9nvwBRoqEHYKv__Z9CqUCOs_hSmI0ip4N2bJSxZ66AL_nDdzg==
-    body:
-      encoding: UTF-8
-      string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
-        within to_state NY"}'
-    http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:30 GMT
-- request:
-    method: post
-    uri: https://api.taxjar.com/v2/taxes
-    body:
-      encoding: ASCII-8BIT
-      string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
-        Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
-    headers:
-      User-Agent:
-      - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
-        Apr 24 21:11:17 PDT 2023; root:xnu-8020.240.18.701.5~1/RELEASE_ARM64_T6000
-        arm64; ruby 3.2.2-p53; OpenSSL 3.1.2 1 Aug 2023) taxjar-ruby/3.0.4'
-      Authorization:
-      - Bearer <BEARER_TOKEN>
-      X-Api-Version:
-      - '2020-08-07'
-      Plugin:
-      - supergoodsolidustaxjar
-      Connection:
-      - close
-      Content-Type:
-      - application/json; charset=UTF-8
-      Host:
-      - api.taxjar.com
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '91'
-      Connection:
-      - close
-      Date:
-      - Fri, 15 Dec 2023 18:34:30 GMT
-      X-Amzn-Requestid:
-      - 3e4d9ae3-0d67-4095-930f-c51659f01e58
-      X-Amz-Apigw-Id:
-      - P_1YoFmFoAMEpYA=
-      X-Amzn-Trace-Id:
-      - Root=1-657c9c36-2728c1f609bd89af6c011c31
-      X-Cache:
-      - Error from cloudfront
-      Via:
-      - 1.1 e77661e211afe9242e85e573f12d5534.cloudfront.net (CloudFront)
-      X-Amz-Cf-Pop:
-      - SEA73-P2
-      X-Amz-Cf-Id:
-      - dKQdG88I-V1EoINkurXFA5N44-EBHnfztiQ-B_WAhnWxjflksWXeDA==
-    body:
-      encoding: UTF-8
-      string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
-        within to_state NY"}'
-    http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:30 GMT
-- request:
-    method: post
-    uri: https://api.taxjar.com/v2/transactions/orders
-    body:
-      encoding: ASCII-8BIT
-      string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
-        Lovely Street","line_items":[{"id":1,"quantity":1,"product_identifier":"SKU-1","description":"Product
-        #1 - 5912 - Master","product_tax_code":"TaxCode - 973892","unit_price":"10.0","discount":0,"sales_tax":"0.0"}],"transaction_id":"R300413654","transaction_date":"2023-12-15T18:34:30Z","amount":"110.0","shipping":"100.0","sales_tax":"0.0"}'
-    headers:
-      User-Agent:
-      - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
-        Apr 24 21:11:17 PDT 2023; root:xnu-8020.240.18.701.5~1/RELEASE_ARM64_T6000
-        arm64; ruby 3.2.2-p53; OpenSSL 3.1.2 1 Aug 2023) taxjar-ruby/3.0.4'
-      Authorization:
-      - Bearer <BEARER_TOKEN>
-      X-Api-Version:
-      - '2020-08-07'
-      Plugin:
-      - supergoodsolidustaxjar
-      Connection:
-      - close
-      Content-Type:
-      - application/json; charset=UTF-8
-      Host:
-      - api.taxjar.com
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '91'
-      Connection:
-      - close
-      Date:
-      - Fri, 15 Dec 2023 18:34:31 GMT
-      X-Amzn-Requestid:
-      - f19ae3a8-c08e-4959-9ac9-518cb986f8b7
-      X-Amzn-Remapped-Content-Length:
-      - '91'
-      X-Amzn-Remapped-Connection:
-      - keep-alive
-      X-Request-Id:
-      - F6EVCwZeOwpvDKEjUBxC
-      X-Api-Version:
-      - '2020-08-07'
-      X-Amz-Apigw-Id:
-      - P_1YrFi_oAMEgsA=
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Amzn-Remapped-Server:
-      - Cowboy
-      X-Amzn-Remapped-Date:
-      - Fri, 15 Dec 2023 18:34:31 GMT
+      - Root=1-657c9cb9-60a4a50c2a5268de7202656f
       X-Cache:
       - Error from cloudfront
       Via:
@@ -292,13 +164,141 @@ http_interactions:
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - WP-iCx5u292oe-xQA8Yyi8alQRXHqpZS07G2XG_tFj4rl6JDtAj1xQ==
+      - xmF_OU795uRHIpt9BpMelCR4oYjREAx3S2z_2ftI4ejVSjfzaa8i1A==
     body:
       encoding: UTF-8
       string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
         within to_state NY"}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:31 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:41 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/taxes
+    body:
+      encoding: ASCII-8BIT
+      string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
+        Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
+        - 410790"}],"shipping":"100.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
+        Apr 24 21:11:17 PDT 2023; root:xnu-8020.240.18.701.5~1/RELEASE_ARM64_T6000
+        arm64; ruby 3.2.2-p53; OpenSSL 3.1.2 1 Aug 2023) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '91'
+      Connection:
+      - close
+      Date:
+      - Fri, 15 Dec 2023 18:36:42 GMT
+      X-Amzn-Requestid:
+      - 1df28c71-ffab-4545-9a44-43cd2bcc5452
+      X-Amz-Apigw-Id:
+      - P_1tOHf-oAMEpwg=
+      X-Amzn-Trace-Id:
+      - Root=1-657c9cba-1766ff8b07afe51751bab726
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 73b60e9a9fd08eae9e034cedba707280.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - jD2RnXb7u6N4AqU3qibZw0Bkm0ZD1q1FgCMMmeoZiQiXNPJd5QLqQw==
+    body:
+      encoding: UTF-8
+      string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
+        within to_state NY"}'
+    http_version:
+  recorded_at: Fri, 15 Dec 2023 18:36:42 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/transactions/orders
+    body:
+      encoding: ASCII-8BIT
+      string: '{"customer_id":"1","to_country":"US","to_zip":"99999","to_city":"Herndon","to_state":"NY","to_street":"10
+        Lovely Street","line_items":[{"id":1,"quantity":1,"product_identifier":"SKU-1","description":"Product
+        #1 - 1856 - Master","product_tax_code":"TaxCode - 410790","unit_price":"10.0","discount":0,"sales_tax":"0.0"}],"transaction_id":"R782923171","transaction_date":"2023-12-15T18:36:41Z","amount":"110.0","shipping":"100.0","sales_tax":"0.0"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
+        Apr 24 21:11:17 PDT 2023; root:xnu-8020.240.18.701.5~1/RELEASE_ARM64_T6000
+        arm64; ruby 3.2.2-p53; OpenSSL 3.1.2 1 Aug 2023) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '91'
+      Connection:
+      - close
+      Date:
+      - Fri, 15 Dec 2023 18:36:42 GMT
+      X-Amzn-Requestid:
+      - 7cdb0ba1-53f2-4050-a097-3982c657d4e7
+      X-Amzn-Remapped-Content-Length:
+      - '91'
+      X-Amzn-Remapped-Connection:
+      - keep-alive
+      X-Request-Id:
+      - F6EVKbKgVGMNqo0B3iFj
+      X-Api-Version:
+      - '2020-08-07'
+      X-Amz-Apigw-Id:
+      - P_1tQENQoAMEREw=
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Amzn-Remapped-Server:
+      - Cowboy
+      X-Amzn-Remapped-Date:
+      - Fri, 15 Dec 2023 18:36:42 GMT
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 79880188a81becf1687ba18c0e064230.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - k8eO9ZyStm5gncq3gjERM1qzlckRrDm99zTRjDUwvm-GaxoN0bnP6A==
+    body:
+      encoding: UTF-8
+      string: '{"status":400,"error":"Bad Request","detail":"to_zip 99999 is not used
+        within to_state NY"}'
+    http_version:
+  recorded_at: Fri, 15 Dec 2023 18:36:42 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -306,7 +306,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -336,29 +336,29 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:31 GMT
+      - Fri, 15 Dec 2023 18:36:43 GMT
       X-Amzn-Requestid:
-      - 941192af-7ee8-490f-af6f-c8cd947077fc
+      - 8914a8fb-08b1-4c39-9260-30714c2e9fcc
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1YxH-YoAMEFSQ=
+      - P_1tYE10IAMEECw=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c37-05a9f7a077ff504574f130a0
+      - Root=1-657c9cbb-772a21fe0452f08d204d5478
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 27f6faf9790b5a2877fb528fa31f7922.cloudfront.net (CloudFront)
+      - 1.1 d2575afea3774df33dcf5e5ff475025e.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - 2vKz5S6SR1gP3niKJkA9Pr70epNpj1ueffH_1bNhq2OY935Dfh4YXQ==
+      - Y3YGzvpPMKFKnB3qmBWpJhPcGFAPZYKNij5FCW8-dOjrT-XNxqcLYA==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:31 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:43 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -366,7 +366,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -396,29 +396,29 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:32 GMT
+      - Fri, 15 Dec 2023 18:36:44 GMT
       X-Amzn-Requestid:
-      - a204bffc-02d4-4bd4-b9a4-6db71ca13ce0
+      - 73b025dd-907f-42a7-8679-72a516500ff4
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1Y3FtGoAMEdQg=
+      - P_1tfHrmoAMETyg=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c38-0b3f258d0280997e7be4e9a8
+      - Root=1-657c9cbc-081dd70f53e8174844a52672
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 5abfab33f248090bb0f31ca137ce9464.cloudfront.net (CloudFront)
+      - 1.1 2a44ef7b9d28e74c78ffadeedcbb887c.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - PDR4QQtauCbBduwqT2slx7O_RvA1J0Wh_PceKe5BTuSfmzdUQTCrYw==
+      - SwHa5BbEbuWIeI61hRgfaOKCNUMM8KZWJXQOAz8UGYSSqjduas5hxQ==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:32 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:44 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -426,7 +426,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -456,29 +456,29 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:32 GMT
+      - Fri, 15 Dec 2023 18:36:44 GMT
       X-Amzn-Requestid:
-      - 4f99def2-eda6-4990-b73f-cd0b10dc8a4c
+      - 23c59d0c-51f3-4794-8057-83d172f9d807
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1Y5HljIAMEmWg=
+      - P_1tiGBCIAMEHJg=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c38-2690cf641c96627d65bc59f3
+      - Root=1-657c9cbc-03aff3025808755342dd51b9
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 45d6a557ecb29942f314e3dd736d817a.cloudfront.net (CloudFront)
+      - 1.1 d2575afea3774df33dcf5e5ff475025e.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - SAPYZ8MwuO99SwJd3apC9Um997Jg_P9gFXPNUTE__bcdUhPQX_zB5A==
+      - x5YjSpOBykbkqOuTNHMoliOrrkqKE5fXOFDyCepDK211EhzYk1kYhg==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:32 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:44 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -486,7 +486,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -516,29 +516,29 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:32 GMT
+      - Fri, 15 Dec 2023 18:36:45 GMT
       X-Amzn-Requestid:
-      - '05881cc6-85f2-4bb2-83a1-41a383bb9e2c'
+      - 36af8d7d-cc56-4212-83b5-4b00632ab7d7
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1Y8Ed0oAMEAvA=
+      - P_1tmHz_oAMEPrQ=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c38-71df5bb7635e12d5360c3287
+      - Root=1-657c9cbd-50463d2901ef0bce7970d7dc
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 637ef0a7bc474e9a314fa064b65e8082.cloudfront.net (CloudFront)
+      - 1.1 73b60e9a9fd08eae9e034cedba707280.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - n0uJB_Tz5Jn4iq4z-22SRhjwgo-t5EWVb2bLaZS71o4syT2-g5Iqsg==
+      - ufVPDs8pA-hs6urIr8IBxpJ8CEKdQNoZLBaXUYNRnznKw5tsyI7-BA==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:32 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:45 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -546,7 +546,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -576,29 +576,29 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:33 GMT
+      - Fri, 15 Dec 2023 18:36:45 GMT
       X-Amzn-Requestid:
-      - c42736e4-b64f-431e-b97c-bf4d9a05758c
+      - 9a3cc2b3-59ea-4be8-8550-a9f41c13451d
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1ZAFPuIAMEY2A=
+      - P_1trECgoAMEO9w=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c39-2c71f67b707f842e3d4f991a
+      - Root=1-657c9cbd-749282cc3fbf209479aa608b
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 f62c9ca47e35df5c65764381977823a6.cloudfront.net (CloudFront)
+      - 1.1 25b9a991f871f75614e7f92f97b136a4.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - e_BOLHovOON8nOcpNkFKhXIv-rZvCQbu5H7klzHjrJIwU1HT0qxwlw==
+      - jlSKf1mxqVkO_Ei42Bw0iiZgE--p1B0nwbFLniRT1pHaFmOBRLFtDg==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:33 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:45 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -606,7 +606,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -636,15 +636,15 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:33 GMT
+      - Fri, 15 Dec 2023 18:36:46 GMT
       X-Amzn-Requestid:
-      - 96a71d6b-9c62-4153-a566-6e4d39de3717
+      - 74cd08e9-cdc9-480d-874d-126e0b75f711
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1ZEHCZIAMEvUQ=
+      - P_1tuHN0IAMEa7Q=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c39-2810ca896d4c60f948f7fb8b
+      - Root=1-657c9cbd-489bb91b21de6ade70ccf543
       X-Cache:
       - Miss from cloudfront
       Via:
@@ -652,13 +652,13 @@ http_interactions:
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - wLLZmB4lbISrdht-xSLRUuVuTKY42qZpE0A-fOwbYD2ca4VsvOur7w==
+      - 9FHb4OIGDHluRCV81zTisb9UGykCorMaUMCjWXEG7NLzOd6gmPtMjw==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:33 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:45 GMT
 - request:
     method: post
     uri: https://api.taxjar.com/v2/taxes
@@ -666,7 +666,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
         Lovely Street","line_items":[{"id":1,"quantity":1,"unit_price":"10.0","discount":0,"product_tax_code":"TaxCode
-        - 973892"}],"shipping":"100.0"}'
+        - 410790"}],"shipping":"100.0"}'
     headers:
       User-Agent:
       - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
@@ -696,27 +696,99 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 15 Dec 2023 18:34:33 GMT
+      - Fri, 15 Dec 2023 18:36:46 GMT
       X-Amzn-Requestid:
-      - 1fc3ff92-b275-4b9d-82e8-2f3aa134d19e
+      - d09b080b-2733-4716-9f50-be010a5a6bf4
       Access-Control-Allow-Origin:
       - https://developers.taxjar.com
       X-Amz-Apigw-Id:
-      - P_1ZGHU5IAMElUg=
+      - P_1tyGdZIAMEUnQ=
       X-Amzn-Trace-Id:
-      - Root=1-657c9c39-4d6787cf1aa4f1705c6540c3
+      - Root=1-657c9cbe-5ab8d1597f51b9352852bcfe
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 d8d9c12d1a621129f4bc739038e7c72e.cloudfront.net (CloudFront)
+      - 1.1 34c44cb7892e57a3b6c51812bcf68ee4.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - SEA73-P2
       X-Amz-Cf-Id:
-      - nEdbKeey1AMdA0aIf2VqBbrbIuK5gt-ADVYzFIEdZY9zspOSkusu1A==
+      - 05nu-_1vBDWTy54KmDRJpbGSkmLKvdsq9WZeEEaw9VJFEiwSiBopMA==
     body:
       encoding: UTF-8
       string: '{"tax":{"amount_to_collect":9.76,"breakdown":{"city_tax_collectable":5.36,"city_tax_rate":0.04875,"city_taxable_amount":110.0,"combined_tax_rate":0.08875,"county_tax_collectable":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"line_items":[{"city_amount":0.49,"city_tax_rate":0.04875,"city_taxable_amount":10.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"id":"1","special_district_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_amount":0.4,"state_sales_tax_rate":0.04,"state_taxable_amount":10.0,"tax_collectable":0.89,"taxable_amount":10.0}],"shipping":{"city_amount":4.88,"city_tax_rate":0.04875,"city_taxable_amount":100.0,"combined_tax_rate":0.08875,"county_amount":0.0,"county_tax_rate":0.0,"county_taxable_amount":0.0,"special_district_amount":0.0,"special_tax_rate":0.0,"special_taxable_amount":0.0,"state_amount":4.0,"state_sales_tax_rate":0.04,"state_taxable_amount":100.0,"tax_collectable":8.88,"taxable_amount":100.0},"special_district_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"state_tax_collectable":4.4,"state_tax_rate":0.04,"state_taxable_amount":110.0,"tax_collectable":9.76,"taxable_amount":110.0},"freight_taxable":true,"has_nexus":true,"jurisdictions":{"city":"NEW
         YORK CITY","country":"US","county":"QUEENS","state":"NY"},"order_total_amount":110.0,"rate":0.08875,"shipping":100.0,"tax_source":"destination","taxable_amount":110.0}}'
     http_version:
-  recorded_at: Fri, 15 Dec 2023 18:34:33 GMT
+  recorded_at: Fri, 15 Dec 2023 18:36:46 GMT
+- request:
+    method: post
+    uri: https://api.taxjar.com/v2/transactions/orders
+    body:
+      encoding: ASCII-8BIT
+      string: '{"customer_id":"1","to_country":"US","to_zip":"11430","to_city":"Herndon","to_state":"NY","to_street":"10
+        Lovely Street","line_items":[{"id":1,"quantity":1,"product_identifier":"SKU-1","description":"Product
+        #1 - 1856 - Master","product_tax_code":"TaxCode - 410790","unit_price":"10.0","discount":0,"sales_tax":"0.89"}],"transaction_id":"R782923171","transaction_date":"2023-12-15T18:36:41Z","amount":"110.0","shipping":"100.0","sales_tax":"9.77"}'
+    headers:
+      User-Agent:
+      - 'TaxJar/Ruby (Darwin Noahs-MBP.lan 21.6.0 Darwin Kernel Version 21.6.0: Mon
+        Apr 24 21:11:17 PDT 2023; root:xnu-8020.240.18.701.5~1/RELEASE_ARM64_T6000
+        arm64; ruby 3.2.2-p53; OpenSSL 3.1.2 1 Aug 2023) taxjar-ruby/3.0.4'
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      X-Api-Version:
+      - '2020-08-07'
+      Plugin:
+      - supergoodsolidustaxjar
+      Connection:
+      - close
+      Content-Type:
+      - application/json; charset=UTF-8
+      Host:
+      - api.taxjar.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '643'
+      Connection:
+      - close
+      Date:
+      - Fri, 15 Dec 2023 18:36:46 GMT
+      X-Amzn-Requestid:
+      - b427545b-a54d-4ad3-97af-92a188fb5450
+      X-Amzn-Remapped-Content-Length:
+      - '643'
+      X-Amzn-Remapped-Connection:
+      - keep-alive
+      X-Request-Id:
+      - F6EVKpe20isoeLwcBTXB
+      X-Api-Version:
+      - '2020-08-07'
+      X-Amz-Apigw-Id:
+      - P_1t2GdzIAMEr7Q=
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Amzn-Remapped-Server:
+      - Cowboy
+      X-Amzn-Remapped-Date:
+      - Fri, 15 Dec 2023 18:36:46 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 d2575afea3774df33dcf5e5ff475025e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - SEA73-P2
+      X-Amz-Cf-Id:
+      - 0CPcVafXYMEziH9pkSMSm8kelXNmzCRxNc_Us2rZwSDJ2AFztTdZbA==
+    body:
+      encoding: UTF-8
+      string: '{"order":{"user_id":225397,"transaction_reference_id":null,"transaction_id":"R782923171","transaction_date":"2023-12-15T18:36:41.000Z","to_zip":"11430","to_street":"10
+        Lovely Street","to_state":"NY","to_country":"US","to_city":"HERNDON","shipping":"100.0","sales_tax":"9.77","provider":"api","line_items":[{"unit_price":"10.0","sales_tax":"0.89","quantity":1,"product_tax_code":"TaxCode
+        - 410790","product_identifier":"SKU-1","id":0,"discount":"0.0","description":"Product
+        #1 - 1856 - Master"}],"from_zip":null,"from_street":null,"from_state":null,"from_country":"US","from_city":null,"exemption_type":null,"customer_id":"1","amount":"110.0"}}'
+    http_version:
+  recorded_at: Fri, 15 Dec 2023 18:36:46 GMT
 recorded_with: VCR 4.0.0

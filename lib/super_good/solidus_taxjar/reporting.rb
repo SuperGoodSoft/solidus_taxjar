@@ -7,6 +7,7 @@ module SuperGood
 
       def refund_and_create_new_transaction(order)
         latest_order_transaction = OrderTransaction.latest_for(order)
+
         unless latest_order_transaction.refund_transaction
           transaction_response = @api.create_refund_transaction_for(order)
           latest_order_transaction.create_refund_transaction!(

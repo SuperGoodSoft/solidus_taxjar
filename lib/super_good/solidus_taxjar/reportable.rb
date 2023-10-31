@@ -43,7 +43,8 @@ module SuperGood
       def order_reportable?(order)
         return SuperGood::SolidusTaxjar.configuration.preferred_reporting_enabled &&
           order.completed? &&
-          order.shipped?
+          order.shipped? &&
+          order.payment_state == "paid"
       end
 
       # @return [Boolean] true if the transaction has been previously reported

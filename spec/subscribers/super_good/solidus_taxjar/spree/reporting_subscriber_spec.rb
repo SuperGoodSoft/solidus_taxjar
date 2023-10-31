@@ -219,6 +219,7 @@ RSpec.describe "ReportingSubscriber" do
       with_events_disabled do
         create(:shipment, state: 'shipped', order: order).tap { |shipment|
           shipment.order.recalculate
+          shipment.order.update_columns(payment_state: :paid)
         }
       end
     }

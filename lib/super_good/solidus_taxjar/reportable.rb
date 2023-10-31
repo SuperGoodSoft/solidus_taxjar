@@ -15,27 +15,18 @@ module SuperGood
         raise "Please provide a block!" unless block_given?
 
         return unless order_reportable?(order)
-
-        if completed_before_reporting_enabled?(order)
-          order.taxjar_transaction_sync_logs.create!(
-            status: :error,
-            error_message: ORDER_TOO_OLD_MESSAGE
-          )
-          SuperGood::SolidusTaxjar.exception_handler.call(
-            RuntimeError.new(ORDER_TOO_OLD_MESSAGE)
-          )
-          return
-        end
+        return if completed_before_reporting_enabled?(order)
+        return unless order.taxjar_order_transactions.none?
 
         yield
       end
 
       def with_replaceable(order, &block)
-        with_reportable(order) do
-          return unless transaction_replaceable?(order)
+        return unless order_reportable?(order)
+        return if completed_before_reporting_enabled?(order)
+        return unless transaction_replaceable?(order)
 
-          yield
-        end
+        yield
       end
 
       # @return [Boolean] true if the TaxJar reporting is currently enabled
@@ -53,7 +44,6 @@ module SuperGood
       #   and the transaction amount on TaxJar.
       def transaction_replaceable?(order)
         order.taxjar_order_transactions.present? &&
-          order.payment_state == "paid" &&
           amount_changed?(order)
       end
 
@@ -62,8 +52,32 @@ module SuperGood
       def completed_before_reporting_enabled?(order)
         configuration = SuperGood::SolidusTaxjar.configuration
 
-        configuration.preferred_reporting_enabled &&
+        completed_before_reporting_enabled = configuration.preferred_reporting_enabled &&
           configuration.preferred_reporting_enabled_at > order.completed_at
+
+        if completed_before_reporting_enabled
+          log_order_too_old_to_sync(order)
+        end
+
+        completed_before_reporting_enabled
+      end
+
+      # Logs and notifies the custom exception handler for orders which are
+      # too old to be reported. If a log for this already exists a new one
+      # won't be created and the exception handler won't be called.
+      def log_order_too_old_to_sync(order)
+        sync_log = order.taxjar_transaction_sync_logs.find_or_initialize_by(
+          status: :error,
+          error_message: ORDER_TOO_OLD_MESSAGE
+        )
+
+        unless sync_log.persisted?
+          sync_log.save!
+
+          SuperGood::SolidusTaxjar.exception_handler.call(
+            RuntimeError.new(ORDER_TOO_OLD_MESSAGE)
+          )
+        end
       end
 
       def amount_changed?(order)

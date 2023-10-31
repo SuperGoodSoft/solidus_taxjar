@@ -71,10 +71,7 @@ RSpec.describe SuperGood::SolidusTaxjar::Reportable do
               create :taxjar_order_transaction, order: order
             end
 
-            it "is expected to be falsey" do
-              pending 'the `with_reportable` method is updated to not run when a transaction should be replaced'
-              expect(subject).to be_falsey
-            end
+            it { is_expected.to be_falsey }
           end
 
           context "when the order was completed before reporting was enabled" do

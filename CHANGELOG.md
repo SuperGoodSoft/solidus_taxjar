@@ -2,6 +2,7 @@
 
 ## master
 
+- [#250](https://github.com/SuperGoodSoft/solidus_taxjar/pull/250) Improve error handling for `ReportTransactionJob`
 - [#249](https://github.com/SuperGoodSoft/solidus_taxjar/pull/249) Don't depend on `webdrivers` gem
 - [#244](https://github.com/SuperGoodSoft/solidus_taxjar/pull/244) Let admins manually retry syncing TaxJar transactions
 - [#193](https://github.com/SuperGoodSoft/solidus_taxjar/pull/193) Bump version requirement for `solidus_support` to ">= 0.9.0", and as a result drop support for Rails 5.2.

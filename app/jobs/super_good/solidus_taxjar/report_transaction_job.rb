@@ -13,7 +13,7 @@ module SuperGood
         begin
           order_transaction = SuperGood::SolidusTaxjar.reporting.show_or_create_transaction(order)
           transaction_sync_log.update!(order_transaction: order_transaction, status: :success)
-        rescue Taxjar::Error => exception
+        rescue StandardError => exception
           transaction_sync_log.update!(status: :error, error_message: exception.message)
         end
       end

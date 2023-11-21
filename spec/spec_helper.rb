@@ -11,6 +11,8 @@ require File.expand_path("dummy/config/environment.rb", __dir__).tap { |file|
 require "solidus_dev_support/rspec/feature_helper"
 require 'vcr'
 
+require "selenium-webdriver"
+
 chrome_options = Selenium::WebDriver::Chrome::Options.new.tap do |options|
   options.add_argument("--window-size=#{CAPYBARA_WINDOW_SIZE.join(',')}")
   options.add_argument("--headless") unless ENV["HEADED"]
@@ -46,14 +48,10 @@ VCR.configure do |config|
   config.ignore_localhost = true
   config.configure_rspec_metadata!
   config.hook_into :webmock
-  driver_urls = Webdrivers::Common.subclasses.map do |driver|
-    Addressable::URI.parse(driver.base_url).host
-  end
   config.ignore_hosts(
     "chromedriver.storage.googleapis.com",
     "googlechromelabs.github.io",
-    "edgedl.me.gvt1.com",
-    *driver_urls
+    "edgedl.me.gvt1.com"
   )
   config.filter_sensitive_data('<BEARER_TOKEN>') { |interaction|
     auths = interaction.request.headers['Authorization'].first

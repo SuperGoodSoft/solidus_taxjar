@@ -24,8 +24,6 @@ module SuperGood
           create_file(omnes_initializer_path) unless File.exist?(omnes_initializer_path)
           append_to_file(omnes_initializer_path, <<~INIT)
             Rails.application.config.to_prepare do
-              ::Spree::Bus.register(:shipment_shipped)
-
               if SolidusSupport::LegacyEventCompat.using_legacy?
                 require 'super_good/solidus_taxjar/spree/legacy_reporting_subscriber.rb'
                 SuperGood::SolidusTaxjar::Spree::LegacyReportingSubscriber.omnes_subscriber.subscribe_to(Spree::Bus)

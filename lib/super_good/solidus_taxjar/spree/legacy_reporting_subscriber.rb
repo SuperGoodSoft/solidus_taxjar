@@ -6,10 +6,6 @@ module SuperGood
         include SolidusSupport::LegacyEventCompat::Subscriber
         include SuperGood::SolidusTaxjar::Reportable
 
-        if ::Spree::Event.method_defined?(:register)
-          ::Spree::Event.register("shipment_shipped")
-        end
-
         event_action :report_or_replace_transaction, event_name: :order_recalculated
 
         def report_or_replace_transaction(event)

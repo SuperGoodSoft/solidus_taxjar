@@ -65,6 +65,7 @@
 - [#236](https://github.com/SuperGoodSoft/solidus_taxjar/pull/236) Don't send cancelled or returned line items
 - [#225](https://github.com/SuperGoodSoft/solidus_taxjar/pull/225) Create sync logs for replace transaction jobs
 - [#231](https://github.com/SuperGoodSoft/solidus_taxjar/pull/231) Load Solidus factories using new conventions
+- [#246](https://github.com/SuperGoodSoft/solidus_taxjar/pull/246) Fix bugs with sync retries when reporting or replacing a transaction fails
 
 ## Upgrading Instructions
 

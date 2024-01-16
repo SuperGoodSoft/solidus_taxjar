@@ -31,14 +31,13 @@ RSpec.feature "Refunding an order", :js do
         {variant: create(:product, name: "Second Product").master},
         {quantity: 2, variant: create(:product, name: "Third Product").master}
       ],
-      number: "R525233498",
+      number: "R925733488",
       shipment_cost: 0,
       shipping_method: create(:free_shipping_method)
   }
 
   scenario "adds tax calculated by TaxJar to the order total",
     js: true,
-    pending: "We are investigating why this spec is failing.",
     vcr: {
       cassette_name: "features/spree/admin/refund",
       allow_unused_http_interactions: false
@@ -66,7 +65,6 @@ RSpec.feature "Refunding an order", :js do
     perform_enqueued_jobs do
       click_on "Reimburse"
     end
-
     # The reimbursement should be initialized with the correct amount to balance
     # the order and mark it as "paid" (not "credit owed" or "balance due").
     #
@@ -74,6 +72,7 @@ RSpec.feature "Refunding an order", :js do
     # amount.
     #
     expect(find(".reimbursement-refund-amount")).to have_content("$10.89")
+    expect(page).to have_content("TaxJar Sync: Success", normalize_ws: true)
 
     click_on "RMA"
     click_on "New RMA"
@@ -107,6 +106,7 @@ RSpec.feature "Refunding an order", :js do
     # amount.
     #
     expect(find(".reimbursement-refund-amount")).to have_content("$10.89")
+    expect(page).to have_content("TaxJar Sync: Success", normalize_ws: true)
   end
 
   def add_product_to_rma(product_name:, reimbursement_type:, reason:, quantity: 1)

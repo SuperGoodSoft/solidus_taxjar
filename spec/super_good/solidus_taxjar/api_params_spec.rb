@@ -3,20 +3,22 @@ require "spec_helper"
 RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   let(:order) do
     create(:order,
-      additional_tax_total: BigDecimal("9.87"),
-      item_total: BigDecimal("28.00"),
-      line_items_attributes: [line_item_attributes],
       number: "R111222333",
       ship_address: ship_address,
+      line_items: line_items_attributes.map { |attributes| build(:line_item, attributes) },
       store: store,
-      total: order_total,
       shipments: [shipment],
       user_id: 12345,
       completed_at: DateTime.new(2018, 3, 6, 12, 10, 33),
-      payment_total: payment_total)
+      payments: payments).tap do |order|
+        order.update_columns(additional_tax_total: 9.87, item_total: 28.00, total: order_total)
+        order.line_items.each_with_index do |line_item, idx|
+          line_item.update_columns(line_items_attributes[idx])
+        end
+      end
   end
   let(:order_total) { BigDecimal("123.45") }
-  let(:payment_total) { BigDecimal("110.45") }
+  let(:payments) { build_list(:payment, 1, :completed, amount: 110.45) }
 
   let(:store) do
     create(
@@ -50,15 +52,17 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     )
   end
 
-  let(:line_item_attributes) do
-    attributes_for(
-      :line_item,
-      additional_tax_total: 4,
-      price: 10,
-      promo_total: -2,
-      quantity: 3,
-      variant: variant
-    )
+  let(:line_items_attributes) do
+    [
+      attributes_for(
+        :line_item,
+        additional_tax_total: 4,
+        price: 10,
+        promo_total: -2,
+        quantity: 3,
+        variant_id: variant.id
+      )
+    ]
   end
 
   let(:variant) do
@@ -136,6 +140,8 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
   before do
     create :state, state_code: "CA"
     create :state, state_code: "NY"
+
+
   end
 
   describe ".order_params" do
@@ -148,7 +154,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         :adjustment,
         order: order,
         adjustable: order.line_items.first,
-        amount: line_item_attributes[:promo_total],
+        amount: line_items_attributes.first[:promo_total],
         source_type: "Spree::Promotion::Action::CreateItemAdjustments",
         label: "Promo",
         finalized: true # Prevents this adjustment from being recalculated.
@@ -221,37 +227,18 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
     end
 
-    context "when some line items have been returned" do
-      before do
-        order.line_items.first.inventory_units.update_all(state: "returned")
-      end
-
-      it "excludes returned line items" do
-        expect(subject).to match(hash_including({ line_items: [] }))
-      end
-    end
-
-    context "part of a line item has been returned" do
-      before do
-        order.line_items.first.inventory_units.first.update(state: "returned")
-        order.line_items.first.inventory_units.second.update(state: "canceled")
-      end
-
-      it "adjusts the line item quanity" do
-        expect(subject).to match(hash_including({ line_items: [hash_including({quantity:1})] }))
-      end
-    end
-
     context "when the line item has zero quantity" do
-      let(:line_item_attributes) do
-        attributes_for(
-          :line_item,
-          additional_tax_total: 4,
-          price: 10,
-          promo_total: -2,
-          quantity: 0,
-          variant: variant
-        )
+      let(:line_items_attributes) do
+        [
+          attributes_for(
+            :line_item,
+            additional_tax_total: 4,
+            price: 10,
+            promo_total: -2,
+            quantity: 0,
+            variant_id: variant.id
+          )
+        ]
       end
 
       it "excludes the line item" do
@@ -313,7 +300,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
         :adjustment,
         order: order,
         adjustable: order.line_items.first,
-        amount: line_item_attributes[:promo_total],
+        amount: line_items_attributes.first[:promo_total],
         source_type: "Spree::Promotion::Action::CreateItemAdjustments",
         label: "Promo",
         finalized: true # Prevents this adjustment from being recalculated.
@@ -348,7 +335,7 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
 
     context "when the order is adjusted to 0" do
       let(:order_total) { BigDecimal("0") }
-      let(:payment_total) { BigDecimal("0") }
+      let(:payments) { [] }
 
       it "sends the order total as zero" do
         expect(subject[:amount]).to be_zero
@@ -373,15 +360,17 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
     end
 
     context "when the line item has 0 quantity" do
-      let(:line_item_attributes) do
-        attributes_for(
-          :line_item,
-          additional_tax_total: 4,
-          price: 10,
-          promo_total: -2,
-          quantity: 0,
-          variant: variant
-        )
+      let(:line_items_attributes) do
+        [
+          attributes_for(
+            :line_item,
+            additional_tax_total: 4,
+            price: 10,
+            promo_total: -2,
+            quantity: 0,
+            variant_id: variant.id
+          )
+        ]
       end
 
       it "excludes the line item" do
@@ -414,13 +403,61 @@ RSpec.describe SuperGood::SolidusTaxjar::ApiParams do
       end
     end
 
-    context "when some line items have been returned" do
+    context "when all line items have been returned and reimbursed" do
+      let(:reimbursement_total) { 10 }
+      let(:reimbursement_tax) { 1.02 }
+
       before do
+        reimbursement = create(:reimbursement)
+        reimbursement.return_items.first.update_columns(additional_tax_total: reimbursement_tax)
+        refund = create(:refund, reimbursement: reimbursement, payment: order.payments.first)
+        reimbursement.update_columns(order_id: order.id, total: reimbursement_total + reimbursement_tax)
         order.line_items.first.inventory_units.update_all(state: "returned")
       end
 
       it "excludes returned line items" do
         expect(subject).to match(hash_including({ line_items: [] }))
+      end
+
+      it "removes the reimbursed tax from the sales tax amount" do
+        expect(subject[:sales_tax]).to eq(9.87 - reimbursement_tax)
+      end
+
+      it "removes the reimbursements without tax from the total amount" do
+        expect(subject[:amount]).to eq(100.58 - reimbursement_total)
+      end
+    end
+
+    context "when some line items have been returned and reimbursed" do
+      let(:reimbursement_total) { 10 }
+      let(:reimbursement_tax) { 1.02 }
+
+      before do
+        reimbursement = create(:reimbursement)
+        reimbursement.return_items.first.update_columns(additional_tax_total: reimbursement_tax)
+        refund = create(:refund, reimbursement: reimbursement, payment: order.payments.first)
+        reimbursement.update_columns(order_id: order.id, total: reimbursement_total + reimbursement_tax)
+        first_inventory_unit = order.line_items.first.inventory_units.first
+        first_inventory_unit.update(state: "returned")
+        return_item = create(:return_item, amount: 34, additional_tax_total: reimbursement_tax / 4)
+        return_item.update_columns(inventory_unit_id: first_inventory_unit.id, reimbursement_id: reimbursement.id)
+      end
+
+      it "removes the reimbursed tax from the specific line item" do
+        expect(subject[:line_items].first[:sales_tax]).to eq(order.line_items.first.additional_tax_total - (reimbursement_tax / 4))
+      end
+    end
+
+
+    context "when a refund without a reimbursement exists" do
+      let(:refund_amount) { 10 }
+
+      before do
+        create(:refund, payment: order.payments.first, amount: refund_amount)
+      end
+
+      it "removes the orphaned refunds from the total amount" do
+        expect(subject[:amount]).to eq(100.58 - refund_amount)
       end
     end
 

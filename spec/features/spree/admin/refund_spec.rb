@@ -1,26 +1,24 @@
-require 'spec_helper'
+require "spec_helper"
 
-RSpec.feature 'Refunding an order', js: true do
+RSpec.feature "Refunding an order", :js do
   stub_authorization!
 
-  let(:order) { create(:shipped_order, line_items_attributes: [{}, {}, {quantity: 2}], number: "R525233498") }
+  include_context "checkoutable store"
 
   before do
-    country = create(:country, states_required: true)
-    create(:product, name: "RoR Mug")
-    create(:store, default: true)
-    create(:state, country: country, state_code: "CA")
-    create(:shipping_method)
-    create(:stock_location, name: "Montez's Warehouse")
-    create(:check_payment_method)
-    create(:zone)
-    create(:taxjar_configuration, :reporting_enabled)
-    create(:return_reason, name: "Defective")
-    create(:refund_reason, name: 'Return processing', code: "refund", mutable: false)
-    create(:reimbursement_type, name: "original payment", type: "Spree::ReimbursementType::OriginalPayment")
+    create :stock_location, name: "Montez's Warehouse"
 
-    SuperGood::SolidusTaxjar::ReportTransactionJob.perform_now(order)
+    create :return_reason, name: "Defective"
+    create :refund_reason,
+      code: "refund",
+      name: "Return processing",
+      mutable: false
+    create :reimbursement_type,
+      name: "original payment",
+      type: "Spree::ReimbursementType::OriginalPayment"
   end
+
+  let(:order) { create(:shipped_order, line_items_attributes: [{}, {}, {quantity: 2}], number: "R525233498") }
 
   xit "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/refund", allow_unused_http_interactions: false} do
     visit spree.admin_order_return_authorizations_path(order)

@@ -1,16 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
-RSpec.feature 'Checkout', js: true do
-  let!(:country) { create(:country, states_required: true) }
-  let!(:mug) { create(:product, name: "RoR Mug") }
+RSpec.feature "Checkout", :js do
+  include_context "checkoutable store"
 
   before do
-    create(:store, default: true)
-    create(:state, country: country, state_code: "CA")
-    create(:shipping_method)
-    create(:stock_location)
-    create(:check_payment_method)
-    create(:zone)
+    create :product, name: "RoR Mug"
   end
 
   def fill_in_address
@@ -37,7 +31,7 @@ RSpec.feature 'Checkout', js: true do
   it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/checkout", allow_playback_repeats: true, allow_unused_http_interactions: false} do
     visit spree.root_path
 
-    click_link mug.name
+    click_link "RoR Mug"
     click_button "add-to-cart-button"
 
     click_button "Checkout"

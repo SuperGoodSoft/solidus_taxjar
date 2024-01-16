@@ -9,8 +9,8 @@ require File.expand_path("dummy/config/environment.rb", __dir__).tap { |file|
 }
 
 require "solidus_dev_support/rspec/feature_helper"
-require 'vcr'
 
+require "vcr"
 require "selenium-webdriver"
 
 chrome_options = Selenium::WebDriver::Chrome::Options.new.tap do |options|
@@ -29,6 +29,7 @@ end
 SolidusDevSupport::TestingSupport::Factories.load_for(SuperGoodSolidusTaxjar::Engine)
 
 require "support/solidus_events_helper"
+require "support/checkoutable_store_shared_context"
 
 RSpec.configure do |config|
   config.include SolidusEventsHelper

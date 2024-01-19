@@ -25,6 +25,16 @@ else
   BRANCH="main"
 fi
 
+case $SOLIDUS_BRANCH in
+  v3* | v4.0* | v4.1*)
+    echo "~~> Using a SOLIDUS_BRANCH older than v4.2. Skipping the --admin-preview flag for compatibility."
+    ADMIN_PREVIEW_FLAG=" "
+    ;;
+  *)
+    ADMIN_PREVIEW_FLAG="--admin-preview=false"
+    ;;
+esac
+
 extension_name="super_good-solidus_taxjar"
 
 # Stay away from the bundler env of the containing extension.
@@ -73,6 +83,7 @@ unbundled bundle exec rails generate solidus:install \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
+  ${ADMIN_PREVIEW_FLAG} \
   $@
 
 unbundled bundle exec rails generate solidus:auth:install

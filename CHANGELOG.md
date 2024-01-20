@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#204](https://github.com/SuperGoodSoft/solidus_taxjar/pull/204) Add page to render an orders TaxJar transactions
 - [#201](https://github.com/SuperGoodSoft/solidus_taxjar/pull/201) Allow transaction backfills to be filtered by date range
 - [#244](https://github.com/SuperGoodSoft/solidus_taxjar/pull/244) Let admins manually retry syncing failed TaxJar transactions
+- [#255](https://github.com/SuperGoodSoft/solidus_taxjar/pull/255) Add a delay before reporting transactions
 
 ### Changed
 

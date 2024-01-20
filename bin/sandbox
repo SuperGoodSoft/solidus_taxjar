@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -e
 test -z "${DEBUG+empty_string}" || set -x
 
@@ -60,6 +59,7 @@ gem 'solidus', github: 'solidusio/solidus', branch: '$SOLIDUS_BRANCH'
 gem 'rails-i18n'
 gem 'solidus_i18n'
 gem 'solidus_auth_devise'
+gem "solidus_frontend"
 
 gem '$extension_name', path: '..'
 
@@ -77,9 +77,11 @@ unbundled bundle exec rake db:drop db:create
 unbundled bundle exec rails generate solidus:install \
   --auto-accept \
   --payment-method=none \
+  --frontend=none \
   ${ADMIN_PREVIEW_FLAG} \
   $@
 
+SKIP_SOLIDUS_BOLT=true unbundled bundle exec rails generate solidus_frontend:install --auto-accept
 unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
 unbundled bundle exec rails generate super_good:solidus_taxjar:install --auto-run-migrations
 

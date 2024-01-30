@@ -80,6 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#117](https://github.com/SuperGoodSoft/solidus_taxjar/pull/117) Fix migration install
 - [#119](https://github.com/SuperGoodSoft/solidus_taxjar/pull/119) Move the install generator into the correct path so that it will be installed in the dummy app.
 - [#250](https://github.com/SuperGoodSoft/solidus_taxjar/pull/250) Improve error handling for `ReportTransactionJob`
+- [#254](https://github.com/SuperGoodSoft/solidus_taxjar/pull/254) Get tests and binstubs working against Solidus `main`
 
 ### Development Changes
 

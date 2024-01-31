@@ -50,7 +50,7 @@ about using the Solidus TaxJar extension after it has been installed.
 4. Finally, make sure that the `TAXJAR_API_KEY` environment variable is set to
    your TaxJar API key.
 
-### Warning: Installing on production
+### Warning: Installing on Production
 
 Before you install this extension in your production environment, **we strongly
 recommend that you install and configure a supported ActiveJob backend**.
@@ -240,7 +240,7 @@ Developers can configure the following settings in an initializer:
 
   Default value: `false`
 
-### Exception handling
+### Exception Handling
 
 You can configure your own exception handler in an initializer. using the
 `exception_handler` configuration point:
@@ -310,7 +310,7 @@ and `SOLIDUS_BRANCH` environment variables, respectively. See the
 The database vendor can also be changed from the default (`sqlite3`) by setting
 the `DB` environment variable.
 
-### Testing the extension
+### Testing the Extension
 
 When testing your application's integration with this extension you may use its factories.
 You can load Solidus core factories along with this extension's factories using this statement:

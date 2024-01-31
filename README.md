@@ -104,8 +104,11 @@ that event to your applicaiton.
 This extension also supports:
 
 * syncing orders to TaxJar's reporting dashboard
-* syncing nexus regions as configured in the connected TaxJar account
+* syncing nexus regions as configured in the connected TaxJar account (including
+  automatic _and_ manual sync)
 * connecting your Solidus store's tax categories to TaxJar's tax categories (U.S. tax codes)
+
+**Note that reporting is turned off by default.**
 
 ### TaxCalculator
 
@@ -239,6 +242,12 @@ Developers can configure the following settings in an initializer:
   If true, no tax or tax rate calculations will be requested via the TaxJar API.
 
   Default value: `false`
+
+### Taxable Orders
+
+Note that the configuration setting `taxable_order_check` can be customized if
+there is specific criteria that make some orders taxable and other orders not
+taxable. By default this extension considers all orders taxable.
 
 ### Exception Handling
 

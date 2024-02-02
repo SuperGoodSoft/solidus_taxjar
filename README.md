@@ -1,5 +1,5 @@
 # `SuperGood::SolidusTaxjar`
-
+[![Gem Version](https://badge.fury.io/rb/super_good-solidus_taxjar.svg)](https://badge.fury.io/rb/super_good-solidus_taxjar)
 [![CircleCI build status](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master.svg?style=shield)](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master)
 
 `SuperGood::SolidusTaxjar` is a [Solidus](https://github.com/solidusio/solidus)

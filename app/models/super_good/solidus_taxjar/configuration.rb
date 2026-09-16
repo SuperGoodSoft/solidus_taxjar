@@ -1,5 +1,3 @@
-require 'spree/preferences/persistable'
-
 module SuperGood
   module SolidusTaxjar
     class Configuration < ::Spree::Base

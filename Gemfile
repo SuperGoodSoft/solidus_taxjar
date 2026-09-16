@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-branch = ENV.fetch("SOLIDUS_BRANCH", "v3.1")
+branch = ENV.fetch("SOLIDUS_BRANCH", "v4.7")
 git "https://github.com/solidusio/solidus.git", branch: branch do
   gem "solidus_core"
   gem "solidus_backend"
@@ -11,15 +11,15 @@ git "https://github.com/solidusio/solidus.git", branch: branch do
   gem "solidus_sample"
 end
 
-if (branch == 'main') || (branch >= 'v4.0')
-  gem "solidus_frontend", github: "solidusio/solidus_frontend", branch: 'main'
-elsif (branch >= 'v3.2') && (branch < 'v4.0')
-  gem "solidus_frontend", github: "solidusio/solidus_frontend", branch: branch
+# The solidus_frontend gem was extracted from Solidus itself in v3.2.
+if (branch == "main") || (branch >= "v3.2")
+  gem "solidus_frontend"
 else
   gem "solidus_frontend", github: "solidusio/solidus", branch: branch
 end
 
-gem "rails"
+gem "rails", "~> #{ENV.fetch("RAILS_VERSION", "8.0")}"
+
 # Provides basic authentication functionality for testing parts of your engine
 gem "solidus_auth_devise"
 

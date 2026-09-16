@@ -1,6 +1,6 @@
 # `SuperGood::SolidusTaxjar`
 [![Gem Version](https://badge.fury.io/rb/super_good-solidus_taxjar.svg)](https://badge.fury.io/rb/super_good-solidus_taxjar)
-[![CircleCI build status](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master.svg?style=shield)](https://circleci.com/gh/SuperGoodSoft/solidus_taxjar/tree/master)
+[![Test status](https://github.com/SuperGoodSoft/solidus_taxjar/actions/workflows/test.yml/badge.svg)](https://github.com/SuperGoodSoft/solidus_taxjar/actions/workflows/test.yml)
 
 `SuperGood::SolidusTaxjar` is a [Solidus](https://github.com/solidusio/solidus)
 extension that allows Solidus stores to use [TaxJar](https://www.taxjar.com/)

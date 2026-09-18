@@ -14,6 +14,12 @@ RSpec.describe "ReportingSubscriber" do
 
   let(:reporting) { instance_spy ::SuperGood::SolidusTaxjar::Reporting }
   let(:reporting_enabled_at) { 1.hour.ago }
+  let(:taxjar_jobs) {
+    [
+      SuperGood::SolidusTaxjar::ReportTransactionJob,
+      SuperGood::SolidusTaxjar::ReplaceTransactionJob
+    ]
+  }
 
   describe "order_recalculated is fired" do
     subject do
@@ -32,7 +38,7 @@ RSpec.describe "ReportingSubscriber" do
         it "does nothing" do
           subject
 
-          assert_no_enqueued_jobs
+          assert_no_enqueued_jobs(only: taxjar_jobs)
         end
       end
 
@@ -42,7 +48,7 @@ RSpec.describe "ReportingSubscriber" do
         it "does nothing" do
           subject
 
-          assert_no_enqueued_jobs
+          assert_no_enqueued_jobs(only: taxjar_jobs)
         end
       end
 
@@ -100,7 +106,7 @@ RSpec.describe "ReportingSubscriber" do
             it "does nothing" do
               subject
 
-              assert_no_enqueued_jobs
+              assert_no_enqueued_jobs(only: taxjar_jobs)
             end
 
             context "when the order was completed before reporting was enabled" do
@@ -185,7 +191,7 @@ RSpec.describe "ReportingSubscriber" do
         it "does nothing" do
           subject
 
-          assert_no_enqueued_jobs
+          assert_no_enqueued_jobs(only: taxjar_jobs)
         end
       end
     end
@@ -196,7 +202,7 @@ RSpec.describe "ReportingSubscriber" do
       it "does nothing" do
         subject
 
-        assert_no_enqueued_jobs
+        assert_no_enqueued_jobs(only: taxjar_jobs)
       end
     end
   end

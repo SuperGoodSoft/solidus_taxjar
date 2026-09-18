@@ -9,6 +9,12 @@ module SuperGood
         end
       end
 
+      def set_http_timeout
+        super
+        timeouts = @http_timeout.compact
+        @http_timeout = timeouts.empty? ? :null : timeouts
+      end
+
       Taxjar::API::Request.prepend(self)
     end
   end

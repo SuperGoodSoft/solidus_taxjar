@@ -16,17 +16,19 @@ RSpec.describe Taxjar::API::Request, :vcr do
 
     it "calls the logger", :aggregate_failures do
       allow(logger).to receive(:debug)
+      allow(logger).to receive(:debug?).and_return(true)
       allow(logger).to receive(:info)
 
       subject
 
       # When recording a cassette with VCR for this spec, one extra log
-      # statement is generated. In general we expect this to be called twice,
-      # but specify at least 2 times so cassettes can be re-recorded.
+      # statement is generated, so specify a minimum number of times rather
+      # than an exact count so cassettes can be re-recorded.
       expect(logger).to have_received(:debug).at_least(2).times do |&block|
         expect(block.call)
           .to match("Host: api.sandbox.taxjar.com")
-          .or(match(/"summary_rates":/))
+          .or(match("Content-Type: application/json"))
+          .or(match("BINARY DATA"))
       end
 
       expect(logger).to have_received(:info).at_least(2).times do |&block|

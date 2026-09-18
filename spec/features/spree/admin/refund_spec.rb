@@ -61,9 +61,11 @@ RSpec.feature "Refunding an order", :js do
     select "Original payment",
       from: "reimbursement[return_items_attributes][0][override_reimbursement_type_id]"
     click_on "Update"
+    expect(page).to have_content("has been successfully updated!")
 
     perform_enqueued_jobs do
       click_on "Reimburse"
+      expect(page).to have_css(".reimbursement-refund-amount")
     end
     # The reimbursement should be initialized with the correct amount to balance
     # the order and mark it as "paid" (not "credit owed" or "balance due").
@@ -98,9 +100,11 @@ RSpec.feature "Refunding an order", :js do
     select "Original payment",
       from: "reimbursement[return_items_attributes][0][override_reimbursement_type_id]"
     click_on "Update"
+    expect(page).to have_content("has been successfully updated!")
 
     perform_enqueued_jobs do
       click_on "Reimburse"
+      expect(page).to have_css(".reimbursement-refund-amount")
     end
 
     # The reimbursement should be initialized with the correct amount to balance

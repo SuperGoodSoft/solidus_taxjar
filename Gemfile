@@ -15,14 +15,15 @@ git "https://github.com/solidusio/solidus.git", branch: branch do
   end
 end
 
-# The solidus_frontend gem was extracted from Solidus itself in v3.2.
-if (branch == "main") || (branch >= "v3.2")
-  gem "solidus_frontend"
-else
-  gem "solidus_frontend", github: "solidusio/solidus", branch: branch
-end
-
 gem "rails", "~> #{ENV.fetch("RAILS_VERSION", "8.0")}.0"
+
+# Runtime dependencies of the Solidus storefront.
+gem "importmap-rails"
+gem "responders"
+gem "stimulus-rails"
+gem "tailwindcss-rails", "~> 3.0"
+gem "turbo-rails"
+gem "view_component", "~> 3.0"
 
 # Provides basic authentication functionality for testing parts of your engine
 gem "solidus_auth_devise"

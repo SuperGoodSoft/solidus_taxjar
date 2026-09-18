@@ -13,13 +13,7 @@ RSpec.feature "Checkout", :js do
     # your account should have "nexus" in the state.
     address = "order_bill_address_attributes"
 
-    if Spree.solidus_gem_version >= Gem::Version.new("2.11")
-      fill_in "#{address}_name", with: "Ryan Bigg"
-    else
-      fill_in "#{address}_firstname", with: "Ryan"
-      fill_in "#{address}_lastname", with: "Bigg"
-    end
-
+    fill_in "#{address}_name", with: "Ryan Bigg"
     fill_in "#{address}_address1", with: "450 Helen Ave"
     fill_in "#{address}_city", with: "Ontario"
     select "United States of America", from: "#{address}_country_id"
@@ -28,14 +22,14 @@ RSpec.feature "Checkout", :js do
     fill_in "#{address}_phone", with: "(555) 555-5555"
   end
 
-  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/checkout", allow_playback_repeats: true, allow_unused_http_interactions: false} do
-    visit spree.root_path
+  it "adds tax calculated by TaxJar to the order total", js: true, vcr: {cassette_name: "features/spree/admin/checkout", allow_playback_repeats: true} do
+    visit "/products"
 
     click_link "RoR Mug"
     click_button "add-to-cart-button"
 
     click_button "Checkout"
-    expect(page).to have_field("order_email")
+    expect(page).to have_css("#guest_checkout")
 
     # Taxes are calculated by matching the line items returned in a tax response with the line items in the order by ID.
     # When this spec is run in conjuction with other specs that create line items, the generated line item ID for the
@@ -43,17 +37,22 @@ RSpec.feature "Checkout", :js do
     # so we fix the line item ID to match the ID in the cassette.
     Spree::Order.last.line_items.first.update!(id: 9999)
 
-    fill_in "order_email", with: "test@example.com"
+    within "#guest_checkout" do
+      fill_in "Email", with: "test@example.com"
+    end
     click_on "Continue"
 
-    expect(page).to have_content("BILLING ADDRESS")
+    expect(page).to have_content("Billing Address")
     fill_in_address
+    check "order_use_billing"
     click_button "Save and Continue"
 
-    expect(page).to have_content("DELIVERY")
+    expect(page).to have_content("Delivery")
     click_button "Save and Continue"
 
     # Check that the total on the page includes tax. Without tax, the total is $29.99.
-    expect(page).to have_content("Order Total: $31.54")
+    within ".checkout-summary__total" do
+      expect(page).to have_content("$31.54")
+    end
   end
 end

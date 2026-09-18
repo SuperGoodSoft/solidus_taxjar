@@ -35,6 +35,7 @@ RSpec.feature "Checkout", :js do
     click_button "add-to-cart-button"
 
     click_button "Checkout"
+    expect(page).to have_field("order_email")
 
     # Taxes are calculated by matching the line items returned in a tax response with the line items in the order by ID.
     # When this spec is run in conjuction with other specs that create line items, the generated line item ID for the

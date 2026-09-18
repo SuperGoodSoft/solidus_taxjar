@@ -4,5 +4,5 @@ class SuperGood::SolidusTaxjar::TransactionSyncLog < ApplicationRecord
   belongs_to :order_transaction, optional: true
   delegate :refund_transaction, to: :order_transaction, :allow_nil => true
 
-  enum status: [:processing, :success, :error]
+  enum :status, [:processing, :success, :error]
 end

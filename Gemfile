@@ -9,6 +9,10 @@ git "https://github.com/solidusio/solidus.git", branch: branch do
   gem "solidus_backend"
   gem "solidus_api"
   gem "solidus_sample"
+
+  if (branch == "main") || (branch >= "v4.4")
+    gem "solidus_legacy_promotions"
+  end
 end
 
 # The solidus_frontend gem was extracted from Solidus itself in v3.2.

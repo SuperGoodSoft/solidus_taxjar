@@ -13,10 +13,13 @@ RSpec.describe SuperGood::SolidusTaxjar::OrderTransaction do
     context "when there are one or more order transactions" do
       let(:transaction_date) { 1.day.ago }
 
+      let(:created_at) { Time.current.change(usec: 0) }
+
       let!(:first_order_transaction) {
         create(
           :taxjar_order_transaction,
           transaction_date: transaction_date,
+          created_at: created_at,
           order: order
         )
       }
@@ -24,6 +27,7 @@ RSpec.describe SuperGood::SolidusTaxjar::OrderTransaction do
         create(
           :taxjar_order_transaction,
           transaction_date: transaction_date,
+          created_at: created_at,
           order: order
         )
       }

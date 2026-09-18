@@ -22,7 +22,7 @@ else
   gem "solidus_frontend", github: "solidusio/solidus", branch: branch
 end
 
-gem "rails", "~> #{ENV.fetch("RAILS_VERSION", "8.0")}"
+gem "rails", "~> #{ENV.fetch("RAILS_VERSION", "8.0")}.0"
 
 # Provides basic authentication functionality for testing parts of your engine
 gem "solidus_auth_devise"

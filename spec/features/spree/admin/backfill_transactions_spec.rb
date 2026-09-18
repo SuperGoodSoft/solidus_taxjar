@@ -27,8 +27,8 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       fill_in "End date", with: Date.today
       perform_enqueued_jobs do
         click_on "Backfill Transactions"
+        expect(page).to have_content /Transaction Sync Batch \d/
       end
-      expect(page).to have_content /Transaction Sync Batch \d/
       within ".content-wrapper table" do
         expect(page).to_not have_content excluded_order.number
         expect(page).to_not have_content excluded_order.number

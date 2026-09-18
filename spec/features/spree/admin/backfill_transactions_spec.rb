@@ -23,6 +23,7 @@ RSpec.feature 'Admin Transaction Sync Batches', js: true, vcr: true do
       click_on "Taxes"
       expect(page).to have_content("TaxJar Backfill")
       click_on "TaxJar Backfill"
+      expect(page).to have_css("#transaction_sync_batches")
       fill_in "Start date", with: 2.days.ago.to_date
       fill_in "End date", with: Date.today
       perform_enqueued_jobs do
